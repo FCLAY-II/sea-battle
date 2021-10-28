@@ -1,4 +1,6 @@
 const path = require('path');
+const cors = require('cors');
+const cookieParser = require('cookie-parser');
 
 const express = require('express');
 const logger = require('morgan');
@@ -25,8 +27,7 @@ const sessionConfig = {
     // secure: true,
     // sameSite: 'none',
   },
-}
-
+};
 
 const PORT = 3001;
 
@@ -36,11 +37,12 @@ app.use(logger('dev'));
 
 app.use(express.json()); // <- 'application/json'
 app.use(express.urlencoded({ extended: true })); // <- 'application/x-www-form-urlencoded'
-
+app.use(cookieParser());
+app.use(cors());
 
 app.use('/', routes.main);
 app.use('/auth', routes.auth);
 
 app.listen(PORT, () => {
- console.log('Dobro on port:', PORT)
+  console.log('Dobro on port:', PORT);
 });
