@@ -1,25 +1,18 @@
 import React from 'react'
-import Row from '../Row/Row'
-
-function makeField(comp) {
-  let arr = []
-  for (let i = 1; i <= 10; i++) {
-    arr.push(comp)
-  }
-  return arr
-}
-
-
+import { useGameContext } from '../../contexts/game.context'
 
 
 export default function Field() {
-  const field = makeField(<Row />)
 
-  
+  const { makeField } = useGameContext()
+  const field = makeField()
+
   return (
-    <div id="myfield" className="field">
 
-      {field.map((item)=> item)}
+    <div id="myfield" className="field">
+      <h1>my field</h1>
+
+      {field.map((item) => item)}
     </div>
   )
 }

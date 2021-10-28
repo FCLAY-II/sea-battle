@@ -1,29 +1,23 @@
 import React from 'react'
-import Cell from '../Cell/Cell'
-import Row from '../Row/Row'
-
-function makeField() {
-  let cells = []
-  for (let i = 1; i <= 100; i++) {
-    cells.push(<Cell id={i} />)
-  }
-  let arrField = []
-  while (cells.length > 0) {
-    let row = cells.splice(0, 10)
-    arrField.push(<Row>{row}</Row> )
-  }
-  return arrField
-}
+import { useGameContext } from '../../contexts/game.context'
 
 export default function EnemyField() {
-
-  // const field = makeField(<Row />)
+const { makeField } = useGameContext()
   const field = makeField()
+
   return (
-    <div id="enemyfield" className="field">
+    
+    
+    <div onClick={(e)=>{
+     if  ("cell" in e.target.dataset){
+       e.target.style.backgroundColor = "green"
+     } 
+    }} id="enemyfield" className="field">
+      <h1>enemy</h1>
       {field.map((item) => item)}
 
     </div>
+    
   )
 }
 
