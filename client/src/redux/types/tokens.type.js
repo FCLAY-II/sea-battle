@@ -1,0 +1,6 @@
+export const REFRESH_TOKENS = 'REFRESH_TOKENS'
+export const CHECK_TOKENS =  'CHECK_TOKENS'
+export const LOAD_TOKENS = 'LOAD_TOKENS'
+export const REMOVE_TOKENS = 'REMOVE_TOKENS'
+
+

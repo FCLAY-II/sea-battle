@@ -1,18 +1,31 @@
 import React from 'react'
 import { useGameContext } from '../../contexts/game.context'
+import Ships from '../Ships/Ships'
+import {DragDropContext, Droppable} from 'react-beautiful-dnd'
 
 
-export default function Field() {
+export default function MyField() {
 
-  const { makeField } = useGameContext()
-  const field = makeField()
+
+  const { makeField, game } = useGameContext()
+  const currStateOfMyField = game.myField
+  const field = makeField(currStateOfMyField)
+
+  const onDragEnd = result =>{
+  }
 
   return (
-
-    <div id="myfield" className="field">
-      <h1>my field</h1>
-
-      {field.map((item) => item)}
+    <DragDropContext onDragStart onDragUpdate onDragEnd={onDragEnd}>
+      
+    <div className="myside">
+      <Droppable >
+      <div id="myfield" className="field">
+        <h1>my field</h1>
+        {field.map((item) => item)}
+      </div>
+      </Droppable>
+      <Ships/>
     </div>
+    </DragDropContext>
   )
 }
