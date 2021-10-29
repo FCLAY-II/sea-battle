@@ -9,4 +9,3 @@ export default function Cell({id, cellState}) {
   
   )
 }
-

@@ -19,9 +19,7 @@ const { makeField, game, makeTurnReact} = useGameContext()
     }} id="enemyfield" className="field">
       <h1>enemy</h1>
       {field.map((item) => item)}
-
     </div>
     
   )
 }
-

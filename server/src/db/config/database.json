@@ -1,0 +1,29 @@
+{
+  "development": {
+    "username": "bships",
+    "password": "bships",
+    "database": "bships",
+    "host": "127.0.0.1",
+    "dialect": "postgres",
+    "seederStorage": "sequelize",
+    "seederStorageTableName": "SequelizeData"
+  },
+  "test": {
+    "username": "bships",
+    "password": "bships",
+    "database": "bships",
+    "host": "127.0.0.1",
+    "dialect": "postgres",
+    "seederStorage": "sequelize",
+    "seederStorageTableName": "SequelizeData"
+  },
+  "production": {
+    "username": "bships",
+    "password": "bships",
+    "database": "bships",
+    "host": "127.0.0.1",
+    "dialect": "postgres",
+    "seederStorage": "sequelize",
+    "seederStorageTableName": "SequelizeData"
+  }
+}
