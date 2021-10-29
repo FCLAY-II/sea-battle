@@ -1,10 +1,8 @@
-import React from 'react'
+import React from 'react';
 
 export default function ShipCell() {
   return (
-    <div className="shipcell">
-      
-    </div>
-  )
+    <div className="shipcell" />
+  );
 }
 

@@ -6,11 +6,11 @@ const defaultState = {
   user: null,
   tokens: null,
   socket: null
-}
+};
  function initState (){
-   const stateFromLS = JSON.parse(window.localStorage.getItem('redux'))
-   const state = stateFromLS || defaultState
-   return state
+   const stateFromLS = JSON.parse(window.localStorage.getItem('redux'));
+   const state = stateFromLS || defaultState;
+   return state;
  }
 
- export default initState
+ export default initState;

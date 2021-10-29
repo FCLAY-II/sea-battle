@@ -1,11 +1,11 @@
-import { createStore } from "redux";
-import initState from "./initState";
-import rootReducer from "./reducers/root.reducer";
+import { createStore } from 'redux';
+import initState from './initState';
+import rootReducer from './reducers/root.reducer';
 
-const store = createStore(rootReducer, initState())
+const store = createStore(rootReducer, initState());
 
 store.subscribe(()=>{
-  window.localStorage.setItem('redux', JSON.stringify(store.getState()))
-})
+  window.localStorage.setItem('redux', JSON.stringify(store.getState()));
+});
 
-export default store
+export default store;

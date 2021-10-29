@@ -1,4 +1,4 @@
-import { EXIT_USER, LOG_USER, REG_USER } from "../types/user.types";
+import { EXIT_USER, LOG_USER, REG_USER } from '../types/user.types';
 
 function userReducer(stateUser = null, action) {
   switch (action.type) {
@@ -14,4 +14,4 @@ function userReducer(stateUser = null, action) {
 
 }
 
-export default userReducer
+export default userReducer;

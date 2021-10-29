@@ -1,11 +1,21 @@
-import React from 'react'
+import React from 'react';
+
+function chooseClass(cellState) {
+  switch (cellState) {
+    case '2':
+      return 'badshot';
+    case '3':
+      return 'goodshot';
+    case '4':
+      return 'killedcell';
+  
+    default:
+      return 'cell';
+  }
+}
 
 export default function Cell({id, cellState}) {
   return (
-    cellState === '3' ? <div data-cell  id={id} className="goodshot">
-    </div> : (cellState === '2' ? <div data-cell  id={id} className="badshot" >
-    </div> : ( cellState === '4' ? <div data-cell  id={id} className="killedcell"></div> : 
-    <div data-cell  id={id} className="cell"></div>) )
-  
-  )
+    <div data-cell  id={id} className={chooseClass(cellState)} />
+  );
 }

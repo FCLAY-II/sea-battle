@@ -1,6 +1,6 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
-import React from 'react'
-import { Link } from 'react-router-dom'
+import React from 'react';
+import { Link } from 'react-router-dom';
 
 export default function RegForm() {
   return (
@@ -50,5 +50,5 @@ export default function RegForm() {
         </button>
       </form>
     </>
-  )
+  );
 }

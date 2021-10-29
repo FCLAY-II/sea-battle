@@ -26,11 +26,11 @@ module.exports = {
         extensions: ['.jsx', '.tsx', '.js', '.ts'],
       },
     ],
-    semi: ['error', 'never'],
+    'quotes': ['error', 'single'],
+    'semi': ['error', 'always'],
     'no-console': 0,
     'react/react-in-jsx-scope': 0,
     'react/jsx-props-no-spreading': 0,
-    // 'react/jsx-uses-react': 0,
     'react/prop-types': 0,
   },
-}
+};

@@ -1,10 +1,10 @@
-import React from 'react'
-import { Droppable } from 'react-beautiful-dnd'
-import Ship from '../Ship/Ship'
+import React from 'react';
+// import { Droppable } from 'react-beautiful-dnd';
+import Ship from '../Ship/Ship';
 
 export default function Ships() {
   return (
-    <Droppable>
+    // <Droppable>
     <div className="ships">
       <Ship size={1}/>
       <Ship size={1}/>
@@ -13,7 +13,7 @@ export default function Ships() {
       <Ship size={3}/>
       <Ship size={4}/>
     </div>
-    </Droppable>
-  )
+    // </Droppable>
+  );
 }
 

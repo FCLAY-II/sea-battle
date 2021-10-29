@@ -1,7 +1,7 @@
-import React from 'react'
-import EnemyField from '../EnemyField/EnemyField'
-import MyField from '../MyField/MyField'
-import Ships from '../Ships/Ships'
+import React from 'react';
+import EnemyField from '../EnemyField/EnemyField';
+import MyField from '../MyField/MyField';
+// import Ships from '../Ships/Ships';
 
 
 
@@ -14,6 +14,6 @@ export default function Game() {
       <EnemyField/>
       
     </div>
-  )
+  );
 }
 

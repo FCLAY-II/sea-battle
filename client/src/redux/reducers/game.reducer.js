@@ -1,4 +1,4 @@
-import { LOAD_GAME, MAKE_TURN, PUT_SHIP, TAKE_BEAT } from "../types/game.types";
+import { LOAD_GAME, MAKE_TURN, PUT_SHIP, TAKE_BEAT } from '../types/game.types';
 
 function gameReducer(state = {}, action) {
   switch (action.type) {
@@ -20,8 +20,8 @@ function gameReducer(state = {}, action) {
             myField: action.payload
           };
     default:
-      return state
+      return state;
   }
 }
 
-export default gameReducer
+export default gameReducer;
