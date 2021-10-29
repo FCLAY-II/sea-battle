@@ -17,7 +17,7 @@
 }
 
 
-.field{
+.field {
   display: flex;
   flex-direction: column;
 }
@@ -33,11 +33,52 @@
   border:  1px black solid;
 }
 
+.goodshot{
+  height: 20px;
+  width: 20px;
+  background-color: black;
+  border:  1px black solid;
+}
+
+.badshot{
+  height: 20px;
+  width: 20px;
+  background-color: red;
+  border:  1px black solid;
+}
+
+.killedcell{
+  height: 20px;
+  width: 20px;
+  background-color: green;
+  
+}
+
 .numbers{
   align-self: initial;
 }
-.game{
+.game {
   width: 100%;
   display: flex;
   justify-content: space-evenly;
+}
+
+.shipcell{
+  height: 20px;
+  width: 20px;
+  background-color: grey;
+}
+
+
+.ships{
+  display: flex;
+  justify-content: space-evenly;
+  flex-direction: column;
+  
+
+}
+
+.ship{
+  display: flex;
+  margin: 5px;
 }
