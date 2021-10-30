@@ -24,12 +24,14 @@ router.post('/signup', async (req, res) => {
         login,
       });
 
-      const accessToken = jwt.sign({ id: user.id, expiresIn: '30s' }, accSecret);
-      const refreshToken = jwt.sign({ id: user.id, expiresIn: '60s' }, refSecret);
+      const accessToken = jwt.sign({ id: user.id, expiresIn: '5s' }, accSecret);
+      const refreshToken = jwt.sign({ id: user.id, expiresIn: '10s' }, refSecret);
 
       await Token.create({ token: refreshToken, userId: user.id });
 
-      res.json({ login: user.login, accessToken, refreshToken });
+      res.json({
+        id: user.id, login: user.login, accessToken, refreshToken,
+      });
     } catch (error) {
       res.status(400).json({ message: 'пользователь с такими данными уже есть' });
     }
@@ -58,7 +60,9 @@ router.post('/signin', async (req, res) => {
 
         await Token.update({ token: refreshToken }, { where: { userId: user.id } });
 
-        res.json({ login: user.login, accessToken, refreshToken });
+        res.json({
+          id: user.id, login: user.login, accessToken, refreshToken,
+        });
       } else {
         res.status(400).json({ message: 'incorrect password' });
       }
@@ -67,30 +71,6 @@ router.post('/signin', async (req, res) => {
     }
   } else {
     res.status(400).json({ message: 'недостаточно данных' });
-  }
-});
-
-router.post('/tokens/refresh', async (req, res) => {
-  let { refreshToken } = req.body;
-  if (refreshToken) {
-    try {
-      const payload = jwt.verify(refreshToken, refSecret);
-      const record = await Token.findOne({ where: { userId: payload.userId } });
-      if (record.token === refreshToken) {
-        const accessToken = jwt.sign({ id: payload.userId, expiresIn: '30s' }, accSecret);
-        refreshToken = jwt.sign({ id: payload.userId, expiresIn: '60s' }, refSecret);
-        record.token = refreshToken;
-        record.save();
-        res.json({ accessToken, refreshToken });
-      } else {
-        await Token.destroy({ where: { id: record.id } });
-        res.sendStatus(401);
-      }
-    } catch (err) {
-      res.sendStatus(401);
-    }
-  } else {
-    res.sendStatus(400);
   }
 });
 

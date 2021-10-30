@@ -19,6 +19,7 @@ app.use(cors());
 
 app.use('/api/', routes.main);
 app.use('/api/auth', routes.auth);
-app.use('/api/games',  routes.games);
+app.use('/api/tokens', mwares.getToken, routes.tokens);
+app.use('/api/games', mwares.getToken, mwares.verifyAccess, routes.games);
 
 module.exports = { app };
