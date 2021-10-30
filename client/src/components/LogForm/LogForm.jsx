@@ -1,11 +1,21 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import React from 'react';
+import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
+import userAC from '../../redux/actionCreators/userAC';
 
 export default function LogForm() {
+
+  const dispatch = useDispatch();
+
   return (
     <>
-      <form>
+      <form onSubmit={(e) => {
+        e.preventDefault();
+        const data = Object.fromEntries(new FormData(e.target));
+        console.log(data);
+        dispatch(userAC.signin(data));
+      }}>
         <p>
           <b> С возвращением!</b>
           <Link to="/register" className="navbar-brand">
@@ -17,6 +27,7 @@ export default function LogForm() {
             Email
           </label>
           <input
+            name="login"
             type="email"
             className="form-control"
             id="exampleInputEmail1"
@@ -29,6 +40,7 @@ export default function LogForm() {
             Пароль
           </label>
           <input
+            name="password"
             type="password"
             className="form-control"
             id="exampleInputPassword1"

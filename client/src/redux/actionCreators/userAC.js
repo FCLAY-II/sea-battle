@@ -1,54 +1,67 @@
 import { EXIT_USER, LOG_USER, REG_USER } from '../types/user.types';
 
-export const regUser = (user) => ({
+const userAC = {
+  signupDelivery: (user) => ({
     type: REG_USER,
     payload: user
-  });
+  }),
 
-export const regUserInDB = (user) => async (dispatch) => {
-  console.log(user);
-  const response = await fetch('http://localhost:3001/auth/signup', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify(user)
-  });
-  if (response.ok) {
-    const activeUser = await response.json();
-    dispatch(regUser(activeUser));
-  }
-};
+  signup(user) {
+    return async (dispatch) => {
+      console.log(user);
+      const response = await fetch('http://localhost:3001/api/auth/signup', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(user)
+      });
+      if (response.ok) {
+        const activeUser = await response.json();
+        dispatch(this.signupDelivery(activeUser));
+      }
+    };
+  },
 
-export const logUser = (user) => ({
+  signinDelivery: (user) => ({
     type: LOG_USER,
     payload: user
-  });
+  }),
 
-export const logUserInDB = (user) => async (dispatch) => {
-  console.log(user);
-  const response = await fetch('http://localhost:3001/auth/signin', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify(user), 
-  });
-  if (response.ok) {
-    const activeUser = await response.json();
-    dispatch(regUser(activeUser));
-  }
-};
+  signin(user) {
+    return async (dispatch) => {
+      console.log(user);
+      const response = await fetch('http://localhost:3001/api/auth/signin', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(user), 
+      });
+      if (response.ok) {
+        const activeUser = await response.json();
+        dispatch(this.signinDelivery(activeUser));
+      } else {
+        const error = await response.json();
+        alert(error.message);
+      }
+    };
+  },
 
-export const exitUser = () => ({
+  logoutDelivery: () => ({
     type: EXIT_USER
-  });
+  }),
 
-export const exitUserInSession = () => async (dispatch) => {
-  const response = await fetch('http://localhost:3001/auth/logout', {
-    method: 'GET', 
-  });
-  if (response.ok) {
-    dispatch(exitUser());
+  logout() {
+    return async (dispatch) => {
+      const response = await fetch('http://localhost:3001/auth/logout', {
+        method: 'GET', 
+      });
+      if (response.ok) {
+        dispatch(this.logoutDelivery());
+      }
+    };
   }
 };
+
+export default userAC;
