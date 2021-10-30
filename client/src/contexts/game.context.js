@@ -2,7 +2,7 @@ import { createContext, useContext } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import Cell from '../components/Cell/Cell';
 import Row from '../components/Row/Row';
-import { makeTurn } from '../redux/actionCreators/gameAC';
+import gameAC from '../redux/actionCreators/gameAC';
 import ShipCell from '../components/ShipCell/ShipCell';
 
 const GameContext = createContext();
@@ -17,7 +17,7 @@ function GameContextProvider({ children }) {
     const enemyField = game.enemyField.split('');
     enemyField[ind] = '2';
     const newEnemyField = enemyField.join('');
-    dispatch(makeTurn(newEnemyField));
+    dispatch(gameAC.makeTurn(newEnemyField));
   }
 
   function makeShip(size) {
