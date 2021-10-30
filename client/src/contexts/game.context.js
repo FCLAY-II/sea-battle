@@ -12,7 +12,6 @@ function GameContextProvider({ children }) {
   const dispatch = useDispatch();
   const game = useSelector(state => state.game);
 
-
   function makeTurnReact(ind) {
     const enemyField = game.enemyField.split('');
     enemyField[ind] = '2';

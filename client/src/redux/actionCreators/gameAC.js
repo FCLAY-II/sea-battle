@@ -6,15 +6,22 @@ const gameAC = {
     payload: myField
   }),
 
-  makeTurn: (enemyField) => ({
-      type: MAKE_TURN,
-      payload: enemyField
-    }),
-
   takeBeat: (myField)=>({
       type: TAKE_BEAT,
       payload: myField
     }),
+
+  makeTurnDelivery: (enemyField) => ({
+    type: MAKE_TURN,
+    payload: enemyField
+  }),
+
+  makeTurn(idx) {
+    return async (dispatch, getState) => {
+      const { user } = getState();
+    };
+  },
+
 
   loadGameDelivery: (game) => ({
     type: LOAD_GAME,
@@ -22,8 +29,13 @@ const gameAC = {
   }),
 
   loadGame() {
-    return async (dispatch) => {
-      const response = await fetch('http://localhost:3001/api/games/1');
+    return async (dispatch, getState) => {
+      const { user } = getState();
+      const response = await fetch('http://localhost:3001/api/games/1', {
+        headers: {
+          'Authorization': `Bearer ${user.accessToken}`
+        }
+      });
       if (response.ok) {
         const game = await response.json();
         dispatch(this.loadGameDelivery(game));

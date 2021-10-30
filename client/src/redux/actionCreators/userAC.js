@@ -1,9 +1,13 @@
 import { EXIT_USER, LOG_USER, REG_USER } from '../types/user.types';
+import createSocket from '../../websockets/createSocket';
 
 const userAC = {
   signupDelivery: (user) => ({
     type: REG_USER,
-    payload: user
+    payload: {
+      ...user,
+      socket: createSocket()
+    }
   }),
 
   signup(user) {
@@ -25,7 +29,10 @@ const userAC = {
 
   signinDelivery: (user) => ({
     type: LOG_USER,
-    payload: user
+    payload: {
+      ...user,
+      socket: createSocket()
+    }
   }),
 
   signin(user) {

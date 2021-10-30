@@ -11,6 +11,12 @@ import MyField from '../MyField/MyField';
 export default function Game() {
 
   const game = useSelector((state) => state.game);
+  const user = useSelector((state) => state.user);
+
+  useEffect(() => {
+    user.socket.send(JSON.stringify({ type: 'PING' }));
+  }, []);
+
   const dispatch = useDispatch();
 
   useEffect(() => {

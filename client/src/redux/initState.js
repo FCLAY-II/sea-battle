@@ -8,7 +8,7 @@ const defaultState = {
   socket: null
 };
  function initState (){
-   const stateFromLS = JSON.parse(window.localStorage.getItem('redux'));
+   const stateFromLS = null;// JSON.parse(window.localStorage.getItem('redux'));
    const state = stateFromLS || defaultState;
    return state;
  }
