@@ -1,5 +1,5 @@
 import './App.css';
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Switch } from 'react-router-dom';
 import React from 'react';
 import Game from './components/Game/Game';
 import Navbar from './components/Navbar/Navbar';
@@ -18,7 +18,7 @@ function App() {
           <Navbar />
           <div className="App">
             <Switch>
-              <PrivateRoute exact path="/">
+              <PrivateRoute exact path="/play">
                 <SocketProvider>
                   <GameContextProvider>
                     <Game />
