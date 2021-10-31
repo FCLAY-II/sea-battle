@@ -5,8 +5,8 @@ import rootReducer from './reducers/root.reducer';
 
 const store = createStore(rootReducer, initState(), applyMiddleware(thunk));
 
-store.subscribe(()=>{
-  window.localStorage.setItem('redux', JSON.stringify(store.getState()));
+store.subscribe(() => {
+  window.localStorage.setItem('user', JSON.stringify(store.getState().user));
 });
 
 export default store;

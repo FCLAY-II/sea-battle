@@ -5,26 +5,42 @@ const jwt = require('jsonwebtoken');
 const router = require('express').Router();
 const { Token } = require('../db/models');
 
-const refSecret = process.env.RTOKEN_SECRET;
-const accSecret = process.env.ATOKEN_SECRET;
+function getFreshTokens(payload, tokenSecret) {
+  console.log('boooooop', payload);
+  return {
+    accessToken: jwt.sign(payload, tokenSecret, { expiresIn: '15m' }),
+    refreshToken: jwt.sign(payload, tokenSecret, { expiresIn: '15d' }),
+  };
+}
+
+const secret = process.env.TOKEN_SECRET;
 
 router.get('/refresh', async (req, res) => {
+  let accessToken;
   let refreshToken = res.locals.token;
   if (refreshToken) {
     try {
-      const payload = jwt.verify(refreshToken, refSecret);
-      const record = await Token.findOne({ where: { userId: payload.userId } });
+      const payload = jwt.verify(refreshToken, secret);
+      const record = await Token.findOne({ where: { userId: +payload.id } });
+      console.log('rtoken from front:', refreshToken);
+      console.log('rtoken from refresh:', record.token);
       if (record.token === refreshToken) {
-        const accessToken = jwt.sign({ id: payload.userId, expiresIn: '30s' }, accSecret);
-        refreshToken = jwt.sign({ id: payload.userId, expiresIn: '60s' }, refSecret);
+        const tokens = getFreshTokens({ id: +payload.id }, secret);
+        accessToken = tokens.accessToken;
+        refreshToken = tokens.refreshToken;
+
         record.token = refreshToken;
-        record.save();
+        await record.save();
+        console.log('rtoken from front:', refreshToken);
+        console.log('rtoken from refresh:', record.token);
         res.json({ accessToken, refreshToken });
       } else {
+        console.log('different tokens');
         await Token.destroy({ where: { id: record.id } });
         res.sendStatus(401);
       }
     } catch (err) {
+      console.log('verify failed');
       res.sendStatus(401);
     }
   } else {

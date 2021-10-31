@@ -8,7 +8,7 @@ export default function MyField() {
 
 
   const { makeField, game } = useGameContext();
-  const currStateOfMyField = game.myField;
+  const currStateOfMyField = game.field;
   const field = makeField(currStateOfMyField);
 
   // const onDragEnd = result =>{

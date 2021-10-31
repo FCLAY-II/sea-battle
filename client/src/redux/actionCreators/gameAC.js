@@ -1,27 +1,10 @@
-import { LOAD_GAME, MAKE_TURN, PUT_SHIP, TAKE_BEAT } from '../types/game.types';
+import { LOAD_GAME, PUT_SHIP, UPDATE_ENEMY } from '../types/game.types';
 
 const gameAC = {
-  putShip: (myField)=>({
+  putShip: (myField) => ({
     type: PUT_SHIP,
     payload: myField
   }),
-
-  takeBeat: (myField)=>({
-      type: TAKE_BEAT,
-      payload: myField
-    }),
-
-  makeTurnDelivery: (enemyField) => ({
-    type: MAKE_TURN,
-    payload: enemyField
-  }),
-
-  makeTurn(idx) {
-    return async (dispatch, getState) => {
-      const { user } = getState();
-    };
-  },
-
 
   loadGameDelivery: (game) => ({
     type: LOAD_GAME,
@@ -41,7 +24,12 @@ const gameAC = {
         dispatch(this.loadGameDelivery(game));
       }
     };
-  }
+  },
+
+  updateEnemy: (updatedEnemy) => ({
+    type: UPDATE_ENEMY,
+    payload: updatedEnemy
+  })
 };
 
 export default gameAC;

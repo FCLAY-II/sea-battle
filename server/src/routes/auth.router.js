@@ -6,13 +6,14 @@ const bcrypt = require('bcrypt');
 const { Op } = require('sequelize');
 const { User, Token } = require('../db/models');
 
-const refSecret = process.env.RTOKEN_SECRET;
-const accSecret = process.env.ATOKEN_SECRET;
+const secret = process.env.TOKEN_SECRET;
 
-// const authErrors = {
-//   BAD_PASSWORD: 'Введён неправильный пароль',
-//   // BAD_PASSWORD: 'Введён неправильный пароль',
-// };
+function getFreshTokens(payload, tokenSecret) {
+  return {
+    accessToken: jwt.sign(payload, tokenSecret, { expiresIn: '15m' }),
+    refreshToken: jwt.sign(payload, tokenSecret, { expiresIn: '15d' }),
+  };
+}
 
 router.post('/signup', async (req, res) => {
   const { email, password: pass, login } = req.body;
@@ -24,8 +25,7 @@ router.post('/signup', async (req, res) => {
         login,
       });
 
-      const accessToken = jwt.sign({ id: user.id, expiresIn: '5s' }, accSecret);
-      const refreshToken = jwt.sign({ id: user.id, expiresIn: '10s' }, refSecret);
+      const { accessToken, refreshToken } = getFreshTokens({ id: user.id }, secret);
 
       await Token.create({ token: refreshToken, userId: user.id });
 
@@ -55,10 +55,17 @@ router.post('/signin', async (req, res) => {
 
     if (user) {
       if (await bcrypt.compare(password, user.password)) {
-        const accessToken = jwt.sign({ id: user.id, expiresIn: '30s' }, accSecret);
-        const refreshToken = jwt.sign({ id: user.id, expiresIn: '60s' }, refSecret);
+        const { accessToken, refreshToken } = getFreshTokens({ id: user.id }, secret);
 
-        await Token.update({ token: refreshToken }, { where: { userId: user.id } });
+        const [record, created] = await Token.findOrCreate({
+          where: { userId: user.id },
+          defaults: { token: refreshToken },
+        });
+        if (!created) {
+          record.token = refreshToken;
+          console.log('sign in refresh token:', refreshToken);
+          await record.save();
+        }
 
         res.json({
           id: user.id, login: user.login, accessToken, refreshToken,

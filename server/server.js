@@ -23,15 +23,26 @@ server.on('upgrade', async (request, socket, head) => {
 wss.on('connection', (ws, request) => {
   console.log('connection happened', request.url);
 
-  usersConnetctions.set
-  // ...
+  const initUserId = +request.url.slice(request.url.lastIndexOf('/') + 1);
+  usersConnetctions.set(initUserId, ws);
 
   ws.on('message', async (message) => {
     const parsed = JSON.parse(message);
+    console.log(parsed);
 
     switch (parsed.type) {
       case 'PING':
         console.log('PONG');
+        break;
+      case 'MAKE_TURN':
+        [parsed.payload.firstId, parsed.payload.secondId].forEach((id) => {
+          const client = usersConnetctions.get(id);
+          if (client?.readyState === WebSocket.OPEN) {
+            client.send(JSON.stringify({
+              type: 'UPDATE_FIELD',
+            }));
+          }
+        });
         break;
       default:
         break;

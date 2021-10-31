@@ -8,6 +8,8 @@ import LogForm from './components/LogForm/LogForm';
 import GameContextProvider from './contexts/game.context';
 import AuthProvider from './contexts/auth.context';
 import PrivateRoute from './components/PrivateRoute/PrivateRoute';
+import SocketProvider from './contexts/socket.context';
+import NotAuthRoute from './components/NotAuthRoute/NotAuthRoute';
 
 function App() {
   return (
@@ -15,19 +17,21 @@ function App() {
       <Router>
           <Navbar />
           <div className="App">
-            <GameContextProvider>
-              <Switch>
-                <PrivateRoute exact path="/">
-                  <Game />
-                </PrivateRoute>
-                <Route exact path="/register">
-                  <RegForm />
-                </Route>
-                <Route exact path="/login">
-                  <LogForm />
-                </Route>
-              </Switch>
-            </GameContextProvider>
+            <Switch>
+              <PrivateRoute exact path="/">
+                <SocketProvider>
+                  <GameContextProvider>
+                    <Game />
+                  </GameContextProvider>
+                </SocketProvider>
+              </PrivateRoute>
+              <NotAuthRoute exact path="/register">
+                <RegForm />
+              </NotAuthRoute>
+              <NotAuthRoute exact path="/login">
+                <LogForm />
+              </NotAuthRoute>
+            </Switch>
           </div>
         </Router>
     </AuthProvider>

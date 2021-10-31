@@ -1,2 +1,0 @@
-export const CREATE_SOCKET = 'CREATE_SOCKET';
-export const CLOSE_SOCKET = 'CLOSE_SOCKET';

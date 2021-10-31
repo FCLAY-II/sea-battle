@@ -2,16 +2,15 @@ import React from 'react';
 import { useGameContext } from '../../contexts/game.context';
 
 export default function EnemyField() {
-const { makeField, game, makeTurnReact} = useGameContext();
-  const currStateOfEnemyField = game.enemyField.split('');
+const { makeField, game, makeTurn} = useGameContext();
+  const currStateOfEnemyField = game.enemy.field.split('');
   const field = makeField(currStateOfEnemyField);
   
   return (
-    <button
-      type="button"
+    <div
       onClick={(e)=>{
         if ('cell' in e.target.dataset){
-          makeTurnReact(e.target.id.toString());
+          makeTurn(e.target.id.toString());
         } 
       }} 
       id="enemyfield" 
@@ -19,7 +18,7 @@ const { makeField, game, makeTurnReact} = useGameContext();
     >
       <h1>enemy</h1>
       {field.map((item) => item)}
-    </button>
+    </div>
     
   );
 }

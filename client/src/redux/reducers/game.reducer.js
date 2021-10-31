@@ -1,26 +1,24 @@
-import { LOAD_GAME, MAKE_TURN, PUT_SHIP, TAKE_BEAT } from '../types/game.types';
+import { LOAD_GAME, PUT_SHIP, UPDATE_ENEMY } from '../types/game.types';
 
-function gameReducer(state = {}, action) {
+function gameReducer(game = {}, action) {
   switch (action.type) {
     case LOAD_GAME:
       return action.payload;
-    case MAKE_TURN:
+    case PUT_SHIP:
       return {
-        ...state,
-        enemyField: action.payload
+        ...game,
+        field: action.payload
       };
-      case TAKE_BEAT:
-        return {
-          ...state,
-          myField: action.payload
-        };
-        case PUT_SHIP:
-          return {
-            ...state,
-            myField: action.payload
-          };
+    case UPDATE_ENEMY:
+      return {
+        ...game,
+        enemy: {
+          ...game.enemy,
+          ...action.payload
+        }
+      };
     default:
-      return state;
+      return game;
   }
 }
 

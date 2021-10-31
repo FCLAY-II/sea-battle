@@ -1,22 +1,30 @@
-import { createContext, useContext } from 'react';
+import { createContext, useContext, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import Cell from '../components/Cell/Cell';
 import Row from '../components/Row/Row';
 import gameAC from '../redux/actionCreators/gameAC';
 import ShipCell from '../components/ShipCell/ShipCell';
+import { useSocket } from './socket.context';
 
 const GameContext = createContext();
 
 function GameContextProvider({ children }) {
 
+  const { socketMakeTurn } = useSocket();
   const dispatch = useDispatch();
   const game = useSelector(state => state.game);
 
-  function makeTurnReact(ind) {
-    const enemyField = game.enemyField.split('');
-    enemyField[ind] = '2';
-    const newEnemyField = enemyField.join('');
-    dispatch(gameAC.makeTurn(newEnemyField));
+
+  useEffect(() => {
+    dispatch(gameAC.loadGame());
+  }, [dispatch]);
+
+  function makeTurn(cellId) {
+    socketMakeTurn(game.id, cellId, 
+      (updatedEnemy) => {
+        dispatch(gameAC.updateEnemy(updatedEnemy));
+      }
+    );
   }
 
   function makeShip(size) {
@@ -43,7 +51,7 @@ function GameContextProvider({ children }) {
   }
 
   return (
-    <GameContext.Provider value={{ makeField, game, makeTurnReact, makeShip }}>
+    <GameContext.Provider value={{ makeField, game, makeTurn, makeShip }}>
       {children}
     </GameContext.Provider>
   );

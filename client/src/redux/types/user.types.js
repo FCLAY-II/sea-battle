@@ -1,4 +1,4 @@
-export const LOG_USER = 'LOG_USER';
-export const REG_USER = 'REG_USER';
+export const SET_USER = 'SET_USER';
+export const UPDATE_TOKENS = 'UPDATE_TOKENS';
 export const EXIT_USER = 'EXIT_USER';
 

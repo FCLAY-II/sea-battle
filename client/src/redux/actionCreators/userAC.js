@@ -1,13 +1,9 @@
-import { EXIT_USER, LOG_USER, REG_USER } from '../types/user.types';
-import createSocket from '../../websockets/createSocket';
+import { EXIT_USER, SET_USER, UPDATE_TOKENS } from '../types/user.types';
 
 const userAC = {
-  signupDelivery: (user) => ({
-    type: REG_USER,
-    payload: {
-      ...user,
-      socket: createSocket()
-    }
+  setUser: (user) => ({
+    type: SET_USER,
+    payload: user
   }),
 
   signup(user) {
@@ -22,18 +18,10 @@ const userAC = {
       });
       if (response.ok) {
         const activeUser = await response.json();
-        dispatch(this.signupDelivery(activeUser));
+        dispatch(this.setUser(activeUser));
       }
     };
   },
-
-  signinDelivery: (user) => ({
-    type: LOG_USER,
-    payload: {
-      ...user,
-      socket: createSocket()
-    }
-  }),
 
   signin(user) {
     return async (dispatch) => {
@@ -47,7 +35,7 @@ const userAC = {
       });
       if (response.ok) {
         const activeUser = await response.json();
-        dispatch(this.signinDelivery(activeUser));
+        dispatch(this.setUser(activeUser));
       } else {
         const error = await response.json();
         alert(error.message);
@@ -68,7 +56,12 @@ const userAC = {
         dispatch(this.logoutDelivery());
       }
     };
-  }
+  },
+
+  updateTokens: ({ accessToken, refreshToken }) => ({
+    type: UPDATE_TOKENS,
+    payload: { accessToken, refreshToken }
+  })
 };
 
 export default userAC;

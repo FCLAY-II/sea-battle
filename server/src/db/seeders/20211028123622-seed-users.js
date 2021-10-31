@@ -27,8 +27,6 @@ module.exports = {
       updatedAt: new Date()
     }], { returning: true });
 
-    console.log(game);
-
     queryInterface.bulkInsert('UsersGames', [{
       playerId: users[0].id,
       gameId: game.id,
@@ -45,6 +43,7 @@ module.exports = {
   down: async (queryInterface, Sequelize) => {
     await queryInterface.bulkDelete('UsersGames', null, {});
     await queryInterface.bulkDelete('Games', null, {});
+    await queryInterface.bulkDelete('Tokens', null, {});
     await queryInterface.bulkDelete('Users', null, {});
   }
 };

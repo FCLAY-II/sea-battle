@@ -2,7 +2,7 @@ import React from 'react';
 import { Route, Redirect } from 'react-router-dom';
 import { useAuth } from '../../contexts/auth.context';
 
-function PrivateRoute({ children, ...rest }) {
+function NotAuthRoute({ children, ...rest }) {
 
   const { isAuth } = useAuth();
 
@@ -10,12 +10,12 @@ function PrivateRoute({ children, ...rest }) {
     <Route
       {...rest}
       render={({ location }) =>
-      isAuth ? (
+      !isAuth ? (
           children
         ) : (
           <Redirect
             to={{
-              pathname: '/login',
+              pathname: '/',
               state: { from: location }
             }}
           />
@@ -25,4 +25,4 @@ function PrivateRoute({ children, ...rest }) {
   );
 }
 
-export default PrivateRoute;
+export default NotAuthRoute;

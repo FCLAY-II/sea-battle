@@ -1,15 +1,21 @@
 const defaultState = {
   game: {
-    myField: '0'.repeat(100),
-    enemyField: '0'.repeat(100),
+    id: null,
+    field: '0'.repeat(100),
+    enemy: {
+      id: null,
+      login: null,
+      field: '0'.repeat(100)
+    }
   },
-  user: null,
-  tokens: null,
-  socket: null
+  user: {
+    login: null
+  }
 };
- function initState (){
-   const stateFromLS = null;// JSON.parse(window.localStorage.getItem('redux'));
-   const state = stateFromLS || defaultState;
+ function initState () {
+   const state = defaultState;
+   const userFromLS = JSON.parse(window.localStorage.getItem('user'));
+   state.user = userFromLS || defaultState.user;
    return state;
  }
 
