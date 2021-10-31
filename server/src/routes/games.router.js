@@ -98,11 +98,60 @@ router.patch('/:id/make-turn/:cellId', async (req, res) => {
       });
 
       // console.log(stringReplaceAt(record.field, 2, '2'));
-      record.field = stringReplaceAt(record.field, cellId, '2');
+      if (record.field[cellId] === '1'
+        && (record.field[cellId + 1] !== '1' && record.field[cellId - 1] !== '1'
+          && record.field[cellId + 10] !== '1' && record.field[cellId - 10] !== '1')) {
+        record.field = stringReplaceAt(record.field, cellId, '4');
+        await record.save();
+      } else if (record.field[cellId] === '1') {
+        const shotsArr = [];
+        let shipLength = 1;
+        let i = 1;
+        while (cellId + i < 100 && record.field[cellId + i] !== '0' && record.field[cellId + i] !== '2') {
+          shipLength += 1;
+          if (record.field[cellId + i] === '3') {
+            shotsArr.push(cellId + i);
+          }
+          i += 1;
+        }
+        while (cellId - i > 0 && record.field[cellId - i] !== '0' && record.field[cellId - i] !== '2') {
+          shipLength += 1;
+          if (record.field[cellId - i] === '3') {
+            shotsArr.push(cellId - i);
+          }
+          i += 1;
+        }
+        while (cellId + i * 10 < 100 && record.field[cellId + i * 10] !== '0' && record.field[cellId + i * 10] !== '2') {
+          shipLength += 1;
+          if (record.field[cellId + i * 10] === '3') {
+            shotsArr.push(cellId + i * 10);
+          }
+          i += 1;
+        }
+        while (cellId - i * 10 > 0 && record.field[cellId - i * 10] !== '0' && record.field[cellId - i * 10] !== '2') {
+          shipLength += 1;
+          if (record.field[cellId - i * 10] === '3') {
+            shotsArr.push(cellId - i * 10);
+          }
+          i += 1;
+        }
+        if (shipLength === shotsArr.length) {
+          for (let j = 0; j < shotsArr.length; j += 1) {
+            stringReplaceAt(record.field, shotsArr[j], '4');
+          }
+          await record.save();
+        } else {
+          record.field = stringReplaceAt(record.field, cellId, '3');
+          await record.save();
+        }
+      } else if (record.field[cellId] === '0') {
+        record.field = stringReplaceAt(record.field, cellId, '2');
+        await record.save();
+        gameRecord.currentPlayerId = record.playerId;
+        await gameRecord.save();
+      }
+
       // console.log(gameRecord.currentPlayerId);
-      gameRecord.currentPlayerId = record.playerId;
-      await record.save();
-      await gameRecord.save();
       // console.log(gameRecord.currentPlayerId);
       // console.log(record, gameRecord);
       res.json({ id: record.playerId, field: record.field });
