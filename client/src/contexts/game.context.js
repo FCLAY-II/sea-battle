@@ -10,7 +10,7 @@ const GameContext = createContext();
 
 function GameContextProvider({ children }) {
 
-  const { socketMakeTurn } = useSocket();
+  const { socketSender, descriptors } = useSocket();
   const dispatch = useDispatch();
   const game = useSelector(state => state.game);
 
@@ -20,11 +20,7 @@ function GameContextProvider({ children }) {
   }, [dispatch]);
 
   function makeTurn(cellId) {
-    socketMakeTurn(game.id, cellId, 
-      (updatedEnemy) => {
-        dispatch(gameAC.updateEnemy(updatedEnemy));
-      }
-    );
+    socketSender(descriptors.makeTurn(game.id, cellId));
   }
 
   function makeShip(size) {
