@@ -145,13 +145,14 @@ router.patch('/:id/make-turn/:cellId', async (req, res) => {
       });
 
       // console.log(stringReplaceAt(record.field, 2, '2'));
-      if (record.field[cellId] === '1'
-        && (record.field[cellId + 1] !== '1' && record.field[cellId - 1] !== '1'
-          && record.field[cellId + 10] !== '1' && record.field[cellId - 10] !== '1')) {
-        record.field = stringReplaceAt(record.field, cellId, '4');
-        await record.save();
-      } else if (record.field[cellId] === '1') {
-        const shotsArr = [];
+      // if (record.field[cellId] === '1'
+      //   && (record.field[cellId + 1] !== '1' && record.field[cellId - 1] !== '1'
+      //     && record.field[cellId + 10] !== '1' && record.field[cellId - 10] !== '1')) {
+      //   record.field = stringReplaceAt(record.field, cellId, '4');
+      //   await record.save();
+      // } else 
+      if (record.field[cellId] === '1') {
+        const shotsArr = [cellId];
         let shipLength = 1;
         let i = 1;
         while (cellId + i < 100 && record.field[cellId + i] !== '0' && record.field[cellId + i] !== '2') {
@@ -182,9 +183,11 @@ router.patch('/:id/make-turn/:cellId', async (req, res) => {
           }
           i += 1;
         }
+        console.log('SSSSSSSSSSSSSSSSSSSSSSHHHHHHHHHHHHHHHHHH', shipLength);
+        console.log('SSSSSSSSSSSSSSSSSSSSSSHHHHHHHHHHHHHHHHHH', shotsArr);
         if (shipLength === shotsArr.length) {
           for (let j = 0; j < shotsArr.length; j += 1) {
-            stringReplaceAt(record.field, shotsArr[j], '4');
+            record.field = stringReplaceAt(record.field, shotsArr[j], '4');
           }
           await record.save();
         } else {
