@@ -5,8 +5,6 @@ import userAC from '../redux/actionCreators/userAC';
 const AuthContext = createContext();
 
 function AuthProvider({ children }) {
-
-  console.log('auth rerender');
   const user = useSelector((state) => state.user);
 
   const dispatch = useDispatch();
@@ -33,12 +31,10 @@ function AuthProvider({ children }) {
         return setIsAuth(false);
       });
     }
-  }, [user.refreshToken, dispatch]);
+  }, [user.refreshToken, dispatch, isAuth]);
 
   return (
-    <AuthContext.Provider value={{ isAuth }}>
-      {children}
-    </AuthContext.Provider>
+    <AuthContext.Provider value={{ isAuth }}>{children}</AuthContext.Provider>
   );
 }
 

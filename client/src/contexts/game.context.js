@@ -28,8 +28,6 @@ function GameContextProvider({ children }) {
     return ship;
   }
 
-
-
   function makeField(state) {
     const cells = [];
     for (let i = 0; i < state.length; i += 1) {
@@ -48,7 +46,6 @@ function GameContextProvider({ children }) {
       {children}
     </GameContext.Provider>
   );
-
 }
 
 export default GameContextProvider;

@@ -23,6 +23,9 @@ export default function MyField() {
     <div className="myside">
       {/* <Droppable > */}
       <div id="myfield" className="field">
+        <button type="button" className="btn btn-success">
+          Готов
+        </button>
         <h1>my field</h1>
         {field.map((item) => item)}
       </div>

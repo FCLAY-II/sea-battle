@@ -6,14 +6,13 @@ export default function Ships() {
   return (
     // <Droppable>
     <div className="ships">
-      <Ship size={1}/>
-      <Ship size={1}/>
-      <Ship size={2}/>
-      <Ship size={2}/>
-      <Ship size={3}/>
-      <Ship size={4}/>
+      <Ship size={1} />
+      <Ship size={1} />
+      <Ship size={2} />
+      <Ship size={2} />
+      <Ship size={3} />
+      <Ship size={4} />
     </div>
     // </Droppable>
   );
 }
-

@@ -8,17 +8,19 @@ const { makeField, game, makeTurn} = useGameContext();
   
   return (
     <div
-      onClick={(e)=>{
-        if ('cell' in e.target.dataset){
+      onClick={(e) => {
+        if ('cell' in e.target.dataset) {
           makeTurn(e.target.id.toString());
-        } 
-      }} 
-      id="enemyfield" 
+        }
+      }}
+      id="enemyfield"
       className="field"
     >
+      <button type="button" className="btn btn-success">
+        Готов
+      </button>
       <h1>enemy</h1>
       {field.map((item) => item)}
     </div>
-    
   );
 }
