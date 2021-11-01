@@ -13,6 +13,49 @@ router.use('/:id', (req, res, next) => {
   next();
 });
 
+router.put('/:id', async (req, res) => {
+  const { myField: field } = req.body;
+
+  function checkField(field) {
+    return true;
+  }
+
+  if (checkField(field)) {
+    const game = await Game.findByPk(res.locals.gameId);
+    const records = await UsersGame.findAll({
+      where: {
+        gameId: game.id,
+      },
+    });
+
+    let enemyId;
+
+    if (records[0].playerId === res.locals.userId) {
+      records[0].field = field;
+      enemyId = records[1].playerId;
+      await records[0].save();
+    } else {
+      records[1].field = field;
+      enemyId = records[0].playerId;
+      await records[1].save();
+    }
+
+    if (game.status === 'preparation') {
+      game.status = 'pending';
+      await game.save();
+      res.json({ status: game.status, enemyId });
+    } else if (game.status === 'pending') {
+      game.status = 'active';
+      await game.save();
+      res.json({ status: game.status, enemyId });
+    } else {
+      res.sendStatus(400);
+    }
+  } else {
+    res.sendStatus(400);
+  }
+});
+
 router.get('/:id', async (req, res) => {
   // const record = await UsersGame.findAll({
   //   attributes: ['playerId', 'field'],
@@ -81,7 +124,6 @@ router.put('/:id/finish', async (req, res) => {
   } catch (err) {
     res.sendStatus(500);
   }
-
 });
 
 router.patch('/:id/make-turn/:cellId', async (req, res) => {
