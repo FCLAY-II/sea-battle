@@ -23,6 +23,7 @@ module.exports = {
 
     const [game] = await queryInterface.bulkInsert('Games', [{
       currentPlayerId: users[0].id,
+      status: 'preparation',
       createdAt: new Date(),
       updatedAt: new Date()
     }], { returning: true });
