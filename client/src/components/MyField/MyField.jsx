@@ -16,15 +16,18 @@ export default function MyField() {
 
   return (
     // <DragDropContext onDragStart onDragUpdate onDragEnd={onDragEnd}>
-      
+
     <div className="myside">
       {/* <Droppable > */}
       <div id="myfield" className="field">
+        <button type="button" className="btn btn-success">
+          Готов
+        </button>
         <h1>my field</h1>
         {field.map((item) => item)}
       </div>
       {/* </Droppable> */}
-      <Ships/>
+      <Ships />
     </div>
     // </DragDropContext>
   );
