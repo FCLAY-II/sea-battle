@@ -9,7 +9,7 @@ import { useSocket } from './socket.context';
 const GameContext = createContext();
 
 function GameContextProvider({ children }) {
-const dispatch = useDispatch();
+  const dispatch = useDispatch();
 
 
   const { fetchSender, descriptors } = useSocket();
@@ -31,11 +31,17 @@ const dispatch = useDispatch();
     return ship;
   }
 
-  
+
   function putShip(id) {
     const myField = game.field.split('');
-    myField[id] = '1';
-    dispatch(gameAC.putShip(myField.join('')));
+    if (myField[id] === '0') {
+      myField[id] = '1';
+      dispatch(gameAC.putShip(myField.join('')));
+    } else {
+      myField[id] = '0';
+      dispatch(gameAC.putShip(myField.join('')));
+    }
+
   }
 
 
@@ -53,7 +59,7 @@ const dispatch = useDispatch();
     return arrField;
   }
 
-  
+
 
   return (
     <GameContext.Provider value={{ makeField, game, makeTurn, makeShip, putShip }}>
