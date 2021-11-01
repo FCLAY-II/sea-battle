@@ -9,9 +9,12 @@ async function wrapper(user, fetchCB, successCB, updateCredCB, logoutCB) {
     const result = await response.json();
     successCB(result);
   } else if (response.status === 403) {
-    const refResponse = await fetch('http://localhost:3001/api/tokens/refresh', {
-      headers: { 'Authorization': `Bearer ${user.refreshToken}` }
-    });
+    const refResponse = await fetch(
+      'http://localhost:3001/api/tokens/refresh',
+      {
+        headers: { Authorization: `Bearer ${user.refreshToken}` },
+      }
+    );
     if (refResponse.ok) {
       console.log('we\'re here');
       const { accessToken, refreshToken } = await refResponse.json();
@@ -35,7 +38,6 @@ async function wrapper(user, fetchCB, successCB, updateCredCB, logoutCB) {
 const SocketContext = createContext();
 
 function SocketProvider({ children }) {
-
   const user = useSelector((state) => state.user);
   const dispatch = useDispatch();
 
@@ -44,14 +46,13 @@ function SocketProvider({ children }) {
   useEffect(() => {
     socket.current = new WebSocket(`ws://localhost:3001/${user.id}`);
 
-    socket.current.onopen = function(e) {
-
+    socket.current.onopen = function (e) {
       console.log('opened');
-  
-      socket.current.onmessage = function(message) {
+
+      socket.current.onmessage = function (message) {
         const parsed = JSON.parse(message.data);
         console.log('message on front', parsed);
-  
+
         switch (parsed.type) {
           case 'UPDATE_FIELD':
             dispatch(gameAC.loadGame());
@@ -64,25 +65,34 @@ function SocketProvider({ children }) {
 
     return () => socket.current.close();
   }, [socket, user.id, dispatch]);
-  
+
   function socketMakeTurn(gameId, cellId, postCb) {
-  
-    const fetchCb = (accessToken) => fetch(`http://localhost:3001/api/games/${gameId}/make-turn/${cellId}`, {
-      method: 'PATCH',
-      headers: {
-        'Authorization': `Bearer ${accessToken}`
-      }
-    });
-  
+    const fetchCb = (accessToken) =>
+      fetch(`http://localhost:3001/api/games/${gameId}/make-turn/${cellId}`, {
+        method: 'PATCH',
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      });
+
     const successCb = (updatedEnemy) => {
       postCb(updatedEnemy);
-      socket.current.send(JSON.stringify({ 
-        type: 'MAKE_TURN',
-        payload: { firstId: user.id, secondId: updatedEnemy.id }
-      }));
+      socket.current.send(
+        JSON.stringify({
+          type: 'MAKE_TURN',
+          payload: { firstId: user.id, secondId: updatedEnemy.id },
+        })
+      );
     };
-  
-    wrapper(user, fetchCb, successCb, ({ accessToken, refreshToken }) => dispatch(userAC.updateTokens({ accessToken, refreshToken })), () => {});
+
+    wrapper(
+      user,
+      fetchCb,
+      successCb,
+      ({ accessToken, refreshToken }) =>
+        dispatch(userAC.updateTokens({ accessToken, refreshToken })),
+      () => {}
+    );
   }
 
   return (

@@ -5,18 +5,18 @@ const defaultState = {
     enemy: {
       id: null,
       login: null,
-      field: '0'.repeat(100)
-    }
+      field: '0'.repeat(100),
+    },
   },
   user: {
-    login: null
-  }
+    login: null,
+  },
 };
- function initState () {
-   const state = defaultState;
-   const userFromLS = JSON.parse(window.localStorage.getItem('user'));
-   state.user = userFromLS || defaultState.user;
-   return state;
- }
+function initState() {
+  const state = defaultState;
+  const userFromLS = JSON.parse(window.localStorage.getItem('user'));
+  state.user = userFromLS || defaultState.user;
+  return state;
+}
 
- export default initState;
+export default initState;

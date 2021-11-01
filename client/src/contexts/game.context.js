@@ -9,22 +9,18 @@ import { useSocket } from './socket.context';
 const GameContext = createContext();
 
 function GameContextProvider({ children }) {
-
   const { socketMakeTurn } = useSocket();
   const dispatch = useDispatch();
-  const game = useSelector(state => state.game);
-
+  const game = useSelector((state) => state.game);
 
   useEffect(() => {
     dispatch(gameAC.loadGame());
   }, [dispatch]);
 
   function makeTurn(cellId) {
-    socketMakeTurn(game.id, cellId, 
-      (updatedEnemy) => {
-        dispatch(gameAC.updateEnemy(updatedEnemy));
-      }
-    );
+    socketMakeTurn(game.id, cellId, (updatedEnemy) => {
+      dispatch(gameAC.updateEnemy(updatedEnemy));
+    });
   }
 
   function makeShip(size) {
@@ -34,8 +30,6 @@ function GameContextProvider({ children }) {
     }
     return ship;
   }
-
-
 
   function makeField(state) {
     const cells = [];
@@ -55,7 +49,6 @@ function GameContextProvider({ children }) {
       {children}
     </GameContext.Provider>
   );
-
 }
 
 export default GameContextProvider;

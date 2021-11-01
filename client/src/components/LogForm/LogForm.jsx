@@ -5,17 +5,18 @@ import { Link } from 'react-router-dom';
 import userAC from '../../redux/actionCreators/userAC';
 
 export default function LogForm() {
-
   const dispatch = useDispatch();
 
   return (
     <>
-      <form onSubmit={(e) => {
-        e.preventDefault();
-        const data = Object.fromEntries(new FormData(e.target));
-        console.log(data);
-        dispatch(userAC.signin(data));
-      }}>
+      <form
+        onSubmit={(e) => {
+          e.preventDefault();
+          const data = Object.fromEntries(new FormData(e.target));
+          console.log(data);
+          dispatch(userAC.signin(data));
+        }}
+      >
         <p>
           <b> С возвращением!</b>
           <Link to="/register" className="navbar-brand">

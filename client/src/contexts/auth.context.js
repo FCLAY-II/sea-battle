@@ -5,7 +5,6 @@ import userAC from '../redux/actionCreators/userAC';
 const AuthContext = createContext();
 
 function AuthProvider({ children }) {
-
   const user = useSelector((state) => state.user);
 
   const dispatch = useDispatch();
@@ -14,30 +13,28 @@ function AuthProvider({ children }) {
   useEffect(() => {
     if (!isAuth) {
       fetch('http://localhost:3001/api/tokens/refresh', {
-        headers: { 'Authorization': `Bearer ${user.refreshToken}` }
+        headers: { Authorization: `Bearer ${user.refreshToken}` },
       })
-      .then((response) => {
-        if (response.ok) {
-          return response.json();
-        } 
-        throw new Error('asgdfghjk');
-      })
-      .then(({ accessToken, refreshToken }) => {
-        dispatch(userAC.updateTokens({ accessToken, refreshToken }));
-        setIsAuth(true);
-      })
-      .catch((err) => {
-        console.log(err);
-        alert('Ошибка на сервере');
-        return setIsAuth(false);
-      });
+        .then((response) => {
+          if (response.ok) {
+            return response.json();
+          }
+          throw new Error('asgdfghjk');
+        })
+        .then(({ accessToken, refreshToken }) => {
+          dispatch(userAC.updateTokens({ accessToken, refreshToken }));
+          setIsAuth(true);
+        })
+        .catch((err) => {
+          console.log(err);
+          alert('Ошибка на сервере');
+          return setIsAuth(false);
+        });
     }
-  }, [user.refreshToken, dispatch]);
+  }, [user.refreshToken, dispatch, isAuth]);
 
   return (
-    <AuthContext.Provider value={{ isAuth }}>
-      {children}
-    </AuthContext.Provider>
+    <AuthContext.Provider value={{ isAuth }}>{children}</AuthContext.Provider>
   );
 }
 

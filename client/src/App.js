@@ -15,25 +15,25 @@ function App() {
   return (
     <AuthProvider>
       <Router>
-          <Navbar />
-          <div className="App">
-            <Switch>
-              <PrivateRoute exact path="/play">
-                <SocketProvider>
-                  <GameContextProvider>
-                    <Game />
-                  </GameContextProvider>
-                </SocketProvider>
-              </PrivateRoute>
-              <NotAuthRoute exact path="/register">
-                <RegForm />
-              </NotAuthRoute>
-              <NotAuthRoute exact path="/login">
-                <LogForm />
-              </NotAuthRoute>
-            </Switch>
-          </div>
-        </Router>
+        <Navbar />
+        <div className="App">
+          <Switch>
+            <PrivateRoute exact path="/play">
+              <SocketProvider>
+                <GameContextProvider>
+                  <Game />
+                </GameContextProvider>
+              </SocketProvider>
+            </PrivateRoute>
+            <NotAuthRoute exact path="/register">
+              <RegForm />
+            </NotAuthRoute>
+            <NotAuthRoute exact path="/login">
+              <LogForm />
+            </NotAuthRoute>
+          </Switch>
+        </div>
+      </Router>
     </AuthProvider>
   );
 }

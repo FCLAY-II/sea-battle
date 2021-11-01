@@ -3,7 +3,7 @@ import { EXIT_USER, SET_USER, UPDATE_TOKENS } from '../types/user.types';
 const userAC = {
   setUser: (user) => ({
     type: SET_USER,
-    payload: user
+    payload: user,
   }),
 
   signup(user) {
@@ -14,7 +14,7 @@ const userAC = {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(user)
+        body: JSON.stringify(user),
       });
       if (response.ok) {
         const activeUser = await response.json();
@@ -31,7 +31,7 @@ const userAC = {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(user), 
+        body: JSON.stringify(user),
       });
       if (response.ok) {
         const activeUser = await response.json();
@@ -44,13 +44,13 @@ const userAC = {
   },
 
   logoutDelivery: () => ({
-    type: EXIT_USER
+    type: EXIT_USER,
   }),
 
   logout() {
     return async (dispatch) => {
       const response = await fetch('http://localhost:3001/auth/logout', {
-        method: 'GET', 
+        method: 'GET',
       });
       if (response.ok) {
         dispatch(this.logoutDelivery());
@@ -60,8 +60,8 @@ const userAC = {
 
   updateTokens: ({ accessToken, refreshToken }) => ({
     type: UPDATE_TOKENS,
-    payload: { accessToken, refreshToken }
-  })
+    payload: { accessToken, refreshToken },
+  }),
 };
 
 export default userAC;

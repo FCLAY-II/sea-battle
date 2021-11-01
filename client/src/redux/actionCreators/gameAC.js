@@ -3,12 +3,12 @@ import { LOAD_GAME, PUT_SHIP, UPDATE_ENEMY } from '../types/game.types';
 const gameAC = {
   putShip: (myField) => ({
     type: PUT_SHIP,
-    payload: myField
+    payload: myField,
   }),
 
   loadGameDelivery: (game) => ({
     type: LOAD_GAME,
-    payload: game
+    payload: game,
   }),
 
   loadGame() {
@@ -16,8 +16,8 @@ const gameAC = {
       const { user } = getState();
       const response = await fetch('http://localhost:3001/api/games/1', {
         headers: {
-          'Authorization': `Bearer ${user.accessToken}`
-        }
+          Authorization: `Bearer ${user.accessToken}`,
+        },
       });
       if (response.ok) {
         const game = await response.json();
@@ -28,10 +28,8 @@ const gameAC = {
 
   updateEnemy: (updatedEnemy) => ({
     type: UPDATE_ENEMY,
-    payload: updatedEnemy
-  })
+    payload: updatedEnemy,
+  }),
 };
 
 export default gameAC;
-
-

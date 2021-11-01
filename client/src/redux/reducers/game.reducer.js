@@ -7,15 +7,15 @@ function gameReducer(game = {}, action) {
     case PUT_SHIP:
       return {
         ...game,
-        field: action.payload
+        field: action.payload,
       };
     case UPDATE_ENEMY:
       return {
         ...game,
         enemy: {
           ...game.enemy,
-          ...action.payload
-        }
+          ...action.payload,
+        },
       };
     default:
       return game;
