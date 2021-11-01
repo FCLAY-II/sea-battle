@@ -1,11 +1,20 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import React from 'react';
+import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
+import userAC from '../../redux/actionCreators/userAC';
 
 export default function RegForm() {
+
+  const dispatch = useDispatch();
+
   return (
     <>
-      <form>
+      <form onSubmit={(e) => {
+        e.preventDefault();
+        const userData = Object.fromEntries(new FormData(e.target));
+        dispatch(userAC.signup(userData));
+      }}>
         <p>
           <b> Добро пожаловать в Морской бой!!!</b>
           <Link to="/login" className="navbar-brand">
@@ -17,6 +26,7 @@ export default function RegForm() {
             Email
           </label>
           <input
+            name="email"
             type="email"
             className="form-control"
             id="exampleInputEmail1"
@@ -29,10 +39,9 @@ export default function RegForm() {
             Логин
           </label>
           <input
-            type="email"
+            name="login"
+            type="text"
             className="form-control"
-            id="exampleInputEmail1"
-            aria-describedby="emailHelp"
           />
         </div>
         <div className="mb-3">
@@ -40,6 +49,7 @@ export default function RegForm() {
             Пароль
           </label>
           <input
+            name="password"
             type="password"
             className="form-control"
             id="exampleInputPassword1"
