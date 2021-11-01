@@ -10,6 +10,7 @@ import AuthProvider from './contexts/auth.context';
 import PrivateRoute from './components/PrivateRoute/PrivateRoute';
 import SocketProvider from './contexts/socket.context';
 import NotAuthRoute from './components/NotAuthRoute/NotAuthRoute';
+import Profile from './components/Profile/Profile';
 
 function App() {
   return (
@@ -22,6 +23,13 @@ function App() {
               <SocketProvider>
                 <GameContextProvider>
                   <Game />
+                </GameContextProvider>
+              </SocketProvider>
+            </PrivateRoute>
+            <PrivateRoute exact path="/profile">
+              <SocketProvider>
+                <GameContextProvider>
+                  <Profile />
                 </GameContextProvider>
               </SocketProvider>
             </PrivateRoute>

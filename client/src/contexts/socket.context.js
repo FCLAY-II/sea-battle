@@ -46,10 +46,10 @@ function SocketProvider({ children }) {
   useEffect(() => {
     socket.current = new WebSocket(`ws://localhost:3001/${user.id}`);
 
-    socket.current.onopen = function (e) {
+    socket.current.onopen = () => {
       console.log('opened');
 
-      socket.current.onmessage = function (message) {
+      socket.current.onmessage = (message) => {
         const parsed = JSON.parse(message.data);
         console.log('message on front', parsed);
 
