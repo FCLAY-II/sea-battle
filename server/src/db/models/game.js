@@ -20,8 +20,10 @@ module.exports = (sequelize, DataTypes) => {
     }
   };
   Game.init({
-    currentPlayerId: DataTypes.INTEGER
-  }, {
+    currentPlayerId: DataTypes.INTEGER,
+    status: DataTypes.STRING,
+  },
+     {
     sequelize,
     modelName: 'Game',
   });

@@ -1,5 +1,6 @@
 const defaultState = {
   game: {
+    status: 'preparation',
     id: null,
     field: '0'.repeat(100),
     enemy: {
