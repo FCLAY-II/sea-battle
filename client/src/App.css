@@ -1,7 +1,6 @@
-*{
+* {
   margin: 0;
   padding: 0;
-
 }
 .App {
   text-align: center;
@@ -16,45 +15,43 @@
   color: #61dafb;
 }
 
-
 .field {
   display: flex;
   flex-direction: column;
 }
 
-.row{
+.row {
   display: flex;
 }
 
-.cell{
+.cell {
   height: 20px;
   width: 20px;
   background-color: #61dafb;
-  border:  1px black solid;
+  border: 1px black solid;
 }
 
-.goodshot{
+.goodshot {
   height: 20px;
   width: 20px;
   background-color: black;
-  border:  1px black solid;
+  border: 1px black solid;
 }
 
-.badshot{
+.badshot {
   height: 20px;
   width: 20px;
   background-color: red;
-  border:  1px black solid;
+  border: 1px black solid;
 }
 
-.killedcell{
+.killedcell {
   height: 20px;
   width: 20px;
   background-color: green;
-  
 }
 
-.numbers{
+.numbers {
   align-self: initial;
 }
 .game {
@@ -63,23 +60,29 @@
   justify-content: space-evenly;
 }
 
-.shipcell{
+.shipcell {
   height: 20px;
   width: 20px;
   background-color: grey;
   border:  1px grey solid;
 }
 
-
-.ships{
+.ships {
   display: flex;
   justify-content: space-evenly;
   flex-direction: column;
-  
-
 }
 
-.ship{
+.ship {
   display: flex;
   margin: 5px;
+}
+
+.mybtn {
+  font-size: 20px;
+  color: white;
+  text-decoration: none;
+}
+li {
+  list-style-type: none;
 }

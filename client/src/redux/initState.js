@@ -7,12 +7,12 @@ const defaultState = {
     enemy: {
       id: null,
       login: null,
-      field: '0'.repeat(100)
-    }
+      field: '0'.repeat(100),
+    },
   },
   user: {
-    login: null
-  }
+    login: null,
+  },
 };
  function initState () {
    let state = defaultState;
@@ -21,4 +21,4 @@ const defaultState = {
    return state;
  }
 
- export default initState;
+export default initState;

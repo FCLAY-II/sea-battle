@@ -60,7 +60,6 @@ const dispatch = useDispatch();
       {children}
     </GameContext.Provider>
   );
-
 }
 
 export default GameContextProvider;

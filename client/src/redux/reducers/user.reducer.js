@@ -7,16 +7,15 @@ function userReducer(stateUser = {}, action) {
     case UPDATE_TOKENS:
       return {
         ...stateUser,
-        ...action.payload
+        ...action.payload,
       };
     case EXIT_USER:
       return {
-        login: null
+        login: null,
       };
     default:
       return stateUser;
   }
-
 }
 
 export default userReducer;
