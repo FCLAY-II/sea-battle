@@ -20,7 +20,7 @@ export default function MyField() {
     <div className="myside">
       {/* <Droppable > */}
       <div id="myfield" className="field">
-        <button type="button" className="btn btn-success">
+        <button type="button" className="btn btn-outline-primary">
           Готов
         </button>
         <h1>my field</h1>

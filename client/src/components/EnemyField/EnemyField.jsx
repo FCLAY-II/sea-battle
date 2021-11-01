@@ -16,7 +16,7 @@ const { makeField, game, makeTurn} = useGameContext();
       id="enemyfield"
       className="field"
     >
-      <button type="button" className="btn btn-success">
+      <button type="button" className="btn btn-outline-primary">
         Готов
       </button>
       <h1>enemy</h1>
