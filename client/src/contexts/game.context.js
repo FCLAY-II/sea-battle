@@ -1,13 +1,16 @@
 import { createContext, useContext, useEffect } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import Cell from '../components/Cell/Cell';
 import Row from '../components/Row/Row';
 import ShipCell from '../components/ShipCell/ShipCell';
+import gameAC from '../redux/actionCreators/gameAC';
 import { useSocket } from './socket.context';
 
 const GameContext = createContext();
 
 function GameContextProvider({ children }) {
+const dispatch = useDispatch();
+
 
   const { fetchSender, descriptors } = useSocket();
   const game = useSelector(state => state.game);
@@ -28,6 +31,13 @@ function GameContextProvider({ children }) {
     return ship;
   }
 
+  
+  function putShip(id) {
+    const myField = game.field.split('');
+    myField[id] = '1';
+    dispatch(gameAC.putShip(myField.join('')));
+  }
+
 
 
   function makeField(state) {
@@ -43,8 +53,10 @@ function GameContextProvider({ children }) {
     return arrField;
   }
 
+  
+
   return (
-    <GameContext.Provider value={{ makeField, game, makeTurn, makeShip }}>
+    <GameContext.Provider value={{ makeField, game, makeTurn, makeShip, putShip }}>
       {children}
     </GameContext.Provider>
   );

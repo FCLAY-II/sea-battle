@@ -9,6 +9,7 @@ import MyField from '../MyField/MyField';
 export default function Game() {
 
   const game = useGameContext();
+  console.log(game);
   return (
     <div className="game">
       

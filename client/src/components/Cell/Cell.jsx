@@ -8,14 +8,16 @@ function chooseClass(cellState) {
       return 'goodshot';
     case '4':
       return 'killedcell';
-  
+    case '1':
+      return 'shipcell';
+
     default:
       return 'cell';
   }
 }
 
-export default function Cell({id, cellState}) {
+export default function Cell({ id, cellState }) {
   return (
-    <div data-cell  id={id} className={chooseClass(cellState)} />
+    <div data-cell id={id} className={chooseClass(cellState)} />
   );
 }

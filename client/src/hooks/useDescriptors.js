@@ -18,7 +18,7 @@ function useDescriptors(socket) {
           }
         }),
         onSuccess: (updatedEnemy) => {
-          socket.send(JSON.stringify({ 
+          socket.send(JSON.stringify({
             type: 'MAKE_TURN',
             payload: { firstId: user.id, secondId: updatedEnemy.id }
           }));
@@ -37,7 +37,34 @@ function useDescriptors(socket) {
         onSuccess: (freshGame) => dispatch(gameAC.loadGameDelivery(freshGame)),
         onFailure: () => alert('ты не имеешь доступа к данной игре')
       };
+    },
+
+    confirmShips(myField) {
+      return {
+        fetchCb: (accessToken) => fetch(`http://localhost:3001/api/games/${game.id}`, {
+          method: 'PATCH',
+          headers: {
+            'Authorization': `Bearer ${accessToken}`
+          },
+          body: JSON.stringify({ myField })
+        }),
+        onSuccess: ({status, enemydId}) => {
+          if (status === 'active'){
+          socket.send(JSON.stringify({
+            type: 'PUT_SHIP',
+            payload: { status, enemydId}
+          }));} else {
+            socket.send(JSON.stringify({
+              type: 'PUT_SHIP',
+              payload: { status, enemydId}
+            }));
+          }
+        },
+        onFailure: () => alert('неправильная расстановка кораблей')
+      };
     }
+
+
   };
 }
 

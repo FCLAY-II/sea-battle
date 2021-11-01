@@ -70,12 +70,12 @@ router.post('/new', async (req, res) => {
 });
 
 router.put('/:id/finish', async (req, res) => {
-  const { loserId } = req.body;
+  const { winId } = req.body;
   const gameId = req.params.id;
   try {
     const game = Game.findByPk(gameId);
     game.status = 'finished';
-    game.currentPlayerId = loserId;
+    game.currentPlayerId = winId;
     game.save();
     res.json(game);
   } catch (err) {

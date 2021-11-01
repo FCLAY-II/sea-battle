@@ -7,7 +7,7 @@ const store = createStore(rootReducer, initState(), applyMiddleware(thunk));
 
 store.subscribe(() => {
   console.log('rewrite');
-  window.localStorage.setItem('user', JSON.stringify(store.getState().user));
+  window.localStorage.setItem('redux', JSON.stringify(store.getState()));
 });
 
 export default store;
