@@ -1,26 +1,23 @@
 import { createContext, useContext, useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import Cell from '../components/Cell/Cell';
 import Row from '../components/Row/Row';
-import gameAC from '../redux/actionCreators/gameAC';
 import ShipCell from '../components/ShipCell/ShipCell';
 import { useSocket } from './socket.context';
 
 const GameContext = createContext();
 
 function GameContextProvider({ children }) {
-  const { socketMakeTurn } = useSocket();
-  const dispatch = useDispatch();
-  const game = useSelector((state) => state.game);
+
+  const { fetchSender, descriptors } = useSocket();
+  const game = useSelector(state => state.game);
 
   useEffect(() => {
-    dispatch(gameAC.loadGame());
-  }, [dispatch]);
+    fetchSender(descriptors.loadGame(1));
+  }, []);
 
   function makeTurn(cellId) {
-    socketMakeTurn(game.id, cellId, (updatedEnemy) => {
-      dispatch(gameAC.updateEnemy(updatedEnemy));
-    });
+    fetchSender(descriptors.makeTurn(cellId));
   }
 
   function makeShip(size) {

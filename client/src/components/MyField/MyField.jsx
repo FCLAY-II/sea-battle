@@ -1,6 +1,8 @@
 import React from 'react';
+import { useDispatch } from 'react-redux';
 // import { DragDropContext, Droppable } from 'react-beautiful-dnd';
 import { useGameContext } from '../../contexts/game.context';
+import gameAC from '../../redux/actionCreators/gameAC';
 import Ships from '../Ships/Ships';
 
 
@@ -10,6 +12,7 @@ export default function MyField() {
   const { makeField, game } = useGameContext();
   const currStateOfMyField = game.field;
   const field = makeField(currStateOfMyField);
+  const dispatch = useDispatch();
 
   // const onDragEnd = result =>{
   // };
@@ -28,6 +31,9 @@ export default function MyField() {
       </div>
       {/* </Droppable> */}
       <Ships />
+      {game.status === 'preparation' ? <button type="button"
+        onClick={() => dispatch(gameAC.changeStatus('pending'))}
+      >готов к игре</button> : <></>}
     </div>
     // </DragDropContext>
   );

@@ -23,3 +23,15 @@ app.use('/api/tokens', mwares.getToken, mwares.verifyRefresh, routes.tokens);
 app.use('/api/games', mwares.getToken, mwares.verifyAccess, routes.games);
 
 module.exports = { app };
+
+
+
+// (async function test() {
+//   const result = await User.findAll({
+//     include: [{
+//       model: User,
+//       as: 'Guest'
+//     }],
+//     where: { id: 1 }
+//   })
+// })();

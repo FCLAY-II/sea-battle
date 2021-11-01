@@ -1,4 +1,4 @@
-import { LOAD_GAME, PUT_SHIP, UPDATE_ENEMY } from '../types/game.types';
+import { CHANGE_STATUS, LOAD_GAME, PUT_SHIP, UPDATE_ENEMY } from '../types/game.types';
 
 function gameReducer(game = {}, action) {
   switch (action.type) {
@@ -16,6 +16,11 @@ function gameReducer(game = {}, action) {
           ...game.enemy,
           ...action.payload,
         },
+      };
+    case CHANGE_STATUS:
+      return {
+        ...game,
+        status: action.payload
       };
     default:
       return game;

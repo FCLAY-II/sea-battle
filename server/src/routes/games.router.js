@@ -35,13 +35,14 @@ router.get('/:id', async (req, res) => {
   const result = {
     id: res.locals.gameId,
     field: null,
+    status: null,
     enemy: {
       id: null,
       login: null,
       field: null,
     },
   };
-
+  result.status = records[0]['Games.status'];
   if (records[0].id === res.locals.userId) {
     result.field = records[0]['Games.UsersGame.field'];
     result.enemy.id = records[1].id;
@@ -53,30 +54,34 @@ router.get('/:id', async (req, res) => {
     result.enemy.login = records[0].login;
     result.enemy.field = records[0]['Games.UsersGame.field'];
   }
-
-  // let field;
-  // let enemyField;
-
-  // if (record[0].playerId === res.locals.userId) {
-  //   field = record[0].field;
-  //   enemyField = record[1].field;
-  // } else {
-  //   field = record[1].field;
-  //   enemyField = record[0].field;
-  // }
-
-  // const result = {
-  //   id: res.locals.gameId,
-  //   field,
-  //   enemy: {
-  //     id: playerId,
-  //     field: enemyField,
-  //   },
-  // };
-
-  // res.json(result);
-
   res.json(result);
+});
+
+router.post('/new', async (req, res) => {
+  const { player1Id, player2Id } = req.body;
+  try {
+    const newGame = await Game.create({ currentPlayerId: player1Id, status: 'preparation' });
+    await UsersGame.create({ playerId: player1Id, gameId: newGame.id });
+    await UsersGame.create({ playerId: player2Id, gameId: newGame.id });
+    res.json({ gameId: newGame.id });
+  } catch (err) {
+    res.sendStatus(500);
+  }
+});
+
+router.put('/:id/finish', async (req, res) => {
+  const { loserId } = req.body;
+  const gameId = req.params.id;
+  try {
+    const game = Game.findByPk(gameId);
+    game.status = 'finished';
+    game.currentPlayerId = loserId;
+    game.save();
+    res.json(game);
+  } catch (err) {
+    res.sendStatus(500);
+  }
+
 });
 
 router.patch('/:id/make-turn/:cellId', async (req, res) => {
@@ -98,11 +103,60 @@ router.patch('/:id/make-turn/:cellId', async (req, res) => {
       });
 
       // console.log(stringReplaceAt(record.field, 2, '2'));
-      record.field = stringReplaceAt(record.field, cellId, '2');
+      if (record.field[cellId] === '1'
+        && (record.field[cellId + 1] !== '1' && record.field[cellId - 1] !== '1'
+          && record.field[cellId + 10] !== '1' && record.field[cellId - 10] !== '1')) {
+        record.field = stringReplaceAt(record.field, cellId, '4');
+        await record.save();
+      } else if (record.field[cellId] === '1') {
+        const shotsArr = [];
+        let shipLength = 1;
+        let i = 1;
+        while (cellId + i < 100 && record.field[cellId + i] !== '0' && record.field[cellId + i] !== '2') {
+          shipLength += 1;
+          if (record.field[cellId + i] === '3') {
+            shotsArr.push(cellId + i);
+          }
+          i += 1;
+        }
+        while (cellId - i > 0 && record.field[cellId - i] !== '0' && record.field[cellId - i] !== '2') {
+          shipLength += 1;
+          if (record.field[cellId - i] === '3') {
+            shotsArr.push(cellId - i);
+          }
+          i += 1;
+        }
+        while (cellId + i * 10 < 100 && record.field[cellId + i * 10] !== '0' && record.field[cellId + i * 10] !== '2') {
+          shipLength += 1;
+          if (record.field[cellId + i * 10] === '3') {
+            shotsArr.push(cellId + i * 10);
+          }
+          i += 1;
+        }
+        while (cellId - i * 10 > 0 && record.field[cellId - i * 10] !== '0' && record.field[cellId - i * 10] !== '2') {
+          shipLength += 1;
+          if (record.field[cellId - i * 10] === '3') {
+            shotsArr.push(cellId - i * 10);
+          }
+          i += 1;
+        }
+        if (shipLength === shotsArr.length) {
+          for (let j = 0; j < shotsArr.length; j += 1) {
+            stringReplaceAt(record.field, shotsArr[j], '4');
+          }
+          await record.save();
+        } else {
+          record.field = stringReplaceAt(record.field, cellId, '3');
+          await record.save();
+        }
+      } else if (record.field[cellId] === '0') {
+        record.field = stringReplaceAt(record.field, cellId, '2');
+        await record.save();
+        gameRecord.currentPlayerId = record.playerId;
+        await gameRecord.save();
+      }
+
       // console.log(gameRecord.currentPlayerId);
-      gameRecord.currentPlayerId = record.playerId;
-      await record.save();
-      await gameRecord.save();
       // console.log(gameRecord.currentPlayerId);
       // console.log(record, gameRecord);
       res.json({ id: record.playerId, field: record.field });

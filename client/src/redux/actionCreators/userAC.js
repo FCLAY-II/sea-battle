@@ -58,7 +58,7 @@ const userAC = {
     };
   },
 
-  updateTokens: ({ accessToken, refreshToken }) => ({
+  resetTokens: ({ accessToken, refreshToken }) => ({
     type: UPDATE_TOKENS,
     payload: { accessToken, refreshToken },
   }),

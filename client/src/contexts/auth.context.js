@@ -13,23 +13,23 @@ function AuthProvider({ children }) {
   useEffect(() => {
     if (!isAuth) {
       fetch('http://localhost:3001/api/tokens/refresh', {
-        headers: { Authorization: `Bearer ${user.refreshToken}` },
+        headers: { 'Authorization': `Bearer ${user.refreshToken}` }
       })
-        .then((response) => {
-          if (response.ok) {
-            return response.json();
-          }
-          throw new Error('asgdfghjk');
-        })
-        .then(({ accessToken, refreshToken }) => {
-          dispatch(userAC.updateTokens({ accessToken, refreshToken }));
-          setIsAuth(true);
-        })
-        .catch((err) => {
-          console.log(err);
-          alert('Ошибка на сервере');
-          return setIsAuth(false);
-        });
+      .then((response) => {
+        if (response.ok) {
+          return response.json();
+        } 
+        throw new Error('asgdfghjk');
+      })
+      .then(({ accessToken, refreshToken }) => {
+        dispatch(userAC.resetTokens({ accessToken, refreshToken }));
+        setIsAuth(true);
+      })
+      .catch((err) => {
+        console.log(err);
+        alert('проверка токена прошла неудачно');
+        return setIsAuth(false);
+      });
     }
   }, [user.refreshToken, dispatch, isAuth]);
 
