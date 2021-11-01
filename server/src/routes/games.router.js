@@ -35,13 +35,14 @@ router.get('/:id', async (req, res) => {
   const result = {
     id: res.locals.gameId,
     field: null,
+    status: null,
     enemy: {
       id: null,
       login: null,
       field: null,
     },
   };
-
+  result.status = records[0]['Games.status'];
   if (records[0].id === res.locals.userId) {
     result.field = records[0]['Games.UsersGame.field'];
     result.enemy.id = records[1].id;
@@ -53,30 +54,34 @@ router.get('/:id', async (req, res) => {
     result.enemy.login = records[0].login;
     result.enemy.field = records[0]['Games.UsersGame.field'];
   }
-
-  // let field;
-  // let enemyField;
-
-  // if (record[0].playerId === res.locals.userId) {
-  //   field = record[0].field;
-  //   enemyField = record[1].field;
-  // } else {
-  //   field = record[1].field;
-  //   enemyField = record[0].field;
-  // }
-
-  // const result = {
-  //   id: res.locals.gameId,
-  //   field,
-  //   enemy: {
-  //     id: playerId,
-  //     field: enemyField,
-  //   },
-  // };
-
-  // res.json(result);
-
   res.json(result);
+});
+
+router.post('/new', async (req, res) => {
+  const { player1Id, player2Id } = req.body;
+  try {
+    const newGame = await Game.create({ currentPlayerId: player1Id, status: 'preparation' });
+    await UsersGame.create({ playerId: player1Id, gameId: newGame.id });
+    await UsersGame.create({ playerId: player2Id, gameId: newGame.id });
+    res.json({ gameId: newGame.id });
+  } catch (err) {
+    res.sendStatus(500);
+  }
+});
+
+router.put('/:id/finish', async (req, res) => {
+  const { loserId } = req.body;
+  const gameId = req.params.id;
+  try {
+    const game = Game.findByPk(gameId);
+    game.status = 'finished';
+    game.currentPlayerId = loserId;
+    game.save();
+    res.json(game);
+  } catch (err) {
+    res.sendStatus(500);
+  }
+
 });
 
 router.patch('/:id/make-turn/:cellId', async (req, res) => {
