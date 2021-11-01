@@ -61,20 +61,7 @@ const userAC = {
   resetTokens: ({ accessToken, refreshToken }) => ({
     type: UPDATE_TOKENS,
     payload: { accessToken, refreshToken }
-  }),
-
-  updateTokens() {
-    return async (dispatch, getState) => {
-      const {user} = getState();
-      const response = await fetch('http://localhost:3001/api/tokens/refresh', {
-        headers: { 'Authorization': `Bearer ${user.refreshToken}` }
-      });
-      if (response.ok) {
-        const { accessToken, refreshToken } = await response.json();
-        dispatch(this.resetTokens({ accessToken, refreshToken }));
-      }
-    };
-  }
+  })
 };
 
 export default userAC;

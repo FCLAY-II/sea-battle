@@ -12,6 +12,7 @@ async function wrapper(user, fetchCb, onSuccess, onFailure, updateCredCb, logout
     });
     if (refResponse.ok) {
       const { accessToken, refreshToken } = await refResponse.json();
+      console.log({ accessToken, refreshToken });
       updateCredCb({ accessToken, refreshToken });
 
       // process the function again
@@ -30,7 +31,7 @@ async function wrapper(user, fetchCb, onSuccess, onFailure, updateCredCb, logout
   }
 };
 
-function useSocketSender() {
+function useFetchSender() {
 
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user);
@@ -41,10 +42,10 @@ function useSocketSender() {
       fetchCb,
       onSuccess,
       onFailure,
-      (tokens) => dispatch(userAC.resetTokens(tokens)),
+      ({ accessToken, refreshToken }) => dispatch(userAC.resetTokens({ accessToken, refreshToken })),
       () => alert('выкинуть пользователя')
     );
   };
 }
 
-export default useSocketSender;
+export default useFetchSender;

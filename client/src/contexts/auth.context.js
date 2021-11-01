@@ -6,6 +6,7 @@ const AuthContext = createContext();
 
 function AuthProvider({ children }) {
 
+  console.log('auth rerender');
   const user = useSelector((state) => state.user);
 
   const dispatch = useDispatch();
@@ -23,12 +24,12 @@ function AuthProvider({ children }) {
         throw new Error('asgdfghjk');
       })
       .then(({ accessToken, refreshToken }) => {
-        dispatch(userAC.updateTokens({ accessToken, refreshToken }));
+        dispatch(userAC.resetTokens({ accessToken, refreshToken }));
         setIsAuth(true);
       })
       .catch((err) => {
         console.log(err);
-        alert('Ошибка на сервере');
+        alert('проверка токена прошла неудачно');
         return setIsAuth(false);
       });
     }

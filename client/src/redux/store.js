@@ -6,6 +6,7 @@ import rootReducer from './reducers/root.reducer';
 const store = createStore(rootReducer, initState(), applyMiddleware(thunk));
 
 store.subscribe(() => {
+  console.log('rewrite');
   window.localStorage.setItem('user', JSON.stringify(store.getState().user));
 });
 

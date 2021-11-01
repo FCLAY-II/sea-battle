@@ -1,22 +1,22 @@
 import { createContext, useContext, useEffect, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import useSocketDescriptors from '../hooks/useSocketDescriptors';
-import useSocketSender from '../hooks/useSocketSender';
-import gameAC from '../redux/actionCreators/gameAC';
-import userAC from '../redux/actionCreators/userAC';
+import useRequestDescriptors from '../hooks/useDescriptors';
+import useFetchSender from '../hooks/useFetchSender';
 
 const SocketContext = createContext();
 
 function SocketProvider({ children }) {
 
   const user = useSelector((state) => state.user);
-  const socket = useRef(new WebSocket(`ws://localhost:3001/${user.id}`));
+  const socket = useRef(null);
 
   const dispatch = useDispatch();
-  const socketSender = useSocketSender();
-  const descriptors = useSocketDescriptors(socket.current);
+  const fetchSender = useFetchSender();
+  const descriptors = useRequestDescriptors(socket.current);
 
   useEffect(() => {
+    socket.current = new WebSocket(`ws://localhost:3001/${user.id}`);
+
     socket.current.onopen = function(e) {
 
       console.log('opened');
@@ -27,7 +27,7 @@ function SocketProvider({ children }) {
   
         switch (parsed.type) {
           case 'UPDATE_FIELD':
-            dispatch(gameAC.loadGame());
+            fetchSender(descriptors.loadGame(1));
             break;
           default:
             break;
@@ -39,7 +39,7 @@ function SocketProvider({ children }) {
   }, [socket, user.id, dispatch]);
 
   return (
-    <SocketContext.Provider value={{ socket, socketSender, descriptors }}>
+    <SocketContext.Provider value={{ socket, fetchSender, descriptors }}>
       {children}
     </SocketContext.Provider>
   );
