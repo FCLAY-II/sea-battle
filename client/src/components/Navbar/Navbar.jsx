@@ -17,9 +17,11 @@ export default function Navbar() {
                 Главная страница
               </Link>
             </li>
-            <Link to="/play" className="nav-link">
-              Начать игру
-            </Link>
+            <li className="nav-item active">
+              <Link to="/play" className="nav-link">
+                Начать игру
+              </Link>
+            </li>
           </ul>
           <div>
             {!isAuth ? (

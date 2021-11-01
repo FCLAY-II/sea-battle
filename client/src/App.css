@@ -77,11 +77,26 @@
   margin: 5px;
 }
 
-.mybtn {
-  font-size: 20px;
-  color: white;
-  text-decoration: none;
-}
 li {
   list-style-type: none;
+}
+nav {
+  position: relative;
+  margin: auto 0;
+  width: 100%;
+  height: 50px;
+  background: #34495e;
+  font-size: 0;
+  box-shadow: 0 2px 3px 0 rgba(0, 0, 0, 0.1);
+}
+nav li {
+  font-size: 15px;
+  text-transform: uppercase;
+  color: white;
+  text-decoration: none;
+  line-height: 50px;
+  position: relative;
+  z-index: 1;
+  display: inline-block;
+  text-align: center;
 }

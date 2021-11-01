@@ -21,10 +21,9 @@ app.use('/api/', routes.main);
 app.use('/api/auth', routes.auth);
 app.use('/api/tokens', mwares.getToken, mwares.verifyRefresh, routes.tokens);
 app.use('/api/games', mwares.getToken, mwares.verifyAccess, routes.games);
+app.use('/api/profile', routes.profile);
 
 module.exports = { app };
-
-
 
 // (async function test() {
 //   const result = await User.findAll({

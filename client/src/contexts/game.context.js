@@ -8,13 +8,12 @@ import { useSocket } from './socket.context';
 const GameContext = createContext();
 
 function GameContextProvider({ children }) {
-
   const { fetchSender, descriptors } = useSocket();
-  const game = useSelector(state => state.game);
+  const game = useSelector((state) => state.game);
 
   useEffect(() => {
     fetchSender(descriptors.loadGame(1));
-  }, []);
+  }, [fetchSender, descriptors]);
 
   function makeTurn(cellId) {
     fetchSender(descriptors.makeTurn(cellId));
