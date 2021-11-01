@@ -15,7 +15,7 @@ router.use('/:id', (req, res, next) => {
 
 router.put('/:id', async (req, res) => {
   const { myField: field } = req.body;
-
+  console.log('from put:', field);
   function checkField(field) {
     return true;
   }

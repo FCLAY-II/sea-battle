@@ -8,14 +8,13 @@ import MyField from '../MyField/MyField';
 
 export default function Game() {
 
-  const game = useGameContext();
+  const { game } = useGameContext();
   console.log(game);
   return (
     <div className="game">
       
       <MyField/>
-      {game.status === 'active'? <EnemyField/> : <></>}
-      
+      {game.status === 'active' ? <EnemyField/> : <></>}
     </div>
   );
 }

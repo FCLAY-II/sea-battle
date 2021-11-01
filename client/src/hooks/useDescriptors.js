@@ -42,21 +42,22 @@ function useDescriptors(socket) {
     confirmShips(myField) {
       return {
         fetchCb: (accessToken) => fetch(`http://localhost:3001/api/games/${game.id}`, {
-          method: 'PATCH',
+          method: 'PUT',
           headers: {
-            'Authorization': `Bearer ${accessToken}`
+            'Authorization': `Bearer ${accessToken}`,
+            'Content-Type': 'application/json',
           },
           body: JSON.stringify({ myField })
         }),
-        onSuccess: ({status, enemydId}) => {
+        onSuccess: ({status, enemyId}) => {
           if (status === 'active'){
           socket.send(JSON.stringify({
-            type: 'PUT_SHIP',
-            payload: { status, enemydId}
+            type: 'MAKE_TURN',
+            payload: { firstId: user.id, secondId: enemyId }
           }));} else {
             socket.send(JSON.stringify({
-              type: 'PUT_SHIP',
-              payload: { status, enemydId}
+              type: 'PUT_SHIPS',
+              payload: { enemyId }
             }));
           }
         },

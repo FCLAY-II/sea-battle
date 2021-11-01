@@ -37,8 +37,8 @@ export default function MyField() {
     </div>
     {/* </Droppable> */}
     <Ships />
-    {game.status === 'preparation' ? <button type="button"
-      onClick={() => fetchSender(descriptors.confirmShips(currStateOfMyField))}
+    {game.status !== 'active' ? <button type="button"
+      onClick={() => fetchSender(descriptors.confirmShips(game.field))}
     >готов к игре</button> : <></>}
   </div>
     // </DragDropContext>

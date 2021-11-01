@@ -2,6 +2,7 @@ import { createContext, useContext, useEffect, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import useRequestDescriptors from '../hooks/useDescriptors';
 import useFetchSender from '../hooks/useFetchSender';
+import gameAC from '../redux/actionCreators/gameAC';
 
 const SocketContext = createContext();
 
@@ -26,6 +27,10 @@ function SocketProvider({ children }) {
         switch (parsed.type) {
           case 'UPDATE_FIELD':
             fetchSender(descriptors.loadGame(1));
+            break;
+          case 'ENEMY_READY':
+            alert('enemy ready');
+            // dispatch(gameAC.changeStatus('pending'));
             break;
           default:
             break;
