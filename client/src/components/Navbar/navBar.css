@@ -1,0 +1,65 @@
+@import url('https://fonts.googleapis.com/css?family=Open+Sans&display=swap');
+
+a {
+  color:white!important;
+}
+
+nav {
+  display: flex;
+  justify-content: space-between;
+  position: relative;
+  width: 100%;
+  height: 50px;
+  background: #34495e;
+  font-size: 0;
+  box-shadow: 0 2px 3px 0 rgba(0, 0, 0, 0.1);
+}
+nav a {
+  font-size: 15px;
+  text-transform: uppercase;
+  color: white;
+  text-decoration: none;
+  line-height: 50px;
+  position: relative;
+  z-index: 1;
+  display: inline-block;
+  text-align: center;
+}
+nav .animation {
+  position: absolute;
+  height: 100%;
+  top: 0;
+  z-index: 0;
+  background: #1abc9c;
+  transition: all 0.5s ease 0s;
+}
+nav a:nth-child(1) {
+  width: 30%;
+}
+nav .start-home,
+nav a:nth-child(1):hover ~.animation {
+  width: 30%;
+  left: 0;
+}
+nav a:nth-child(2) {
+  width: 20%;
+}
+nav  a:nth-child(2):hover ~.animation {
+  width: 30%;
+  left: 28%;
+}
+nav a:nth-child(3) {
+  width: 20%;
+}
+nav  a:nth-child(3):hover ~.animation {
+  width: 25%;
+  left: 54%;
+}
+
+nav a:nth-child(4) {
+  width: 20%;
+}
+nav  a:nth-child(4):hover ~.animation {
+  width: 23%;
+  left: 77%;
+}
