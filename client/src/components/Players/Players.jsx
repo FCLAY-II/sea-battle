@@ -1,10 +1,13 @@
 import React from 'react';
 
-export default function Players({ player, idx }) {
+export default function Players({ player }) {
   return (
     <div>
       <li>
-        {idx + 1}.&nbsp; <b>Email:</b>&nbsp;{player.email}{' '}
+        <b>Логин:</b>&nbsp;{player.login}{' '}
+        <button type="button" className="btn btn-outline-primary btn-sm">
+          Создать игру
+        </button>
       </li>
     </div>
   );
