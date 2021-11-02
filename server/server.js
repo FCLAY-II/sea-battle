@@ -44,6 +44,16 @@ wss.on('connection', (ws, request) => {
           }
         });
         break;
+      case 'PUT_SHIPS':
+        [parsed.payload.enemyId].forEach((id) => {
+          const client = usersConnetctions.get(id);
+          if (client?.readyState === WebSocket.OPEN) {
+            client.send(JSON.stringify({
+              type: 'ENEMY_READY',
+            }));
+          }
+        });
+        break;
       default:
         break;
     }

@@ -13,6 +13,49 @@ router.use('/:id', (req, res, next) => {
   next();
 });
 
+router.put('/:id', async (req, res) => {
+  const { myField: field } = req.body;
+  console.log('from put:', field);
+  function checkField(field) {
+    return true;
+  }
+
+  if (checkField(field)) {
+    const game = await Game.findByPk(res.locals.gameId);
+    const records = await UsersGame.findAll({
+      where: {
+        gameId: game.id,
+      },
+    });
+
+    let enemyId;
+
+    if (records[0].playerId === res.locals.userId) {
+      records[0].field = field;
+      enemyId = records[1].playerId;
+      await records[0].save();
+    } else {
+      records[1].field = field;
+      enemyId = records[0].playerId;
+      await records[1].save();
+    }
+
+    if (game.status === 'preparation') {
+      game.status = 'pending';
+      await game.save();
+      res.json({ status: game.status, enemyId });
+    } else if (game.status === 'pending') {
+      game.status = 'active';
+      await game.save();
+      res.json({ status: game.status, enemyId });
+    } else {
+      res.sendStatus(400);
+    }
+  } else {
+    res.sendStatus(400);
+  }
+});
+
 router.get('/:id', async (req, res) => {
   // const record = await UsersGame.findAll({
   //   attributes: ['playerId', 'field'],
@@ -70,18 +113,17 @@ router.post('/new', async (req, res) => {
 });
 
 router.put('/:id/finish', async (req, res) => {
-  const { loserId } = req.body;
+  const { winId } = req.body;
   const gameId = req.params.id;
   try {
     const game = Game.findByPk(gameId);
     game.status = 'finished';
-    game.currentPlayerId = loserId;
+    game.currentPlayerId = winId;
     game.save();
     res.json(game);
   } catch (err) {
     res.sendStatus(500);
   }
-
 });
 
 router.patch('/:id/make-turn/:cellId', async (req, res) => {
@@ -103,13 +145,14 @@ router.patch('/:id/make-turn/:cellId', async (req, res) => {
       });
 
       // console.log(stringReplaceAt(record.field, 2, '2'));
-      if (record.field[cellId] === '1'
-        && (record.field[cellId + 1] !== '1' && record.field[cellId - 1] !== '1'
-          && record.field[cellId + 10] !== '1' && record.field[cellId - 10] !== '1')) {
-        record.field = stringReplaceAt(record.field, cellId, '4');
-        await record.save();
-      } else if (record.field[cellId] === '1') {
-        const shotsArr = [];
+      // if (record.field[cellId] === '1'
+      //   && (record.field[cellId + 1] !== '1' && record.field[cellId - 1] !== '1'
+      //     && record.field[cellId + 10] !== '1' && record.field[cellId - 10] !== '1')) {
+      //   record.field = stringReplaceAt(record.field, cellId, '4');
+      //   await record.save();
+      // } else 
+      if (record.field[cellId] === '1') {
+        const shotsArr = [cellId];
         let shipLength = 1;
         let i = 1;
         while (cellId + i < 100 && record.field[cellId + i] !== '0' && record.field[cellId + i] !== '2') {
@@ -140,9 +183,11 @@ router.patch('/:id/make-turn/:cellId', async (req, res) => {
           }
           i += 1;
         }
+        console.log('SSSSSSSSSSSSSSSSSSSSSSHHHHHHHHHHHHHHHHHH', shipLength);
+        console.log('SSSSSSSSSSSSSSSSSSSSSSHHHHHHHHHHHHHHHHHH', shotsArr);
         if (shipLength === shotsArr.length) {
           for (let j = 0; j < shotsArr.length; j += 1) {
-            stringReplaceAt(record.field, shotsArr[j], '4');
+            record.field = stringReplaceAt(record.field, shotsArr[j], '4');
           }
           await record.save();
         } else {

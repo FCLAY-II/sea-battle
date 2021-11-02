@@ -21,12 +21,10 @@ function useDescriptors(socket) {
             }
           ),
         onSuccess: (updatedEnemy) => {
-          socket.send(
-            JSON.stringify({
-              type: 'MAKE_TURN',
-              payload: { firstId: user.id, secondId: updatedEnemy.id },
-            })
-          );
+          socket.send(JSON.stringify({
+            type: 'MAKE_TURN',
+            payload: { firstId: user.id, secondId: updatedEnemy.id }
+          }));
         },
         onFailure: () => alert('сейчас не твой ход'),
       };
@@ -56,6 +54,34 @@ function useDescriptors(socket) {
         onFailure: () => alert('Игроки остались на сервере'),
       };
     },
+
+    confirmShips(myField) {
+      return {
+        fetchCb: (accessToken) => fetch(`http://localhost:3001/api/games/${game.id}`, {
+          method: 'PUT',
+          headers: {
+            'Authorization': `Bearer ${accessToken}`,
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ myField })
+        }),
+        onSuccess: ({status, enemyId}) => {
+          if (status === 'active'){
+          socket.send(JSON.stringify({
+            type: 'MAKE_TURN',
+            payload: { firstId: user.id, secondId: enemyId }
+          }));} else {
+            socket.send(JSON.stringify({
+              type: 'PUT_SHIPS',
+              payload: { enemyId }
+            }));
+          }
+        },
+        onFailure: () => alert('неправильная расстановка кораблей')
+      };
+    }
+
+
   };
 }
 

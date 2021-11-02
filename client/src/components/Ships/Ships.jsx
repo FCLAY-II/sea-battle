@@ -1,17 +1,15 @@
 import React from 'react';
+import { useGameContext } from '../../contexts/game.context';
 // import { Droppable } from 'react-beautiful-dnd';
 import Ship from '../Ship/Ship';
 
 export default function Ships() {
+  const { game } = useGameContext();
+  const shipsArr = game.ships;
   return (
     // <Droppable>
     <div className="ships">
-      <Ship size={1} />
-      <Ship size={1} />
-      <Ship size={2} />
-      <Ship size={2} />
-      <Ship size={3} />
-      <Ship size={4} />
+      {shipsArr.map((ship) => <Ship size={ship} />)}
     </div>
     // </Droppable>
   );

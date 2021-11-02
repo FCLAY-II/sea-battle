@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useSocket } from '../../contexts/socket.context';
-import Friends from '../Players/Players';
+import Players from '../Players/Players';
 
 export default function Profile() {
   const user = useSelector((state) => state.user);
@@ -41,7 +41,7 @@ export default function Profile() {
             {players
               .filter((us) => us.login !== user.login)
               .map((player, idx) => (
-                <Friends player={player} key={player.id} idx={idx} />
+                <Players player={player} key={player.id} idx={idx} />
               ))}
           </li>
         </ul>
