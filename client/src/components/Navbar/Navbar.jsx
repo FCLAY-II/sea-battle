@@ -9,22 +9,24 @@ export default function Navbar() {
   const { isAuth } = useAuth();
 
   return (
-    <nav>
-      <Link to="/">Главная страница</Link>
-      <Link to="/play">Играть</Link>
+    <div className='opt'>
+      <nav>
+        <Link to="/">Главная страница</Link>
+        <Link to="/play">Играть</Link>
 
-      {!isAuth ? (
-        <>
-          <Link to="/login">Авторизоваться</Link>
-          <Link to="/register">Зарегистрироваться</Link>
-        </>
-      ) : (
-        <>
-          <Link to="/profile">{user.login}</Link>
-          <Link to="/logout">Выйти</Link>
-        </>
-      )}
-      <div className="animation start-home" />
-    </nav>
+        {!isAuth ? (
+          <>
+            <Link to="/login">Авторизоваться</Link>
+            <Link to="/register">Зарегистрироваться</Link>
+          </>
+        ) : (
+          <>
+            <Link to="/profile">{user.login}</Link>
+            <Link to="/logout">Выйти</Link>
+          </>
+        )}
+        <div className="animation start-home" />
+      </nav>
+    </div>
   );
 }

@@ -10,12 +10,12 @@ import Profile from '../Profile/Profile';
 import { useAuth } from '../../contexts/auth.context';
 
 import './styles.css';
+import MainParaPage from '../MainParaPage/MainParaPage';
 
 export default function Main() {
-
   const { isAuth } = useAuth();
   console.log('Main rendered');
-  
+
   return (
     <main>
       <Switch>
@@ -28,27 +28,25 @@ export default function Main() {
         <NotAuthRoute exact path="/login">
           <LogForm />
         </NotAuthRoute>
-        {
-          isAuth ? (
-            <Route path="/">
-              <SocketProvider>
-                <Route exact path="/">
-                  <p>Компонента с главной, к которой имеют доступ все пользователи</p>
-                </Route>
-                <Route exact path="/play">
-                  <GameContextProvider>
-                    <Game />
-                  </GameContextProvider>
-                </Route>
-                <Route exact path="/profile">
-                  <Profile />
-                </Route>
-              </SocketProvider>
-            </Route>
-            ) : (
-              <></>
-            )
-        }
+        {isAuth ? (
+          <Route path="/">
+            <SocketProvider>
+              <Route exact path="/">
+                <MainParaPage />
+              </Route>
+              <Route exact path="/play">
+                <GameContextProvider>
+                  <Game />
+                </GameContextProvider>
+              </Route>
+              <Route exact path="/profile">
+                <Profile />
+              </Route>
+            </SocketProvider>
+          </Route>
+        ) : (
+          <></>
+        )}
       </Switch>
     </main>
   );
