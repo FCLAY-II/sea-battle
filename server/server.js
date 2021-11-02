@@ -54,6 +54,17 @@ wss.on('connection', (ws, request) => {
           }
         });
         break;
+      case 'GAME_CREATED':
+        [parsed.payload.firstId, parsed.payload.secondId].forEach((id) => {
+          const client = usersConnetctions.get(id);
+          if (client?.readyState === WebSocket.OPEN) {
+            client.send(JSON.stringify({
+              type: 'GO_TO_GAME',
+              payload: parsed.payload.gameId,
+            }));
+          }
+        });
+        break;
       default:
         break;
     }
