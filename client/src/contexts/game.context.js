@@ -1,4 +1,4 @@
-import { createContext, useContext, useEffect } from 'react';
+import { createContext, useCallback, useContext, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import Cell from '../components/Cell/Cell';
 import Row from '../components/Row/Row';
@@ -11,13 +11,7 @@ const GameContext = createContext();
 function GameContextProvider({ children }) {
   const dispatch = useDispatch();
 
-
   const { fetchSender, descriptors } = useSocket();
-  const game = useSelector(state => state.game);
-
-  useEffect(() => {
-    fetchSender(descriptors.loadGame(1));
-  }, []);
 
   function makeTurn(cellId) {
     fetchSender(descriptors.makeTurn(cellId));
@@ -32,8 +26,8 @@ function GameContextProvider({ children }) {
   }
 
 
-  function putShip(id) {
-    const myField = game.field.split('');
+  const putShip = useCallback((field, id) => {
+    const myField = field.split('');
     if (myField[id] === '0') {
       myField[id] = '1';
       dispatch(gameAC.putShip(myField.join('')));
@@ -41,8 +35,7 @@ function GameContextProvider({ children }) {
       myField[id] = '0';
       dispatch(gameAC.putShip(myField.join('')));
     }
-
-  }
+  }, []);
 
 
 
@@ -62,7 +55,7 @@ function GameContextProvider({ children }) {
 
 
   return (
-    <GameContext.Provider value={{ makeField, game, makeTurn, makeShip, putShip }}>
+    <GameContext.Provider value={{ makeField, makeTurn, makeShip, putShip }}>
       {children}
     </GameContext.Provider>
   );

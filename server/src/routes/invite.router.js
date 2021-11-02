@@ -21,18 +21,19 @@ router.delete('/:id', async (req, res) => {
   }
 });
 
-
 router.get('/:userId', async (req, res) => {
   const playerId = req.params.userId;
   try {
     const result = await User.findAll({
-      include: [{
-        model: User,
-        as: 'Guest'
-      }],
-      where: { id: playerId }
+      include: [
+        {
+          model: User,
+          as: 'Guest',
+        },
+      ],
+      where: { id: playerId },
     });
-    res.sendStatus({ result })
+    res.sendStatus({ result });
   } catch (err) {
     res.sendStatus(500);
   }

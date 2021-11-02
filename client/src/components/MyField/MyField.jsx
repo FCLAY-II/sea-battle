@@ -1,5 +1,5 @@
 import React from 'react';
-import { useDispatch } from 'react-redux';
+import { useSelector , useDispatch } from 'react-redux';
 // import { DragDropContext, Droppable } from 'react-beautiful-dnd';
 import { useGameContext } from '../../contexts/game.context';
 import { useSocket } from '../../contexts/socket.context';
@@ -9,8 +9,8 @@ import Ships from '../Ships/Ships';
 
 export default function MyField() {
 
-
-  const { makeField, game, putShip } = useGameContext();
+  const game = useSelector((state) => state.game);
+  const { makeField, putShip } = useGameContext();
   const currStateOfMyField = game.field;
   const field = makeField(currStateOfMyField);
   const { fetchSender, descriptors } = useSocket();
@@ -25,7 +25,7 @@ export default function MyField() {
   <div
     onClick={(e) => {
       if ('cell' in e.target.dataset) {
-        putShip(e.target.id.toString());
+        putShip(game.field, e.target.id.toString());
       }
     }}
 

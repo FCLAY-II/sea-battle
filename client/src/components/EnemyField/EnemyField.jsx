@@ -1,8 +1,12 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
 import { useGameContext } from '../../contexts/game.context';
 
 export default function EnemyField() {
-const { makeField, game, makeTurn} = useGameContext();
+
+  const game = useSelector((state) => state.game);
+
+  const { makeField, makeTurn} = useGameContext();
   const currStateOfEnemyField = game.enemy.field.split('');
   const field = makeField(currStateOfEnemyField);
   

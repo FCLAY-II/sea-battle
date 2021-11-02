@@ -22,6 +22,6 @@ app.use('/api/auth', routes.auth);
 app.use('/api/tokens', mwares.getToken, mwares.verifyRefresh, routes.tokens);
 app.use('/api/games', mwares.getToken, mwares.verifyAccess, routes.games);
 app.use('/api/invite', mwares.getToken, mwares.verifyAccess, routes.invite);
+app.use('/api/profile/', mwares.getToken, mwares.verifyAccess, routes.profile);
 
 module.exports = { app };
-

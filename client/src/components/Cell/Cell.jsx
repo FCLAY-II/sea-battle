@@ -12,7 +12,7 @@ function chooseClass(cellState) {
       return 'shipcell';
 
     default:
-      return 'cell';
+      return 'field-cell';
   }
 }
 

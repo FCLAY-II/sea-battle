@@ -10,7 +10,7 @@ const secret = process.env.TOKEN_SECRET;
 
 function getFreshTokens(payload, tokenSecret) {
   return {
-    accessToken: jwt.sign(payload, tokenSecret, { expiresIn: '15m' }),
+    accessToken: jwt.sign(payload, tokenSecret, { expiresIn: '5000' }),
     refreshToken: jwt.sign(payload, tokenSecret, { expiresIn: '15d' }),
   };
 }
@@ -25,15 +25,23 @@ router.post('/signup', async (req, res) => {
         login,
       });
 
-      const { accessToken, refreshToken } = getFreshTokens({ id: user.id }, secret);
+      const { accessToken, refreshToken } = getFreshTokens(
+        { id: user.id },
+        secret
+      );
 
       await Token.create({ token: refreshToken, userId: user.id });
 
       res.json({
-        id: user.id, login: user.login, accessToken, refreshToken,
+        id: user.id,
+        login: user.login,
+        accessToken,
+        refreshToken,
       });
     } catch (error) {
-      res.status(400).json({ message: 'пользователь с такими данными уже есть' });
+      res
+        .status(400)
+        .json({ message: 'пользователь с такими данными уже есть' });
     }
   } else {
     res.status(400).json({ message: 'недостаточно данных' });
@@ -46,16 +54,16 @@ router.post('/signin', async (req, res) => {
   if (login && password) {
     const user = await User.findOne({
       where: {
-        [Op.or]: [
-          { login },
-          { email: login },
-        ],
+        [Op.or]: [{ login }, { email: login }],
       },
     });
 
     if (user) {
       if (await bcrypt.compare(password, user.password)) {
-        const { accessToken, refreshToken } = getFreshTokens({ id: user.id }, secret);
+        const { accessToken, refreshToken } = getFreshTokens(
+          { id: user.id },
+          secret
+        );
 
         const [record, created] = await Token.findOrCreate({
           where: { userId: user.id },
@@ -68,7 +76,10 @@ router.post('/signin', async (req, res) => {
         }
 
         res.json({
-          id: user.id, login: user.login, accessToken, refreshToken,
+          id: user.id,
+          login: user.login,
+          accessToken,
+          refreshToken,
         });
       } else {
         res.status(400).json({ message: 'incorrect password' });
