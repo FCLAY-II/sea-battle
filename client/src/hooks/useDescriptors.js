@@ -100,6 +100,26 @@ function useDescriptors(socket) {
         },
         onFailure: () => alert('неправильная расстановка кораблей')
       };
+    },
+
+    getReceivedInvites(setInvites) {
+      return {
+        fetchCb: (accessToken) => fetch('http://localhost:3001/api/invite/received', {
+          headers: { 'Authorization': `Bearer ${accessToken}` }
+        }),
+        onSuccess: ({ allInvites }) => setInvites(allInvites),
+        onFailure: () => alert('не удалось получить приглашения')
+      };
+    },
+
+    getSendInvites(setInvites) {
+      return {
+        fetchCb: (accessToken) => fetch('http://localhost:3001/api/invite/received', {
+          headers: {'Authorization': `Bearer ${accessToken}`},
+        }),
+        onSuccess: ({ allInvites }) => setInvites(allInvites),
+        onFailure: () => alert('не удалось получить приглашения')
+      };
     }
   };
 }

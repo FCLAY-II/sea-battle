@@ -21,10 +21,10 @@ router.delete('/:id', async (req, res) => {
   }
 });
 
-router.get('/:userId', async (req, res) => {
-  const playerId = req.params.userId;
+router.get('/sent', async (req, res) => {
+  const playerId = res.locals.userId;
   try {
-    const result = await User.findAll({
+    const allInvites = await User.findAll({
       include: [
         {
           model: User,
@@ -33,7 +33,25 @@ router.get('/:userId', async (req, res) => {
       ],
       where: { id: playerId },
     });
-    res.sendStatus({ result });
+    res.sendStatus({ allInvites });
+  } catch (err) {
+    res.sendStatus(500);
+  }
+});
+
+router.get('/received', async (req, res) => {
+  const playerId = res.locals.userId;
+  try {
+    const allInvites = await User.findAll({
+      include: [
+        {
+          model: User,
+          as: 'Host',
+        },
+      ],
+      where: { id: playerId },
+    });
+    res.sendStatus({ allInvites });
   } catch (err) {
     res.sendStatus(500);
   }

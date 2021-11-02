@@ -37,8 +37,7 @@ const userAC = {
         const activeUser = await response.json();
         dispatch(this.setUser(activeUser));
       } else {
-        const error = await response.json();
-        alert(error.message);
+        // const error = await response.json();
       }
     };
   },
