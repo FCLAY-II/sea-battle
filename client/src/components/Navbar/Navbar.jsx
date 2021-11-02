@@ -11,7 +11,7 @@ export default function Navbar() {
   return (
     <nav>
       <Link to="/">Главная страница</Link>
-      <Link to="/play">Начать игру</Link>
+      <Link to="/play">Играть</Link>
 
       {!isAuth ? (
         <>

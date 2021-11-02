@@ -44,7 +44,7 @@ function useDescriptors(socket) {
         onFailure: () => alert('ты не имеешь доступа к данной игре'),
       };
     },
-    allUsers(setFriends) {
+    allUsers(setPlayers) {
       return {
         fetchCb: (accessToken) =>
           fetch('http://localhost:3001/api/profile/users', {
@@ -52,7 +52,7 @@ function useDescriptors(socket) {
               Authorization: `Bearer ${accessToken}`,
             },
           }),
-        onSuccess: (usersFromBack) => setFriends(usersFromBack),
+        onSuccess: (usersFromBack) => setPlayers(usersFromBack),
         onFailure: () => alert('Игроки остались на сервере'),
       };
     },

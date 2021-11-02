@@ -1,19 +1,26 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useSocket } from '../../contexts/socket.context';
-import Friends from '../Friends/Friends';
+import Friends from '../Players/Players';
 
 export default function Profile() {
   const user = useSelector((state) => state.user);
-  const [friends, setFriends] = useState([]);
+  const [players, setPlayers] = useState([]);
   const { fetchSender, descriptors } = useSocket();
 
   useEffect(() => {
-    fetchSender(descriptors.allUsers(setFriends));
+    fetchSender(descriptors.allUsers(setPlayers));
   }, [fetchSender, descriptors]);
 
   return (
     <div className="profile">
+      <p>
+        <b>
+          <button type="button" className="btn btn-outline-primary btn-lg">
+            Создать игру
+          </button>
+        </b>
+      </p>
       <p>
         <b> Статистика игрока: </b>
         {user.login}{' '}
@@ -31,10 +38,10 @@ export default function Profile() {
           </li>
           <li className="list-group-item">
             <b>Друзья:</b>{' '}
-            {friends
+            {players
               .filter((us) => us.login !== user.login)
-              .map((friend, idx) => (
-                <Friends friend={friend} key={friend.id} idx={idx} />
+              .map((player, idx) => (
+                <Friends player={player} key={player.id} idx={idx} />
               ))}
           </li>
         </ul>
