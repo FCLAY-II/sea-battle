@@ -10,7 +10,7 @@ const secret = process.env.TOKEN_SECRET;
 
 function getFreshTokens(payload, tokenSecret) {
   return {
-    accessToken: jwt.sign(payload, tokenSecret, { expiresIn: '5000' }),
+    accessToken: jwt.sign(payload, tokenSecret, { expiresIn: '15m' }),
     refreshToken: jwt.sign(payload, tokenSecret, { expiresIn: '15d' }),
   };
 }

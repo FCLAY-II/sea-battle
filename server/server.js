@@ -65,6 +65,24 @@ wss.on('connection', (ws, request) => {
           }
         });
         break;
+      case 'INVITE_CREATED':
+        [parsed.payload.hosttId].forEach((id) => {
+          const client = usersConnetctions.get(id);
+          if (client?.readyState === WebSocket.OPEN) {
+            client.send(JSON.stringify({
+              type: 'INVITE_SENDED',
+            }));
+          }
+        });
+        [parsed.payload.guestId].forEach((id) => {
+          const client = usersConnetctions.get(id);
+          if (client?.readyState === WebSocket.OPEN) {
+            client.send(JSON.stringify({
+              type: 'YOU_HAVE_NEW_INVITE',
+            }));
+          }
+        });
+        break;
       default:
         break;
     }

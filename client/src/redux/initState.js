@@ -1,6 +1,6 @@
 const defaultState = {
   game: {
-    status: 'preparation',
+    status: null,
     id: null,
     field: '0'.repeat(100),
     ships: [4, 3, 3, 2, 2, 2, 1, 1, 1, 1],
@@ -12,6 +12,7 @@ const defaultState = {
   },
   user: {
     login: null,
+    invitesCount: 0,
   },
 };
  function initState () {

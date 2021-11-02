@@ -1,5 +1,17 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
+import Game from '../Game/Game';
+import Invitation from '../Invitation/Invitation';
 
 export default function GamePage() {
-  return <div>тут тернарка или AllUsers или Game</div>;
+  const gameStatus = useSelector((state)=> state.game.status);
+
+
+  return (
+    <>
+  <Invitation/>
+  {gameStatus === null ? <></> : <Game/>}
+  </>
+    );
+  
 }

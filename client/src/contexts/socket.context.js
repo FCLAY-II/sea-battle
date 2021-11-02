@@ -3,6 +3,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import useDescriptors from '../hooks/useDescriptors';
 import useFetchSender from '../hooks/useFetchSender';
+import gameAC from '../redux/actionCreators/gameAC';
+import userAC from '../redux/actionCreators/userAC';
 
 const SocketContext = createContext();
 
@@ -10,12 +12,13 @@ function SocketProvider({ children }) {
   const user = useSelector((state) => state.user);
   const gameId = useSelector((state) => state.game?.id);
   const socket = useRef(null);
+  const dispatch = useDispatch();
 
   const history = useHistory();
 
   const fetchSender = useFetchSender();
   const descriptors = useDescriptors(socket);
-  
+
   console.log('socket context rendered', user, gameId);
 
   useEffect(() => {
@@ -39,6 +42,12 @@ function SocketProvider({ children }) {
           case 'GO_TO_GAME':
             fetchSender(descriptors.loadGame(parsed.payload));
             history.push('/play');
+            break;
+          case 'INVITE_SENDED':
+            dispatch(gameAC.changeStatus('answerWating'));
+            break;
+          case 'YOU_HAVE_NEW_INVITE':
+            dispatch(userAC.addInvite());
             break;
           default:
             break;

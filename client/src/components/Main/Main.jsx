@@ -10,6 +10,7 @@ import Profile from '../Profile/Profile';
 import { useAuth } from '../../contexts/auth.context';
 
 import './styles.css';
+import GamePage from '../GamePage/GamePage';
 
 export default function Main() {
 
@@ -37,7 +38,7 @@ export default function Main() {
                 </Route>
                 <Route exact path="/play">
                   <GameContextProvider>
-                    <Game />
+                    <GamePage/>
                   </GameContextProvider>
                 </Route>
                 <Route exact path="/profile">

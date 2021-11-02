@@ -1,9 +1,10 @@
 import { useDispatch, useSelector } from 'react-redux';
 import gameAC from '../redux/actionCreators/gameAC';
+import useFetchSender from './useFetchSender';
 
 function useDescriptors(socket) {
   const dispatch = useDispatch();
-
+const fetchSender = useFetchSender();
   const user = useSelector((state) => state.user);
   const game = useSelector((state) => state.game);
 
@@ -99,6 +100,37 @@ function useDescriptors(socket) {
           }));
         },
         onFailure: () => alert('неправильная расстановка кораблей')
+      };
+    },
+
+    createInvitation(guestId){
+      return{
+        fetchCb: (accessToken) => fetch('http://localhost:3001/api/invite/new', {
+          method: 'POST',
+          headers: {
+            'Authorization': `Bearer ${accessToken}`,
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ guestId })
+        }),
+        onSuccess: () => {
+          socket.current.send(JSON.stringify({
+            type: 'INVITE_CREATED',
+            payload: { hostId: user.id, guestId }
+          }));
+        },
+        onFailure: () => alert('не получилось отправить приглашение')
+      };
+    },
+
+    confirmInvitation(inviteId){
+      return{
+        fetchCb: (accessToken) => fetch(`http://localhost:3001/api/invite/${inviteId}`, {
+          method: 'DELETE',
+          headers: {'Authorization': `Bearer ${accessToken}`},
+        }),
+        onSuccess: ({ enemyId }) => fetchSender(this.createGame(enemyId)) ,
+        onFailure: () => alert('не получилось принять приглашение')
       };
     }
   };

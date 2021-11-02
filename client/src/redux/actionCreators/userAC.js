@@ -1,4 +1,4 @@
-import { EXIT_USER, SET_USER, UPDATE_TOKENS } from '../types/user.types';
+import { ADD_INVITE, EXIT_USER, REMOVE_INVITE, SET_USER, UPDATE_TOKENS } from '../types/user.types';
 
 const userAC = {
   setUser: (user) => ({
@@ -62,6 +62,13 @@ const userAC = {
     type: UPDATE_TOKENS,
     payload: { accessToken, refreshToken },
   }),
+  addInvite: ()=>({
+    type: ADD_INVITE,
+  }),
+  removeInvite: ()=>({
+    type: REMOVE_INVITE,
+  }),
+
 };
 
 export default userAC;

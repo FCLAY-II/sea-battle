@@ -36,7 +36,7 @@ function useFetchSender() {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user);
 
-  return ({ fetchCb, onSuccess, onFailure }) => {
+  return async ({ fetchCb, onSuccess, onFailure }) => {
     wrapper(
       user,
       fetchCb,
