@@ -1,5 +1,5 @@
 import React from 'react';
 
 export default function Row({ cells }) {
-  return <div className="row">{cells.map((item) => item)}</div>;
+  return <div className="field-row">{cells.map((item) => item)}</div>;
 }

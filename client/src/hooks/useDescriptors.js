@@ -21,7 +21,7 @@ function useDescriptors(socket) {
             }
           ),
         onSuccess: (updatedEnemy) => {
-          socket.send(JSON.stringify({
+          socket.current.send(JSON.stringify({
             type: 'MAKE_TURN',
             payload: { firstId: user.id, secondId: updatedEnemy.id }
           }));
@@ -68,11 +68,11 @@ function useDescriptors(socket) {
         }),
         onSuccess: ({status, enemyId}) => {
           if (status === 'active'){
-          socket.send(JSON.stringify({
+          socket.current.send(JSON.stringify({
             type: 'MAKE_TURN',
             payload: { firstId: user.id, secondId: enemyId }
           }));} else {
-            socket.send(JSON.stringify({
+            socket.current.send(JSON.stringify({
               type: 'PUT_SHIPS',
               payload: { enemyId }
             }));
@@ -93,7 +93,7 @@ function useDescriptors(socket) {
           body: JSON.stringify({ playerId: enemyId })
         }),
         onSuccess: ({ gameId }) => {
-          socket.send(JSON.stringify({
+          socket.current.send(JSON.stringify({
             type: 'GAME_CREATED',
             payload: { firstId: user.id, secondId: enemyId, gameId }
           }));

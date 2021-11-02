@@ -1,15 +1,16 @@
 import React from 'react';
-import { useGameContext } from '../../contexts/game.context';
+import { useSelector } from 'react-redux';
+
 import EnemyField from '../EnemyField/EnemyField';
 import MyField from '../MyField/MyField';
 
 export default function Game() {
-  const { game } = useGameContext();
-  console.log(game);
+  const gameStatus = useSelector((state) => state.game.status);
+
   return (
     <div className="game">
       <MyField />
-      {game.status === 'active' ? <EnemyField /> : <></>}
+      {gameStatus === 'active' ? <EnemyField /> : <></>}
     </div>
   );
 }

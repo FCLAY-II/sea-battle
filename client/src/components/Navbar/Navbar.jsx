@@ -21,7 +21,7 @@ export default function Navbar() {
       ) : (
         <>
           <Link to="/profile">{user.login}</Link>
-          <Link to="/">Выйти</Link>
+          <Link to="/logout">Выйти</Link>
         </>
       )}
       <div className="animation start-home" />

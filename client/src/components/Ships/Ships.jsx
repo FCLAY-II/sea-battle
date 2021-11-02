@@ -1,11 +1,11 @@
 import React from 'react';
-import { useGameContext } from '../../contexts/game.context';
+import { useSelector } from 'react-redux';
 // import { Droppable } from 'react-beautiful-dnd';
 import Ship from '../Ship/Ship';
 
 export default function Ships() {
-  const { game } = useGameContext();
-  const shipsArr = game.ships;
+  const gameShips = useSelector((state) => state.game.ships);
+  const shipsArr = gameShips;
   return (
     // <Droppable>
     <div className="ships">

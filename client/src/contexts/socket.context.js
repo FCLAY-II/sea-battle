@@ -1,21 +1,22 @@
 import { createContext, useContext, useEffect, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useHistory } from 'react-router';
-import useRequestDescriptors from '../hooks/useDescriptors';
+import { useHistory } from 'react-router-dom';
+import useDescriptors from '../hooks/useDescriptors';
 import useFetchSender from '../hooks/useFetchSender';
-import gameAC from '../redux/actionCreators/gameAC';
 
 const SocketContext = createContext();
 
 function SocketProvider({ children }) {
   const user = useSelector((state) => state.user);
+  const gameId = useSelector((state) => state.game?.id);
   const socket = useRef(null);
 
   const history = useHistory();
 
-  const dispatch = useDispatch();
   const fetchSender = useFetchSender();
-  const descriptors = useRequestDescriptors(socket.current);
+  const descriptors = useDescriptors(socket);
+  
+  console.log('socket context rendered', user, gameId);
 
   useEffect(() => {
     socket.current = new WebSocket(`ws://localhost:3001/${user.id}`);
@@ -29,7 +30,7 @@ function SocketProvider({ children }) {
 
         switch (parsed.type) {
           case 'UPDATE_FIELD':
-            fetchSender(descriptors.loadGame(1));
+            fetchSender(descriptors.loadGame(gameId));
             break;
           case 'ENEMY_READY':
             alert('enemy ready');
@@ -46,7 +47,7 @@ function SocketProvider({ children }) {
     };
 
     return () => socket.current.close();
-  }, [socket, user.id, dispatch]);
+  }, []);
 
   return (
     <SocketContext.Provider value={{ socket, fetchSender, descriptors }}>
