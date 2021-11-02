@@ -15,36 +15,31 @@ export default function Profile() {
   return (
     <div className="profile">
       <p>
-        <b>
-          <button type="button" className="btn btn-outline-primary btn-lg">
-            Создать игру
-          </button>
-        </b>
-      </p>
-      <p>
         <b> Статистика игрока: </b>
         {user.login}{' '}
       </p>
-      <div className="card" style={{ width: '18rem' }}>
-        <ul className="list-group list-group-flush">
-          <li className="list-group-item">
-            <b>Количество игр:</b>
-          </li>
-          <li className="list-group-item">
-            <b>Победы:</b>
-          </li>
-          <li className="list-group-item">
-            <b>Поражения:</b>
-          </li>
-          <li className="list-group-item">
-            <b>Друзья:</b>{' '}
-            {players
-              .filter((us) => us.login !== user.login)
-              .map((player, idx) => (
-                <Players player={player} key={player.id} idx={idx} />
-              ))}
-          </li>
-        </ul>
+      <div className="d-flex mb-3">
+        <div className="card" style={{ width: '18rem' }}>
+          <ul className="list-group list-group-flush">
+            <li className="list-group-item">
+              <b>Количество игр:</b>
+            </li>
+            <li className="list-group-item">
+              <b>Победы:</b>
+            </li>
+            <li className="list-group-item">
+              <b>Поражения:</b>
+            </li>
+          </ul>
+        </div>
+        <div style={{marginLeft: '4%'}}>
+          <b>Все игроки:</b>{' '}
+          {players
+            .filter((us) => us.login !== user.login)
+            .map((player) => (
+              <Players player={player} key={player.id}/>
+            ))}
+        </div>
       </div>
     </div>
   );
