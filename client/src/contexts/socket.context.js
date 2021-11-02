@@ -1,5 +1,6 @@
 import { createContext, useContext, useEffect, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useHistory } from 'react-router';
 import useRequestDescriptors from '../hooks/useDescriptors';
 import useFetchSender from '../hooks/useFetchSender';
 import gameAC from '../redux/actionCreators/gameAC';
@@ -9,6 +10,8 @@ const SocketContext = createContext();
 function SocketProvider({ children }) {
   const user = useSelector((state) => state.user);
   const socket = useRef(null);
+
+  const history = useHistory();
 
   const dispatch = useDispatch();
   const fetchSender = useFetchSender();
@@ -31,6 +34,10 @@ function SocketProvider({ children }) {
           case 'ENEMY_READY':
             alert('enemy ready');
             // dispatch(gameAC.changeStatus('pending'));
+            break;
+          case 'GO_TO_GAME':
+            fetchSender(descriptors.loadGame(parsed.payload));
+            history.push('/play');
             break;
           default:
             break;

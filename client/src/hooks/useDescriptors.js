@@ -42,6 +42,7 @@ function useDescriptors(socket) {
         onFailure: () => alert('ты не имеешь доступа к данной игре'),
       };
     },
+
     allUsers(setPlayers) {
       return {
         fetchCb: (accessToken) =>
@@ -79,9 +80,27 @@ function useDescriptors(socket) {
         },
         onFailure: () => alert('неправильная расстановка кораблей')
       };
+    },
+
+    createGame(enemyId) {
+      return {
+        fetchCb: (accessToken) => fetch('http://localhost:3001/api/games/new', {
+          method: 'POST',
+          headers: {
+            'Authorization': `Bearer ${accessToken}`,
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ playerId: enemyId })
+        }),
+        onSuccess: ({ gameId }) => {
+          socket.send(JSON.stringify({
+            type: 'GAME_CREATED',
+            payload: { firstId: user.id, secondId: enemyId, gameId }
+          }));
+        },
+        onFailure: () => alert('неправильная расстановка кораблей')
+      };
     }
-
-
   };
 }
 

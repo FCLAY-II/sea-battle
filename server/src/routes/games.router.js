@@ -101,11 +101,11 @@ router.get('/:id', async (req, res) => {
 });
 
 router.post('/new', async (req, res) => {
-  const { player1Id, player2Id } = req.body;
+  const { playerId } = req.body;
   try {
-    const newGame = await Game.create({ currentPlayerId: player1Id, status: 'preparation' });
-    await UsersGame.create({ playerId: player1Id, gameId: newGame.id });
-    await UsersGame.create({ playerId: player2Id, gameId: newGame.id });
+    const newGame = await Game.create({ currentPlayerId: res.locals.userId, status: 'preparation' });
+    await UsersGame.create({ playerId: res.locals.userId, gameId: newGame.id });
+    await UsersGame.create({ playerId, gameId: newGame.id });
     res.json({ gameId: newGame.id });
   } catch (err) {
     res.sendStatus(500);
