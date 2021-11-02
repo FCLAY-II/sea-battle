@@ -155,28 +155,32 @@ router.patch('/:id/make-turn/:cellId', async (req, res) => {
         const shotsArr = [cellId];
         let shipLength = 1;
         let i = 1;
-        while (cellId + i < 100 && record.field[cellId + i] !== '0' && record.field[cellId + i] !== '2') {
-          shipLength += 1;
-          if (record.field[cellId + i] === '3') {
-            shotsArr.push(cellId + i);
+        if ((cellId % 10) % 9 !== 0) {
+          while (cellId + i < 100 && (record.field[cellId + i] === '1' || record.field[cellId + i] === '3')) {
+            shipLength += 1;
+            if (record.field[cellId + i] === '3') {
+              shotsArr.push(cellId + i);
+            }
+            i += 1;
           }
-          i += 1;
         }
-        while (cellId - i > 0 && record.field[cellId - i] !== '0' && record.field[cellId - i] !== '2') {
-          shipLength += 1;
-          if (record.field[cellId - i] === '3') {
-            shotsArr.push(cellId - i);
+        if (cellId % 10 !== 0 && cellId !== 0) {
+          while (cellId - i > 0 && (record.field[cellId - i] === '1' || record.field[cellId - i] === '3')) {
+            shipLength += 1;
+            if (record.field[cellId - i] === '3') {
+              shotsArr.push(cellId - i);
+            }
+            i += 1;
           }
-          i += 1;
         }
-        while (cellId + i * 10 < 100 && record.field[cellId + i * 10] !== '0' && record.field[cellId + i * 10] !== '2') {
+        while (cellId + i * 10 < 100 && (record.field[cellId + i * 10] === '1' || record.field[cellId + i * 10] === '3')) {
           shipLength += 1;
           if (record.field[cellId + i * 10] === '3') {
             shotsArr.push(cellId + i * 10);
           }
           i += 1;
         }
-        while (cellId - i * 10 > 0 && record.field[cellId - i * 10] !== '0' && record.field[cellId - i * 10] !== '2') {
+        while (cellId - i * 10 > 0 && (record.field[cellId - i * 10] === '1' || record.field[cellId - i * 10] === '3')) {
           shipLength += 1;
           if (record.field[cellId - i * 10] === '3') {
             shotsArr.push(cellId - i * 10);

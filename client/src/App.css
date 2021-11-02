@@ -49,6 +49,7 @@
   height: 20px;
   width: 20px;
   background-color: green;
+  border: 1px green solid;
 }
 
 .numbers {
