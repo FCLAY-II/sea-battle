@@ -4,7 +4,7 @@ import useFetchSender from './useFetchSender';
 
 function useDescriptors(socket) {
   const dispatch = useDispatch();
-const fetchSender = useFetchSender();
+  const fetchSender = useFetchSender();
   const user = useSelector((state) => state.user);
   const game = useSelector((state) => state.game);
 
@@ -67,12 +67,13 @@ const fetchSender = useFetchSender();
           },
           body: JSON.stringify({ myField })
         }),
-        onSuccess: ({status, enemyId}) => {
-          if (status === 'active'){
-          socket.current.send(JSON.stringify({
-            type: 'MAKE_TURN',
-            payload: { firstId: user.id, secondId: enemyId }
-          }));} else {
+        onSuccess: ({ status, enemyId }) => {
+          if (status === 'active') {
+            socket.current.send(JSON.stringify({
+              type: 'MAKE_TURN',
+              payload: { firstId: user.id, secondId: enemyId }
+            }));
+          } else {
             socket.current.send(JSON.stringify({
               type: 'PUT_SHIPS',
               payload: { enemyId }
@@ -103,8 +104,8 @@ const fetchSender = useFetchSender();
       };
     },
 
-    createInvitation(guestId){
-      return{
+    createInvitation(guestId) {
+      return {
         fetchCb: (accessToken) => fetch('http://localhost:3001/api/invite/new', {
           method: 'POST',
           headers: {
@@ -123,14 +124,34 @@ const fetchSender = useFetchSender();
       };
     },
 
-    confirmInvitation(inviteId){
-      return{
+    confirmInvitation(inviteId) {
+      return {
         fetchCb: (accessToken) => fetch(`http://localhost:3001/api/invite/${inviteId}`, {
           method: 'DELETE',
-          headers: {'Authorization': `Bearer ${accessToken}`},
+          headers: { 'Authorization': `Bearer ${accessToken}` },
         }),
-        onSuccess: ({ enemyId }) => fetchSender(this.createGame(enemyId)) ,
+        onSuccess: ({ enemyId }) => fetchSender(this.createGame(enemyId)),
         onFailure: () => alert('не получилось принять приглашение')
+      };
+    },
+
+    getReceivedInvites(setInvites) {
+      return {
+        fetchCb: (accessToken) => fetch('http://localhost:3001/api/invite/received', {
+          headers: { 'Authorization': `Bearer ${accessToken}` }
+        }),
+        onSuccess: ({ allInvites }) => setInvites(allInvites),
+        onFailure: () => alert('не удалось получить приглашения')
+      };
+    },
+
+    getSendInvites(setInvites) {
+      return {
+        fetchCb: (accessToken) => fetch('http://localhost:3001/api/invite/received', {
+          headers: { 'Authorization': `Bearer ${accessToken}` },
+        }),
+        onSuccess: ({ allInvites }) => setInvites(allInvites),
+        onFailure: () => alert('не удалось получить приглашения')
       };
     }
   };
