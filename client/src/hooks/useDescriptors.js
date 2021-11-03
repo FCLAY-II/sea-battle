@@ -33,6 +33,7 @@ function useDescriptors(socket) {
     },
 
     loadGame(gameId) {
+      console.log('loadGame called');
       // alert(`gameId form loadGame: ${gameId}`);
       return {
         fetchCb: (accessToken) =>
@@ -60,7 +61,6 @@ function useDescriptors(socket) {
     },
 
     confirmShips(myField) {
-      // alert(game.id);
       return {
         fetchCb: (accessToken) => fetch(`http://localhost:3001/api/games/${game.id}`, {
           method: 'PUT',
@@ -108,6 +108,7 @@ function useDescriptors(socket) {
     },
 
     createInvitation(guestId) {
+      console.log('loadGame called');
       return {
         fetchCb: (accessToken) => fetch('http://localhost:3001/api/invite/new', {
           method: 'POST',

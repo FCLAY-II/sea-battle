@@ -22,10 +22,14 @@ const defaultState = {
     login: null,
   },
 };
+
  function initState () {
-   let state = defaultState;
-   const stateFromLS = JSON.parse(window.localStorage.getItem('redux'));
-   state = stateFromLS || defaultState;
+   const state = defaultState;
+   const gameFromLS = JSON.parse(window.localStorage.getItem('game'));
+   state.game = gameFromLS || defaultState.game;
+   const userFromLS = JSON.parse(window.localStorage.getItem('user'));
+   state.user = userFromLS || defaultState.user;
+   console.log(defaultState.user);
    return state;
  }
 

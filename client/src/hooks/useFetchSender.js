@@ -1,7 +1,9 @@
+import { useEffect, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import userAC from '../redux/actionCreators/userAC';
 
 async function wrapper(user, fetchCb, onSuccess, onFailure, updateCredCb, logoutCb) {
+  console.log('from wrapper:', user.refreshToken);
   const response = await fetchCb(user.accessToken);
   if (response.ok) {
     const result = await response.json();
@@ -27,6 +29,7 @@ async function wrapper(user, fetchCb, onSuccess, onFailure, updateCredCb, logout
       logoutCb();
     }
   } else {
+    console.log(response.status);
     onFailure(response.status);
   }
 };
@@ -35,10 +38,15 @@ function useFetchSender() {
 
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user);
+  const userRef = useRef(user); 
+  
+  useEffect(() => {
+    userRef.current = user;
+  }, [user]);
 
   return async ({ fetchCb, onSuccess, onFailure }) => {
     wrapper(
-      user,
+      userRef.current,
       fetchCb,
       onSuccess,
       onFailure,

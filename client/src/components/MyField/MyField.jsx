@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useSelector , useDispatch } from 'react-redux';
 // import { DragDropContext, Droppable } from 'react-beautiful-dnd';
 import { useGameContext } from '../../contexts/game.context';
@@ -8,6 +8,13 @@ import Ships from '../Ships/Ships';
 
 
 export default function MyField() {
+
+  const [ships, setShips] = useState([
+    4,
+    3, 3,
+    2, 2, 2,
+    1, 1, 1, 1
+  ]);
 
   const game = useSelector((state) => state.game);
   const { makeField, putShip } = useGameContext();
@@ -36,7 +43,7 @@ export default function MyField() {
       {field.map((item) => item)}
     </div>
     {/* </Droppable> */}
-    <Ships />
+    <Ships ships={ships} setShips={setShips} />
     {game.status !== 'active' ? <button type="button"
       onClick={() => fetchSender(descriptors.confirmShips(game.field))}
     >готов к игре</button> : <></>}
