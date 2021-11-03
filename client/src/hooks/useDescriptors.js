@@ -32,6 +32,7 @@ function useDescriptors(socket) {
     },
 
     loadGame(gameId) {
+      // alert(`gameId form loadGame: ${gameId}`);
       return {
         fetchCb: (accessToken) =>
           fetch(`http://localhost:3001/api/games/${gameId}`, {
@@ -58,6 +59,7 @@ function useDescriptors(socket) {
     },
 
     confirmShips(myField) {
+      // alert(game.id);
       return {
         fetchCb: (accessToken) => fetch(`http://localhost:3001/api/games/${game.id}`, {
           method: 'PUT',

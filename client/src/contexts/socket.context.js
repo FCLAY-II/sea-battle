@@ -9,11 +9,13 @@ import userAC from '../redux/actionCreators/userAC';
 const SocketContext = createContext();
 
 function SocketProvider({ children }) {
-  const user = useSelector((state) => state.user);
-  const gameId = useSelector((state) => state.game?.id);
+  const gameId = useRef(null);
   const socket = useRef(null);
-  const dispatch = useDispatch();
 
+  gameId.current = useSelector((state) => state.game?.id);
+  const user = useSelector((state) => state.user);
+
+  const dispatch = useDispatch();
   const history = useHistory();
 
   const fetchSender = useFetchSender();
@@ -33,11 +35,11 @@ function SocketProvider({ children }) {
 
         switch (parsed.type) {
           case 'UPDATE_FIELD':
-            fetchSender(descriptors.loadGame(gameId));
+            fetchSender(descriptors.loadGame(gameId.current));
             break;
           case 'ENEMY_READY':
             alert('enemy ready');
-            // dispatch(gameAC.changeStatus('pending'));
+            dispatch(gameAC.changeStatus('pending'));
             break;
           case 'GO_TO_GAME':
             fetchSender(descriptors.loadGame(parsed.payload));
