@@ -27,7 +27,7 @@ router.post('/signup', async (req, res) => {
 
       const { accessToken, refreshToken } = getFreshTokens(
         { id: user.id },
-        secret
+        secret,
       );
 
       await Token.create({ token: refreshToken, userId: user.id });
@@ -62,7 +62,7 @@ router.post('/signin', async (req, res) => {
       if (await bcrypt.compare(password, user.password)) {
         const { accessToken, refreshToken } = getFreshTokens(
           { id: user.id },
-          secret
+          secret,
         );
 
         const [record, created] = await Token.findOrCreate({
@@ -89,6 +89,16 @@ router.post('/signin', async (req, res) => {
     }
   } else {
     res.status(400).json({ message: 'недостаточно данных' });
+  }
+});
+
+router.delete('/logout/:id', async (req, res) => {
+  try {
+    const userId = req.params.id;
+    await Token.destroy({ where: { userId } });
+    res.sendStatus(200);
+  } catch (err) {
+    res.sendStatus(500);
   }
 });
 

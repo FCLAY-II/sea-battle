@@ -47,12 +47,16 @@ const userAC = {
   }),
 
   logout() {
-    return async (dispatch) => {
-      const response = await fetch('http://localhost:3001/auth/logout', {
-        method: 'GET',
+    return async (dispatch, getState) => {
+      const { user } = getState();
+      const response = await fetch(`http://localhost:3001/api/auth/logout/${user.id}`, {
+        method: 'DELETE',
       });
       if (response.ok) {
+        localStorage.clear();
         dispatch(this.logoutDelivery());
+      } else {
+        alert('не удалось выйти из системы');
       }
     };
   },

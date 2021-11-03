@@ -31,9 +31,6 @@ wss.on('connection', (ws, request) => {
     console.log(parsed);
 
     switch (parsed.type) {
-      case 'PING':
-        console.log('PONG');
-        break;
       case 'MAKE_TURN':
         [parsed.payload.firstId, parsed.payload.secondId].forEach((id) => {
           const client = usersConnetctions.get(id);

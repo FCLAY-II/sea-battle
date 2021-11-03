@@ -85,18 +85,20 @@ router.get('/:id', async (req, res) => {
       field: null,
     },
   };
+
+  const myIdx = (records[0].id === res.locals.userId) ? 0 : 1;
+  const enemyIdx = (records[0].id === res.locals.userId) ? 1 : 0;
+
   result.status = records[0]['Games.status'];
-  if (records[0].id === res.locals.userId) {
-    result.field = records[0]['Games.UsersGame.field'];
-    result.enemy.id = records[1].id;
-    result.enemy.login = records[1].login;
-    result.enemy.field = records[1]['Games.UsersGame.field'].replace(/1/g, '0');
-  } else {
-    result.field = records[1]['Games.UsersGame.field'];
-    result.enemy.id = records[0].id;
-    result.enemy.login = records[0].login;
-    result.enemy.field = records[0]['Games.UsersGame.field'].replace(/1/g, '0');
+  result.field = records[myIdx]['Games.UsersGame.field'];
+  result.enemy.id = records[enemyIdx].id;
+  result.enemy.login = records[enemyIdx].login;
+  result.enemy.field = records[enemyIdx]['Games.UsersGame.field'];
+
+  if (result.status === 'active') {
+    result.enemy.field = result.enemy.field.replace(/1/g, '0');
   }
+
   res.json(result);
 });
 

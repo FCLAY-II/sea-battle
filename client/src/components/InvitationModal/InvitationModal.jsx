@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux';
 import userAC from '../../redux/actionCreators/userAC';
 
 export default function InvitationModal() {

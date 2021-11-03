@@ -3,7 +3,10 @@ import { ADD_INVITE, EXIT_USER, REMOVE_INVITE, SET_USER, UPDATE_TOKENS } from '.
 function userReducer(stateUser = {}, action) {
   switch (action.type) {
     case SET_USER:
-      return action.payload;
+      return {
+        ...action.payload,
+        invitesCount: 0,
+      };
     case UPDATE_TOKENS:
       return {
         ...stateUser,

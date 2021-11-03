@@ -7,8 +7,10 @@ const AuthContext = createContext();
 function AuthProvider({ children }) {
   const user = useSelector((state) => state.user);
 
+  console.log('auth rendered');
+
   const dispatch = useDispatch();
-  const [isAuth, setIsAuth] = useState(false);
+  const [isAuth, setIsAuth] = useState(user.login !== null);
 
   useEffect(() => {
     if (!isAuth) {
@@ -30,6 +32,8 @@ function AuthProvider({ children }) {
         // alert('проверка токена прошла неудачно');
         return setIsAuth(false);
       });
+    } else if (user.login === null) {
+      setIsAuth(false);
     }
   }, [user.refreshToken, dispatch, isAuth]);
 
