@@ -1,0 +1,53 @@
+.con {
+  width: 500 px;
+  height: 350 px !important;
+}
+.container {
+  display: flex;
+  margin-top: 17%;
+  align-items: center;
+  justify-content: center;
+}
+#frm {
+  box-shadow:10px 5px 5px #00bbd67d;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: space-evenly;
+  border-radius: 17px;
+  height: 420px;
+  width: 30%;
+  background-color:#9adb44;
+}
+.fom {
+  padding: 35px !important;
+}
+.navbar-brand {
+  margin: 0;
+}
+.det {
+  margin-top: 11px;
+  color: black !important;
+  font-style: oblique;
+}
+b {
+  font-size: 27px;
+}
+.logi {
+  color: black;
+  background-color: #8cc640;
+  border-color: #323e2d;
+}
+
+.inp {
+  background-color: #8cc640;
+  border: 1px solid black;
+}
+.form-control:focus {
+  color: #73c20b;
+  background-color: #ffffffa6;
+  border-color: #3edb0e;
+}
+.container{
+  background-image: url('../../img/wave_03.png');
+}

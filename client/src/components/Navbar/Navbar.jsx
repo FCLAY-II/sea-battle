@@ -20,19 +20,17 @@ export default function Navbar() {
             <Link to="/register">Зарегистрироваться</Link>
           </>
         ) : (
-          (console.log('kindaauth'),
-          (
-            <>
-              <Link to="/profile">{user.login}</Link>
-              <span
-                onClick={() => {
-                  dispatch(userAC.logout());
-                }}
-              >
-                <Link to="/">Выйти</Link>
-              </span>
-            </>
-          ))
+          <>
+            <Link to="/profile">{user.login}</Link>
+            <Link
+              onClick={() => {
+                dispatch(userAC.logout());
+              }}
+              to="/"
+            >
+              Выйти
+            </Link>
+          </>
         )}
         <div className="animation start-home" />
       </nav>

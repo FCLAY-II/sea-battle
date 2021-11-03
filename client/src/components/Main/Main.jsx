@@ -9,6 +9,7 @@ import Profile from '../Profile/Profile';
 
 import './styles.css';
 import GamePage from '../GamePage/GamePage';
+import MainParaPage from '../MainParaPage/MainParaPage';
 
 export default function Main() {
 
@@ -29,7 +30,7 @@ export default function Main() {
             <Route path="/">
               <SocketProvider>
                 <Route exact path="/">
-                  <p>Компонента с главной, к которой имеют доступ все пользователи</p>
+                  <MainParaPage />
                 </Route>
                 <Route exact path="/play">
                   <GamePage/>

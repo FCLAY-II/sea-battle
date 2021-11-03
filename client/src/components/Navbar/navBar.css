@@ -3,7 +3,7 @@ a {
   color: white !important;
 }
 .opt {
-  background-color: black;
+  background-color: white;
 }
 
 nav {
@@ -14,7 +14,7 @@ nav {
   height: 50px;
   font-size: 40px;
   font-family: 'Rubik Beastly', cursive;
-  background: #1f23268f;
+  background: #f47624;
   font-size: 0;
   box-shadow: 0 2px 3px 0 rgba(0, 0, 0, 0.1);
 }
@@ -34,7 +34,7 @@ nav .animation {
   height: 100%;
   top: 0;
   z-index: 0;
-  background: #521214b5;
+  background: #8cc640;
   transition: all 0.5s ease 0s;
   border-radius: 12px;
 }
@@ -44,8 +44,8 @@ nav a:nth-child(1) {
 }
 nav .start-home,
 nav a:nth-child(1):hover ~ .animation {
-  width: 25%;
-  left: 0;
+  width: 27%;
+  left: -8px;
 }
 nav a:nth-child(2) {
   width: 30%;
