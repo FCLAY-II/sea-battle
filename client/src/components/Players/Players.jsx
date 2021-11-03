@@ -16,7 +16,7 @@ export default function Players({ player }) {
           type="button"
           className="btn btn-outline-primary btn-sm"
         >
-          Создать игру
+          Пригласить в игру
         </button>
       </li>
     </div>

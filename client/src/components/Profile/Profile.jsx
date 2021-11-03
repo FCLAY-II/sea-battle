@@ -7,12 +7,15 @@ export default function Profile() {
   const user = useSelector((state) => state.user);
   const { fetchSender, descriptors } = useSocket();
   const [invites, setInvites] = useState([]);
+  const [statistic, setStatistic] = useState({});
+  
 
 
   useEffect(() => {
     fetchSender(descriptors.getReceivedInvites(setInvites));
+    fetchSender(descriptors.getStatistic(setStatistic));
   }, []);
-  
+  console.log(statistic);
 
   return (
     <div className="profile">
@@ -32,13 +35,13 @@ export default function Profile() {
         <div className="card" style={{ width: '18rem' }}>
           <ul className="list-group list-group-flush">
             <li className="list-group-item">
-              <b>Количество игр:</b>
+              <b>Количество игр: {statistic.gamesCount}</b>
             </li>
             <li className="list-group-item">
-              <b>Победы:</b>
+              <b>Победы: {statistic.victoriesCount}</b>
             </li>
             <li className="list-group-item">
-              <b>Поражения:</b>
+              <b>Поражения: {statistic.failCount}</b>
             </li>
           </ul>
         </div>

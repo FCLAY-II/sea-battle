@@ -90,6 +90,7 @@ router.get('/:id', async (req, res) => {
   const enemyIdx = (records[0].id === res.locals.userId) ? 1 : 0;
 
   result.status = records[0]['Games.status'];
+  result.currentPlayerId = records[0]['Games.currentPlayerId'];
   result.field = records[myIdx]['Games.UsersGame.field'];
   result.enemy.id = records[enemyIdx].id;
   result.enemy.login = records[enemyIdx].login;

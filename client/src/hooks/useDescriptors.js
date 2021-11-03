@@ -157,6 +157,15 @@ function useDescriptors(socket) {
         onSuccess: ({ allInvites }) => setInvites(allInvites),
         onFailure: () => alert('не удалось получить приглашения')
       };
+    },
+    getStatistic(setStatistic) {
+      return {
+        fetchCb: (accessToken) => fetch(`http://localhost:3001/api/profile/${user.id}/statistic`, {
+          headers: { 'Authorization': `Bearer ${accessToken}` },
+        }),
+        onSuccess: ({ gamesCount, victoriesCount, failCount }) => setStatistic({ gamesCount, victoriesCount, failCount }),
+        onFailure: () => alert('не удалось получить статистику')
+      };
     }
   };
 }
