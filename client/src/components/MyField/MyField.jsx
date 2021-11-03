@@ -36,7 +36,7 @@ export default function MyField() {
       {field.map((item) => item)}
     </div>
     {/* </Droppable> */}
-    <Ships />
+    {/* <Ships /> */}
     {game.status !== 'active' ? <button type="button"
       onClick={() => fetchSender(descriptors.confirmShips(game.field))}
     >готов к игре</button> : <></>}
