@@ -53,7 +53,7 @@ const userAC = {
         method: 'DELETE',
       });
       if (response.ok) {
-        localStorage.clear();
+        window.localStorage.clear();
         dispatch(this.logoutDelivery());
       } else {
         alert('не удалось выйти из системы');

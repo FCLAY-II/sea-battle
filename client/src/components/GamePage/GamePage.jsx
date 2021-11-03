@@ -9,8 +9,8 @@ export default function GamePage() {
 
   return (
     <>
-  <Invitation/>
-  {gameStatus === null ? <></> : <Game/>}
+  
+  {gameStatus === null ? <Invitation/> : <Game/>}
   </>
     );
   
