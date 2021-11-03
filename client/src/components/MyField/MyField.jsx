@@ -8,6 +8,14 @@ import Ships from '../Ships/Ships';
 
 
 export default function MyField() {
+
+  const [ships, setShips] = useState([
+    4,
+    3, 3,
+    2, 2, 2,
+    1, 1, 1, 1
+  ]);
+
   const user = useSelector((state) => state.user);
   const game = useSelector((state) => state.game);
   const dispatch = useDispatch();
@@ -40,6 +48,7 @@ export default function MyField() {
       </div>
       {/* </Droppable> */}
       {/* <Ships /> */}
+      <Ships ships={ships} setShips={setShips} />
       {game.status !== 'active' && game.status !== 'finished' && buttonState === 'visible' ? <button type="button"
         onClick={() => {
           fetchSender(descriptors.confirmShips(game.field));

@@ -1,4 +1,4 @@
-import { CHANGE_STATUS, LOAD_GAME, PUT_SHIP, UPDATE_ENEMY } from '../types/game.types';
+import { CHANGE_STATUS, LOAD_GAME, PUT_SHIP } from '../types/game.types';
 
 const gameAC = {
   putShip: (myField) => ({
@@ -25,11 +25,6 @@ const gameAC = {
       }
     };
   },
-
-  updateEnemy: (updatedEnemy) => ({
-    type: UPDATE_ENEMY,
-    payload: updatedEnemy
-  }),
 
   changeStatus(status) {
     return {

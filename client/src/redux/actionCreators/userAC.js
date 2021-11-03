@@ -55,8 +55,8 @@ const userAC = {
       });
       if (response.ok) {
         dispatch(this.logoutDelivery());
+        dispatch(gameAC.setGame(null));
         window.localStorage.clear();
-        // gameAC.
       } else {
         alert('не удалось выйти из системы');
       }

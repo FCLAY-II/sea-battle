@@ -10,8 +10,8 @@ export default function Profile() {
   const [statistic, setStatistic] = useState({});
 
   useEffect(() => {
-    fetchSender(descriptors.getReceivedInvites(setInvites));
-    fetchSender(descriptors.getStatistic(setStatistic));
+    fetchSender(descriptors.getReceivedInvites(setInvites))
+      .then(() => fetchSender(descriptors.getStatistic(setStatistic)));
   }, []);
   console.log(statistic);
 
