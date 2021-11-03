@@ -27,7 +27,7 @@ function AuthProvider({ children }) {
       })
       .catch((err) => {
         console.log(err);
-        alert('проверка токена прошла неудачно');
+        // alert('проверка токена прошла неудачно');
         return setIsAuth(false);
       });
     }
