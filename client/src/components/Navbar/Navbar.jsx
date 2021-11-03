@@ -9,7 +9,7 @@ export default function Navbar() {
   const { isAuth } = useAuth();
 
   return (
-    <div className='opt'>
+    <header className="opt">
       <nav>
         <Link to="/">Главная страница</Link>
         <Link to="/play">Играть</Link>
@@ -27,6 +27,6 @@ export default function Navbar() {
         )}
         <div className="animation start-home" />
       </nav>
-    </div>
+    </header>
   );
 }

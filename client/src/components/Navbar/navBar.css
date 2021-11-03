@@ -1,6 +1,3 @@
-@import url('https://fonts.googleapis.com/css?family=Open+Sans&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Fruktur&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Fruktur&family=Zen+Kurenaido&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Balsamiq+Sans&family=Fruktur&family=Rubik+Beastly&family=Zen+Kurenaido&display=swap');
 a {
   color: white !important;
@@ -39,6 +36,7 @@ nav .animation {
   z-index: 0;
   background: #521214b5;
   transition: all 0.5s ease 0s;
+  border-radius: 12px;
 }
 
 nav a:nth-child(1) {

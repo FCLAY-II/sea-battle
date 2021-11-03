@@ -1,4 +1,4 @@
 main {
-  display: flex;
-  width: 1000px;
+  flex-grow: 1;
+  position: relative;
 }
