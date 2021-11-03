@@ -1,11 +1,13 @@
 const router = require('express').Router();
-const { User, UsersGame, Game, Invite } = require('../db/models');
+const {
+  User, UsersGame, Game, Invite,
+} = require('../db/models');
 
 router.post('/new', async (reg, res) => {
   const hostId = res.locals.userId;
   const { guestId } = reg.body;
   try {
-    await Invite.create({ hostId, guestId });
+    await Invite.findOrCreate({ where: { hostId, guestId } });
     res.json({});
   } catch (err) {
     res.sendStatus(500);

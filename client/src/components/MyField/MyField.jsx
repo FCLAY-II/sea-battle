@@ -23,7 +23,7 @@ export default function MyField() {
   const currStateOfMyField = game.field;
   const field = makeField(currStateOfMyField);
   const { fetchSender, descriptors } = useSocket();
-  const [buttonState, setButtonState] = useState('visible');
+  // const [buttonState, setButtonState] = useState('visible');
   // const dispatch = useDispatch();
 
   // const onDragEnd = result =>{
@@ -49,11 +49,10 @@ export default function MyField() {
       {/* </Droppable> */}
       {/* <Ships /> */}
       <Ships ships={ships} setShips={setShips} />
-      {game.status !== 'active' && game.status !== 'finished' && buttonState === 'visible' ? <button type="button"
+      {game.status === 'preparation' ? <button type="button"
         onClick={() => {
           fetchSender(descriptors.confirmShips(game.field));
-          dispatch(gameAC.changeStatus('pending'));
-          setButtonState('unvisible');
+          // setButtonState('unvisible');
         }}
       >Готов к игре</button> : <></>}
       <div>{game.currentPlayerId === user.id ? <p> сейчас ваш ход</p> : <p> ждем, пока сходит {game.enemy.login}</p>}</div>

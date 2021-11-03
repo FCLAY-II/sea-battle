@@ -77,6 +77,7 @@ function useDescriptors(socket) {
               payload: { firstId: user.id, secondId: enemyId }
             }));
           } else {
+            dispatch(gameAC.changeStatus('pending'));
             socket.current.send(JSON.stringify({
               type: 'PUT_SHIPS',
               payload: { enemyId }

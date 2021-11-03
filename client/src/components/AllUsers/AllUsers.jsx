@@ -18,7 +18,7 @@ export default function AllUsers() {
       {players
         .filter((usr) => usr.login !== user.login)
         .map((player) => (
-          <Players player={player} key={player.id} />
+          <Players key={player.id} player={player}  />
         ))}
     </div>
   );

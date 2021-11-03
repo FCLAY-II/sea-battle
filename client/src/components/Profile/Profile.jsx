@@ -14,7 +14,7 @@ export default function Profile() {
   useEffect(() => {
     fetchSender(descriptors.getReceivedInvites(setInvites))
       .then(() => fetchSender(descriptors.getStatistic(setStatistic)));
-  }, []);
+  }, [user.invitesCount]);
   console.log(statistic);
 
   return (
@@ -24,7 +24,7 @@ export default function Profile() {
         {user.login}{' '}
       </p>
       <div><h2>Ваши приглашения:</h2>
-        {invites.map(invite => <div className="invite">
+        {invites.map(invite => <div key={invite.Invite.id} className="invite">
           <p>{invite.login}</p>
           <button onClick={() => fetchSender(descriptors.confirmInvitation(invite.Invite.id))}
             type='button'>принять</button>

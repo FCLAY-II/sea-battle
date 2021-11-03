@@ -3,6 +3,8 @@ const router = require('express').Router();
 const { Op } = require('sequelize');
 const { User, UsersGame, Game } = require('../db/models');
 
+const { checkField } = require('../util/fieldChecker');
+
 function stringReplaceAt(str, index, replacement) {
   return str.slice(0, index) + replacement + str.slice(index + replacement.length);
 }
@@ -16,9 +18,6 @@ router.use('/:id', (req, res, next) => {
 router.put('/:id', async (req, res) => {
   const { myField: field } = req.body;
   console.log('from put:', field);
-  function checkField(field) {
-    return true;
-  }
 
   if (checkField(field)) {
     const game = await Game.findByPk(res.locals.gameId);
