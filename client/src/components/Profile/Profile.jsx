@@ -1,17 +1,18 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { useSocket } from '../../contexts/socket.context';
 
 
 export default function Profile() {
   const user = useSelector((state) => state.user);
-  const {fetchSender, descriptors} = useSocket();
+  const { fetchSender, descriptors } = useSocket();
   const [invites, setInvites] = useState([]);
 
 
-  // useEffect(() => {
-
-  // }, [])
+  useEffect(() => {
+    fetchSender(descriptors.getReceivedInvites(setInvites));
+  }, []);
+  
 
   return (
     <div className="profile">
@@ -21,8 +22,8 @@ export default function Profile() {
       </p>
       <div><h2>Ваши приглашения:</h2>
         {invites.map(invite => <div className="invite">
-          <p>{invite.hostId}</p>
-          <button onClick={() => fetchSender(descriptors.confirmInvitation(invite.id)) }
+          <p>{invite.login}</p>
+          <button onClick={() => fetchSender(descriptors.confirmInvitation(invite.Invite.id))}
             type='button'>принять</button>
         </div>)}
       </div>

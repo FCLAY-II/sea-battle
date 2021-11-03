@@ -147,7 +147,7 @@ function useDescriptors(socket) {
 
     getSendInvites(setInvites) {
       return {
-        fetchCb: (accessToken) => fetch('http://localhost:3001/api/invite/received', {
+        fetchCb: (accessToken) => fetch('http://localhost:3001/api/invite/sent', {
           headers: { 'Authorization': `Bearer ${accessToken}` },
         }),
         onSuccess: ({ allInvites }) => setInvites(allInvites),
