@@ -1,12 +1,12 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { useAuth } from '../../contexts/auth.context';
+import userAC from '../../redux/actionCreators/userAC';
 import './navBar.css';
 
 export default function Navbar() {
   const user = useSelector((state) => state.user);
-  const { isAuth } = useAuth();
+  const dispatch = useDispatch();
 
   return (
     <header className="opt">
@@ -14,16 +14,25 @@ export default function Navbar() {
         <Link to="/">Главная страница</Link>
         <Link to="/play">Играть</Link>
 
-        {!isAuth ? (
+        {!user.login ? (
           <>
             <Link to="/login">Авторизоваться</Link>
             <Link to="/register">Зарегистрироваться</Link>
           </>
         ) : (
-          <>
-            <Link to="/profile">{user.login}</Link>
-            <Link to="/logout">Выйти</Link>
-          </>
+          (console.log('kindaauth'),
+          (
+            <>
+              <Link to="/profile">{user.login}</Link>
+              <span
+                onClick={() => {
+                  dispatch(userAC.logout());
+                }}
+              >
+                <Link to="/">Выйти</Link>
+              </span>
+            </>
+          ))
         )}
         <div className="animation start-home" />
       </nav>

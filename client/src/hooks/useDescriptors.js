@@ -1,8 +1,10 @@
 import { useDispatch, useSelector } from 'react-redux';
 import gameAC from '../redux/actionCreators/gameAC';
+import useFetchSender from './useFetchSender';
 
 function useDescriptors(socket) {
   const dispatch = useDispatch();
+  const fetchSender = useFetchSender();
 
   const user = useSelector((state) => state.user);
   const game = useSelector((state) => state.game);
@@ -31,6 +33,7 @@ function useDescriptors(socket) {
     },
 
     loadGame(gameId) {
+      // alert(`gameId form loadGame: ${gameId}`);
       return {
         fetchCb: (accessToken) =>
           fetch(`http://localhost:3001/api/games/${gameId}`, {
@@ -38,7 +41,7 @@ function useDescriptors(socket) {
               Authorization: `Bearer ${accessToken}`,
             },
           }),
-        onSuccess: (freshGame) => dispatch(gameAC.loadGameDelivery(freshGame)),
+        onSuccess: (freshGame) => dispatch(gameAC.setGame(freshGame)),
         onFailure: () => alert('ты не имеешь доступа к данной игре'),
       };
     },
@@ -57,6 +60,7 @@ function useDescriptors(socket) {
     },
 
     confirmShips(myField) {
+      // alert(game.id);
       return {
         fetchCb: (accessToken) => fetch(`http://localhost:3001/api/games/${game.id}`, {
           method: 'PUT',
@@ -66,12 +70,13 @@ function useDescriptors(socket) {
           },
           body: JSON.stringify({ myField })
         }),
-        onSuccess: ({status, enemyId}) => {
-          if (status === 'active'){
-          socket.current.send(JSON.stringify({
-            type: 'MAKE_TURN',
-            payload: { firstId: user.id, secondId: enemyId }
-          }));} else {
+        onSuccess: ({ status, enemyId }) => {
+          if (status === 'active') {
+            socket.current.send(JSON.stringify({
+              type: 'MAKE_TURN',
+              payload: { firstId: user.id, secondId: enemyId }
+            }));
+          } else {
             socket.current.send(JSON.stringify({
               type: 'PUT_SHIPS',
               payload: { enemyId }
@@ -99,6 +104,57 @@ function useDescriptors(socket) {
           }));
         },
         onFailure: () => alert('неправильная расстановка кораблей')
+      };
+    },
+
+    createInvitation(guestId) {
+      return {
+        fetchCb: (accessToken) => fetch('http://localhost:3001/api/invite/new', {
+          method: 'POST',
+          headers: {
+            'Authorization': `Bearer ${accessToken}`,
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ guestId })
+        }),
+        onSuccess: () => {
+          socket.current.send(JSON.stringify({
+            type: 'INVITE_CREATED',
+            payload: { hostId: user.id, guestId }
+          }));
+        },
+        onFailure: () => alert('не получилось отправить приглашение')
+      };
+    },
+
+    confirmInvitation(inviteId) {
+      return {
+        fetchCb: (accessToken) => fetch(`http://localhost:3001/api/invite/${inviteId}`, {
+          method: 'DELETE',
+          headers: { 'Authorization': `Bearer ${accessToken}` },
+        }),
+        onSuccess: ({ enemyId }) => fetchSender(this.createGame(enemyId)),
+        onFailure: () => alert('не получилось принять приглашение')
+      };
+    },
+
+    getReceivedInvites(setInvites) {
+      return {
+        fetchCb: (accessToken) => fetch('http://localhost:3001/api/invite/received', {
+          headers: { 'Authorization': `Bearer ${accessToken}` }
+        }),
+        onSuccess: ({ allInvites }) => setInvites(allInvites),
+        onFailure: () => alert('не удалось получить приглашения')
+      };
+    },
+
+    getSendInvites(setInvites) {
+      return {
+        fetchCb: (accessToken) => fetch('http://localhost:3001/api/invite/sent', {
+          headers: { 'Authorization': `Bearer ${accessToken}` },
+        }),
+        onSuccess: ({ allInvites }) => setInvites(allInvites),
+        onFailure: () => alert('не удалось получить приглашения')
       };
     }
   };

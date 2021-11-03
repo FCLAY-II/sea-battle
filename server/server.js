@@ -31,9 +31,6 @@ wss.on('connection', (ws, request) => {
     console.log(parsed);
 
     switch (parsed.type) {
-      case 'PING':
-        console.log('PONG');
-        break;
       case 'MAKE_TURN':
         [parsed.payload.firstId, parsed.payload.secondId].forEach((id) => {
           const client = usersConnetctions.get(id);
@@ -61,6 +58,24 @@ wss.on('connection', (ws, request) => {
             client.send(JSON.stringify({
               type: 'GO_TO_GAME',
               payload: parsed.payload.gameId,
+            }));
+          }
+        });
+        break;
+      case 'INVITE_CREATED':
+        [parsed.payload.hosttId].forEach((id) => {
+          const client = usersConnetctions.get(id);
+          if (client?.readyState === WebSocket.OPEN) {
+            client.send(JSON.stringify({
+              type: 'INVITE_SENDED',
+            }));
+          }
+        });
+        [parsed.payload.guestId].forEach((id) => {
+          const client = usersConnetctions.get(id);
+          if (client?.readyState === WebSocket.OPEN) {
+            client.send(JSON.stringify({
+              type: 'YOU_HAVE_NEW_INVITE',
             }));
           }
         });

@@ -85,18 +85,20 @@ router.get('/:id', async (req, res) => {
       field: null,
     },
   };
+
+  const myIdx = (records[0].id === res.locals.userId) ? 0 : 1;
+  const enemyIdx = (records[0].id === res.locals.userId) ? 1 : 0;
+
   result.status = records[0]['Games.status'];
-  if (records[0].id === res.locals.userId) {
-    result.field = records[0]['Games.UsersGame.field'];
-    result.enemy.id = records[1].id;
-    result.enemy.login = records[1].login;
-    result.enemy.field = records[1]['Games.UsersGame.field'];
-  } else {
-    result.field = records[1]['Games.UsersGame.field'];
-    result.enemy.id = records[0].id;
-    result.enemy.login = records[0].login;
-    result.enemy.field = records[0]['Games.UsersGame.field'];
+  result.field = records[myIdx]['Games.UsersGame.field'];
+  result.enemy.id = records[enemyIdx].id;
+  result.enemy.login = records[enemyIdx].login;
+  result.enemy.field = records[enemyIdx]['Games.UsersGame.field'];
+
+  if (result.status === 'active') {
+    result.enemy.field = result.enemy.field.replace(/1/g, '0');
   }
+
   res.json(result);
 });
 
@@ -144,47 +146,49 @@ router.patch('/:id/make-turn/:cellId', async (req, res) => {
         },
       });
 
-      // console.log(stringReplaceAt(record.field, 2, '2'));
-      // if (record.field[cellId] === '1'
-      //   && (record.field[cellId + 1] !== '1' && record.field[cellId - 1] !== '1'
-      //     && record.field[cellId + 10] !== '1' && record.field[cellId - 10] !== '1')) {
-      //   record.field = stringReplaceAt(record.field, cellId, '4');
-      //   await record.save();
-      // } else 
       if (record.field[cellId] === '1') {
         const shotsArr = [cellId];
         let shipLength = 1;
         let i = 1;
-        while (cellId + i < 100 && record.field[cellId + i] !== '0' && record.field[cellId + i] !== '2') {
-          shipLength += 1;
-          if (record.field[cellId + i] === '3') {
-            shotsArr.push(cellId + i);
+        if (cellId % 10 !== 9) {
+          // if (cellId % 10 === 0 || (cellId % 10) % 9 !== 0) {
+          while (((cellId + i) % 10 !== 0) && (record.field[cellId + i] === '1' || record.field[cellId + i] === '3')) {
+            shipLength += 1;
+            if (record.field[cellId + i] === '3') {
+              shotsArr.push(cellId + i);
+            }
+            i += 1;
           }
-          i += 1;
+          i = 1;
         }
-        while (cellId - i > 0 && record.field[cellId - i] !== '0' && record.field[cellId - i] !== '2') {
-          shipLength += 1;
-          if (record.field[cellId - i] === '3') {
-            shotsArr.push(cellId - i);
+        if (cellId % 10 !== 0) {
+          i = 1;
+          while (cellId - i >= 0 && ((cellId - i) % 10 !== 9) && (record.field[cellId - i] === '1' || record.field[cellId - i] === '3')) {
+            shipLength += 1;
+            if (record.field[cellId - i] === '3') {
+              shotsArr.push(cellId - i);
+            }
+            i += 1;
           }
-          i += 1;
+          i = 1;
         }
-        while (cellId + i * 10 < 100 && record.field[cellId + i * 10] !== '0' && record.field[cellId + i * 10] !== '2') {
+        i = 1;
+        while (cellId + i * 10 < 100 && (record.field[cellId + i * 10] === '1' || record.field[cellId + i * 10] === '3')) {
           shipLength += 1;
           if (record.field[cellId + i * 10] === '3') {
             shotsArr.push(cellId + i * 10);
           }
           i += 1;
         }
-        while (cellId - i * 10 > 0 && record.field[cellId - i * 10] !== '0' && record.field[cellId - i * 10] !== '2') {
+        i = 1;
+        while (cellId - i * 10 >= 0 && (record.field[cellId - i * 10] === '1' || record.field[cellId - i * 10] === '3')) {
           shipLength += 1;
           if (record.field[cellId - i * 10] === '3') {
             shotsArr.push(cellId - i * 10);
           }
           i += 1;
         }
-        console.log('SSSSSSSSSSSSSSSSSSSSSSHHHHHHHHHHHHHHHHHH', shipLength);
-        console.log('SSSSSSSSSSSSSSSSSSSSSSHHHHHHHHHHHHHHHHHH', shotsArr);
+        i = 1;
         if (shipLength === shotsArr.length) {
           for (let j = 0; j < shotsArr.length; j += 1) {
             record.field = stringReplaceAt(record.field, shotsArr[j], '4');
@@ -201,12 +205,13 @@ router.patch('/:id/make-turn/:cellId', async (req, res) => {
         await gameRecord.save();
       }
 
-      // console.log(gameRecord.currentPlayerId);
-      // console.log(gameRecord.currentPlayerId);
-      // console.log(record, gameRecord);
+      if (!record.field.includes('1')) {
+        gameRecord.status = 'finished';
+        await gameRecord.save();
+      }
+
       res.json({ id: record.playerId, field: record.field });
     } else {
-      console.log('rights');
       res.status(401).json({ message: 'недостаточно прав для совершения хода' });
     }
   } else {

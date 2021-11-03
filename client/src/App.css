@@ -50,6 +50,7 @@
   height: 20px;
   width: 20px;
   background-color: green;
+  border: 1px green solid;
 }
 
 .numbers {
@@ -81,4 +82,16 @@
 
 li {
   list-style-type: none;
+}
+
+.modal{
+  position: absolute;
+  display: flex;
+  align-self: center;
+  height: 100px;
+  width: 200px;
+  top: calc(50vh - 75px);
+  left: calc(50vw - 125px);
+  margin: auto;
+  background-color: lightblue;
 }

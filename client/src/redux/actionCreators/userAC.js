@@ -1,4 +1,5 @@
-import { EXIT_USER, SET_USER, UPDATE_TOKENS } from '../types/user.types';
+import { ADD_INVITE, EXIT_USER, REMOVE_INVITE, SET_USER, UPDATE_TOKENS } from '../types/user.types';
+import gameAC from './gameAC';
 
 const userAC = {
   setUser: (user) => ({
@@ -37,8 +38,7 @@ const userAC = {
         const activeUser = await response.json();
         dispatch(this.setUser(activeUser));
       } else {
-        const error = await response.json();
-        alert(error.message);
+        // const error = await response.json();
       }
     };
   },
@@ -48,12 +48,17 @@ const userAC = {
   }),
 
   logout() {
-    return async (dispatch) => {
-      const response = await fetch('http://localhost:3001/auth/logout', {
-        method: 'GET',
+    return async (dispatch, getState) => {
+      const { user } = getState();
+      const response = await fetch(`http://localhost:3001/api/auth/logout/${user.id}`, {
+        method: 'DELETE',
       });
       if (response.ok) {
+        window.localStorage.clear();
         dispatch(this.logoutDelivery());
+        // gameAC.
+      } else {
+        alert('не удалось выйти из системы');
       }
     };
   },
@@ -62,6 +67,13 @@ const userAC = {
     type: UPDATE_TOKENS,
     payload: { accessToken, refreshToken },
   }),
+  addInvite: ()=>({
+    type: ADD_INVITE,
+  }),
+  removeInvite: ()=>({
+    type: REMOVE_INVITE,
+  }),
+
 };
 
 export default userAC;

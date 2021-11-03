@@ -10,7 +10,7 @@ export default function Players({ player }) {
         <b>Логин:</b>&nbsp;{player.login}{' '}
         <button
           onClick={(e) => {
-            fetchSender(descriptors.createGame(+e.target.dataset.id));
+            fetchSender(descriptors.createInvitation(+e.target.dataset.id));
           }}
           data-id={player.id}
           type="button"
