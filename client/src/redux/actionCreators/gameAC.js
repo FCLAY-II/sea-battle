@@ -6,7 +6,7 @@ const gameAC = {
     payload: myField,
   }),
 
-  loadGameDelivery: (game) => ({
+  setGame: (game) => ({
     type: LOAD_GAME,
     payload: game,
   }),
@@ -21,7 +21,7 @@ const gameAC = {
       });
       if (response.ok) {
         const game = await response.json();
-        dispatch(this.loadGameDelivery(game));
+        dispatch(this.setGame(game));
       }
     };
   },

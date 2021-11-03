@@ -5,6 +5,7 @@ import useFetchSender from './useFetchSender';
 function useDescriptors(socket) {
   const dispatch = useDispatch();
   const fetchSender = useFetchSender();
+
   const user = useSelector((state) => state.user);
   const game = useSelector((state) => state.game);
 
@@ -40,7 +41,7 @@ function useDescriptors(socket) {
               Authorization: `Bearer ${accessToken}`,
             },
           }),
-        onSuccess: (freshGame) => dispatch(gameAC.loadGameDelivery(freshGame)),
+        onSuccess: (freshGame) => dispatch(gameAC.setGame(freshGame)),
         onFailure: () => alert('ты не имеешь доступа к данной игре'),
       };
     },

@@ -1,4 +1,5 @@
 import { ADD_INVITE, EXIT_USER, REMOVE_INVITE, SET_USER, UPDATE_TOKENS } from '../types/user.types';
+import gameAC from './gameAC';
 
 const userAC = {
   setUser: (user) => ({
@@ -55,6 +56,7 @@ const userAC = {
       if (response.ok) {
         window.localStorage.clear();
         dispatch(this.logoutDelivery());
+        // gameAC.
       } else {
         alert('не удалось выйти из системы');
       }

@@ -14,7 +14,7 @@ function userReducer(stateUser = {}, action) {
       };
     case EXIT_USER:
       return {
-        login: null,
+        login: null
       };
     case ADD_INVITE:
       return {

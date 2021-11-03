@@ -1,4 +1,4 @@
-import { createContext, useContext, useEffect, useState } from 'react';
+import { createContext, useContext, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import userAC from '../redux/actionCreators/userAC';
 
@@ -7,13 +7,10 @@ const AuthContext = createContext();
 function AuthProvider({ children }) {
   const user = useSelector((state) => state.user);
 
-  console.log('auth rendered');
-
   const dispatch = useDispatch();
-  const [isAuth, setIsAuth] = useState(user.login !== null);
 
   useEffect(() => {
-    if (!isAuth) {
+    if (user.login) {
       fetch('http://localhost:3001/api/tokens/refresh', {
         headers: { 'Authorization': `Bearer ${user.refreshToken}` }
       })
@@ -25,20 +22,17 @@ function AuthProvider({ children }) {
       })
       .then(({ accessToken, refreshToken }) => {
         dispatch(userAC.resetTokens({ accessToken, refreshToken }));
-        setIsAuth(true);
       })
       .catch((err) => {
         console.log(err);
         // alert('проверка токена прошла неудачно');
-        return setIsAuth(false);
+        dispatch(userAC.logout());
       });
-    } else if (user.login === null) {
-      setIsAuth(false);
     }
-  }, [user.refreshToken, dispatch, isAuth]);
+  }, [user.login]);
 
   return (
-    <AuthContext.Provider value={{ isAuth }}>{children}</AuthContext.Provider>
+    <AuthContext.Provider value={{}}>{children}</AuthContext.Provider>
   );
 }
 

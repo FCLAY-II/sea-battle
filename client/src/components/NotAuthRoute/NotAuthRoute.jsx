@@ -1,15 +1,15 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
 import { Route, Redirect } from 'react-router-dom';
-import { useAuth } from '../../contexts/auth.context';
 
 function NotAuthRoute({ children, ...rest }) {
-  const { isAuth } = useAuth();
+  const userLogin = useSelector((state) => state.user.login);
 
   return (
     <Route
       {...rest}
       render={({ location }) =>
-        !isAuth ? (
+        !userLogin ? (
           children
         ) : (
           <Redirect

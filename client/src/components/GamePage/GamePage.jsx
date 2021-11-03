@@ -4,14 +4,16 @@ import Game from '../Game/Game';
 import Invitation from '../Invitation/Invitation';
 
 export default function GamePage() {
-  const gameStatus = useSelector((state)=> state.game.status);
-
+  const game = useSelector((state) => state.game);
 
   return (
     <>
-  
-  {gameStatus === null ? <Invitation/> : <Game/>}
-  </>
+      {game === null ? (
+        <Invitation/> 
+        ): (
+        <Game/>
+        )}
+    </>
     );
   
 }
