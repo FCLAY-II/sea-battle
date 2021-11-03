@@ -54,8 +54,8 @@ const userAC = {
         method: 'DELETE',
       });
       if (response.ok) {
-        window.localStorage.clear();
         dispatch(this.logoutDelivery());
+        window.localStorage.clear();
         // gameAC.
       } else {
         alert('не удалось выйти из системы');
