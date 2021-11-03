@@ -28,7 +28,7 @@ wss.on('connection', (ws, request) => {
 
   ws.on('message', async (message) => {
     const parsed = JSON.parse(message);
-    console.log(parsed);
+    console.log('message on back:', parsed);
 
     switch (parsed.type) {
       case 'MAKE_TURN':

@@ -6,7 +6,7 @@ router.post('/new', async (reg, res) => {
   const { guestId } = reg.body;
   try {
     await Invite.create({ hostId, guestId });
-    res.sendStatus(200);
+    res.json({});
   } catch (err) {
     res.sendStatus(500);
   }

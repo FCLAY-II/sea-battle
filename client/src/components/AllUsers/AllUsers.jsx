@@ -10,7 +10,7 @@ export default function AllUsers() {
 
   useEffect(() => {
     fetchSender(descriptors.allUsers(setPlayers));
-  }, [fetchSender, descriptors]);
+  }, []);
 
   return (
     <div style={{ marginLeft: '4%' }}>

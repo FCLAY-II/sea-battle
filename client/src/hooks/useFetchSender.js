@@ -44,8 +44,7 @@ function useFetchSender() {
     userRef.current = user;
   }, [user]);
 
-  return async ({ fetchCb, onSuccess, onFailure }) => {
-    wrapper(
+  return async ({ fetchCb, onSuccess, onFailure }) => wrapper(
       userRef.current,
       fetchCb,
       onSuccess,
@@ -53,7 +52,6 @@ function useFetchSender() {
       ({ accessToken, refreshToken }) => dispatch(userAC.resetTokens({ accessToken, refreshToken })),
       () => alert('выкинуть пользователя')
     );
-  };
 }
 
 export default useFetchSender;
