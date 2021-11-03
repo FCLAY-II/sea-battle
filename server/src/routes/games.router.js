@@ -90,12 +90,12 @@ router.get('/:id', async (req, res) => {
     result.field = records[0]['Games.UsersGame.field'];
     result.enemy.id = records[1].id;
     result.enemy.login = records[1].login;
-    result.enemy.field = records[1]['Games.UsersGame.field'];
+    result.enemy.field = records[1]['Games.UsersGame.field'].replace(/1/g, '0');
   } else {
     result.field = records[1]['Games.UsersGame.field'];
     result.enemy.id = records[0].id;
     result.enemy.login = records[0].login;
-    result.enemy.field = records[0]['Games.UsersGame.field'];
+    result.enemy.field = records[0]['Games.UsersGame.field'].replace(/1/g, '0');
   }
   res.json(result);
 });
@@ -144,13 +144,6 @@ router.patch('/:id/make-turn/:cellId', async (req, res) => {
         },
       });
 
-      // console.log(stringReplaceAt(record.field, 2, '2'));
-      // if (record.field[cellId] === '1'
-      //   && (record.field[cellId + 1] !== '1' && record.field[cellId - 1] !== '1'
-      //     && record.field[cellId + 10] !== '1' && record.field[cellId - 10] !== '1')) {
-      //   record.field = stringReplaceAt(record.field, cellId, '4');
-      //   await record.save();
-      // } else 
       if (record.field[cellId] === '1') {
         const shotsArr = [cellId];
         let shipLength = 1;
@@ -194,8 +187,6 @@ router.patch('/:id/make-turn/:cellId', async (req, res) => {
           i += 1;
         }
         i = 1;
-        console.log('SSSSSSSSSSSSSSSSSSSSSSHHHHHHHHHHHHHHHHHH', shipLength);
-        console.log('SSSSSSSSSSSSSSSSSSSSSSHHHHHHHHHHHHHHHHHH', shotsArr);
         if (shipLength === shotsArr.length) {
           for (let j = 0; j < shotsArr.length; j += 1) {
             record.field = stringReplaceAt(record.field, shotsArr[j], '4');
@@ -212,12 +203,13 @@ router.patch('/:id/make-turn/:cellId', async (req, res) => {
         await gameRecord.save();
       }
 
-      // console.log(gameRecord.currentPlayerId);
-      // console.log(gameRecord.currentPlayerId);
-      // console.log(record, gameRecord);
+      if (!record.field.includes('1')) {
+        gameRecord.status = 'finished';
+        await gameRecord.save();
+      }
+
       res.json({ id: record.playerId, field: record.field });
     } else {
-      console.log('rights');
       res.status(401).json({ message: 'недостаточно прав для совершения хода' });
     }
   } else {
