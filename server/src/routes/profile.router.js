@@ -1,9 +1,24 @@
 const router = require('express').Router();
-const { User, Game, UsersGame } = require('../db/models');
+const { Op } = require('sequelize');
+const { User, Game } = require('../db/models');
 
 router.get('/users', async (req, res) => {
-  const allUsers = await User.findAll();
-  res.json(allUsers);
+  let { _search: search } = req.query;
+  search = search ? `.*${search.toLocaleLowerCase()}.*` : '.*';
+  try {
+    const result = await User.findAll({
+      where: {
+        login: {
+          [Op.iRegexp]: search,
+        },
+      },
+      limit: 8,
+      attributes: ['id', 'login'],
+    });
+    return res.json(result);
+  } catch (err) {
+    return res.sendStatus(500);
+  }
 });
 
 router.get('/:id/statistic', async (req, res) => {

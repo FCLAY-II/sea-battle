@@ -49,10 +49,10 @@ function useDescriptors(socket) {
       };
     },
 
-    allUsers(setPlayers) {
+    allUsers(setPlayers, search) {
       return {
         fetchCb: (accessToken) =>
-          fetch('http://localhost:3001/api/profile/users', {
+          fetch(`http://localhost:3001/api/profile/users/?_search=${search}`, {
             headers: {
               Authorization: `Bearer ${accessToken}`,
             },

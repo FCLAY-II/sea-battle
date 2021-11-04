@@ -16,7 +16,7 @@
   justify-content: space-evenly;
   border-radius: 17px;
   height: 500px;
-  width: 35%;
+  width: 47%;
   background-color: #9adb44;
 }
 .fom {
@@ -50,4 +50,7 @@ b {
 }
 .container {
   background-image: url('../../img/wave_03.png');
+}
+.regb {
+  font-size: 21px;
 }

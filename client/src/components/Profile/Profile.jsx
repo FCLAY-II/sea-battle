@@ -14,8 +14,9 @@ function Profile() {
   // const [clicked, setClicked] = useState(false);
 
   useEffect(() => {
-    fetchSender(descriptors.getReceivedInvites(setInvites))
-      .then(() => fetchSender(descriptors.getStatistic(setStatistic)));
+    fetchSender(descriptors.getReceivedInvites(setInvites)).then(() =>
+      fetchSender(descriptors.getStatistic(setStatistic))
+    );
   }, [userInvitesCount]);
   console.log('Profile rerendered', invites);
 
@@ -37,17 +38,12 @@ function Profile() {
                   <div
                     type="button"
                     className="btn-group ntf"
-                    // role="group"
                     aria-label="Basic checkbox toggle button group"
                     onClick={() => {
-                      // if (!clicked) {
-                      //   setClicked(true);
-                        console.log('confirm clicked');
-                        fetchSender(
-                          descriptors.confirmInvitation(invite.Invite.id)
-                        );
-                      //     .then(() => setClicked(false));
-                      // }
+                      console.log('confirm clicked');
+                      fetchSender(
+                        descriptors.confirmInvitation(invite.Invite.id)
+                      );
                     }}
                   >
                     <label
@@ -57,6 +53,12 @@ function Profile() {
                       Принять приглашение
                     </label>
                   </div>
+                  <button
+                    type="button"
+                    className="btn btn-outline-primary mx-2"
+                  >
+                    🗑
+                  </button>
                 </div>
               ))}
             </div>
@@ -65,17 +67,20 @@ function Profile() {
                 <b> Статистика игрока: </b>
               </p>
               <div className="d-flex mb-3">
-                <div className="card" style={{ width: '18rem' }}>
-                  <ul className="list-group list-group-flush">
-                    <li className="list-group-item">
+                <div>
+                  <ul>
+                    <li className="list-item">
                       <b>Количество игр: {statistic.gamesCount}</b>
                     </li>
-                    <li className="list-group-item">
+                    <hr />
+                    <li className="list-item">
                       <b>Победы: {statistic.victoriesCount}</b>
                     </li>
-                    <li className="list-group-item">
+                    <hr />
+                    <li className="list-item">
                       <b>Поражения: {statistic.failCount}</b>
                     </li>
+                    <hr />
                   </ul>
                 </div>
               </div>
@@ -83,7 +88,7 @@ function Profile() {
           </div>
         </div>
       </div>
-    </div>  
+    </div>
   );
 }
 

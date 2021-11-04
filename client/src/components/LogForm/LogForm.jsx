@@ -21,7 +21,7 @@ export default function LogForm() {
         >
           <div className="fom">
           <p>
-            <b> С возвращением!</b>
+            <b className='bb'> С возвращением!</b>
             <Link to="/register" className="det navbar-brand">
               <p>Зарегистрироваться</p>
             </Link>
