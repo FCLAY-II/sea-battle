@@ -1,3 +1,5 @@
+/* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
+/* eslint-disable jsx-a11y/label-has-associated-control */
 import { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { useSocket } from '../../contexts/socket.context';
@@ -10,8 +12,9 @@ export default function Profile() {
   const [statistic, setStatistic] = useState({});
 
   useEffect(() => {
-    fetchSender(descriptors.getReceivedInvites(setInvites))
-      .then(() => fetchSender(descriptors.getStatistic(setStatistic)));
+    fetchSender(descriptors.getReceivedInvites(setInvites)).then(() =>
+      fetchSender(descriptors.getStatistic(setStatistic))
+    );
   }, []);
   console.log(statistic);
 
@@ -29,17 +32,29 @@ export default function Profile() {
               </div>
               {invites.map((invite) => (
                 <div className="invite">
-                  <p>{invite.login}</p>
-                  <button
+                  <p> Приглашение от:{invite.login}</p>
+                  <div
+                    className="btn-group ntf"
+                    role="group"
+                    aria-label="Basic checkbox toggle button group"
                     onClick={() =>
                       fetchSender(
                         descriptors.confirmInvitation(invite.Invite.id)
                       )
                     }
-                    type="button"
                   >
-                    принять
-                  </button>
+                    <input
+                      type="checkbox"
+                      className="btn-check"
+                      id="btncheck3"
+                    />
+                    <label
+                      className="btn btn-outline-primary"
+                      htmlFor="btncheck3"
+                    >
+                      Принять приглашение
+                    </label>
+                  </div>
                 </div>
               ))}
             </div>
