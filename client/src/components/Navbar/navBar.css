@@ -1,7 +1,9 @@
-@import url('https://fonts.googleapis.com/css?family=Open+Sans&display=swap');
-
+@import url('https://fonts.googleapis.com/css2?family=Balsamiq+Sans&family=Fruktur&family=Rubik+Beastly&family=Zen+Kurenaido&display=swap');
 a {
-  color:white!important;
+  color: white !important;
+}
+.opt {
+  background-color: white;
 }
 
 nav {
@@ -10,7 +12,9 @@ nav {
   position: relative;
   width: 100%;
   height: 50px;
-  background: #34495e;
+  font-size: 40px;
+  font-family: 'Rubik Beastly', cursive;
+  background: #f47624;
   font-size: 0;
   box-shadow: 0 2px 3px 0 rgba(0, 0, 0, 0.1);
 }
@@ -30,36 +34,38 @@ nav .animation {
   height: 100%;
   top: 0;
   z-index: 0;
-  background: #1abc9c;
+  background: #8cc640;
   transition: all 0.5s ease 0s;
+  border-radius: 12px;
 }
+
 nav a:nth-child(1) {
   width: 30%;
 }
 nav .start-home,
-nav a:nth-child(1):hover ~.animation {
-  width: 30%;
-  left: 0;
+nav a:nth-child(1):hover ~ .animation {
+  width: 27%;
+  left: -8px;
 }
 nav a:nth-child(2) {
-  width: 20%;
-}
-nav  a:nth-child(2):hover ~.animation {
   width: 30%;
-  left: 28%;
+}
+nav a:nth-child(2):hover ~ .animation {
+  width: 25%;
+  left: 25%;
 }
 nav a:nth-child(3) {
-  width: 20%;
+  width: 30%;
 }
-nav  a:nth-child(3):hover ~.animation {
+nav a:nth-child(3):hover ~ .animation {
   width: 25%;
-  left: 54%;
+  left: 50%;
 }
 
 nav a:nth-child(4) {
-  width: 20%;
+  width: 30%;
 }
-nav  a:nth-child(4):hover ~.animation {
-  width: 23%;
-  left: 77%;
+nav a:nth-child(4):hover ~ .animation {
+  width: 27%;
+  left: 76%;
 }

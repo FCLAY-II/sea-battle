@@ -23,10 +23,12 @@ function useDescriptors(socket) {
             }
           ),
         onSuccess: (updatedEnemy) => {
-          socket.current.send(JSON.stringify({
-            type: 'MAKE_TURN',
-            payload: { firstId: user.id, secondId: updatedEnemy.id }
-          }));
+          socket.current.send(
+            JSON.stringify({
+              type: 'MAKE_TURN',
+              payload: { firstId: user.id, secondId: updatedEnemy.id },
+            })
+          );
         },
         onFailure: () => alert('сейчас не твой ход'),
       };
@@ -62,20 +64,23 @@ function useDescriptors(socket) {
 
     confirmShips(myField) {
       return {
-        fetchCb: (accessToken) => fetch(`http://localhost:3001/api/games/${game.id}`, {
-          method: 'PUT',
-          headers: {
-            'Authorization': `Bearer ${accessToken}`,
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({ myField })
-        }),
+        fetchCb: (accessToken) =>
+          fetch(`http://localhost:3001/api/games/${game.id}`, {
+            method: 'PUT',
+            headers: {
+              Authorization: `Bearer ${accessToken}`,
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ myField }),
+          }),
         onSuccess: ({ status, enemyId }) => {
           if (status === 'active') {
-            socket.current.send(JSON.stringify({
-              type: 'MAKE_TURN',
-              payload: { firstId: user.id, secondId: enemyId }
-            }));
+            socket.current.send(
+              JSON.stringify({
+                type: 'MAKE_TURN',
+                payload: { firstId: user.id, secondId: enemyId },
+              })
+            );
           } else {
             dispatch(gameAC.changeStatus('pending'));
             socket.current.send(JSON.stringify({
@@ -84,90 +89,101 @@ function useDescriptors(socket) {
             }));
           }
         },
-        onFailure: () => alert('неправильная расстановка кораблей')
+        onFailure: () => alert('неправильная расстановка кораблей'),
       };
     },
 
     createGame(enemyId) {
       return {
-        fetchCb: (accessToken) => fetch('http://localhost:3001/api/games/new', {
-          method: 'POST',
-          headers: {
-            'Authorization': `Bearer ${accessToken}`,
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({ playerId: enemyId })
-        }),
+        fetchCb: (accessToken) =>
+          fetch('http://localhost:3001/api/games/new', {
+            method: 'POST',
+            headers: {
+              Authorization: `Bearer ${accessToken}`,
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ playerId: enemyId }),
+          }),
         onSuccess: ({ gameId }) => {
-          socket.current.send(JSON.stringify({
-            type: 'GAME_CREATED',
-            payload: { firstId: user.id, secondId: enemyId, gameId }
-          }));
+          socket.current.send(
+            JSON.stringify({
+              type: 'GAME_CREATED',
+              payload: { firstId: user.id, secondId: enemyId, gameId },
+            })
+          );
         },
-        onFailure: () => alert('неправильная расстановка кораблей')
+        onFailure: () => alert('неправильная расстановка кораблей'),
       };
     },
 
     createInvitation(guestId) {
       console.log('loadGame called');
       return {
-        fetchCb: (accessToken) => fetch('http://localhost:3001/api/invite/new', {
-          method: 'POST',
-          headers: {
-            'Authorization': `Bearer ${accessToken}`,
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({ guestId })
-        }),
+        fetchCb: (accessToken) =>
+          fetch('http://localhost:3001/api/invite/new', {
+            method: 'POST',
+            headers: {
+              Authorization: `Bearer ${accessToken}`,
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ guestId }),
+          }),
         onSuccess: () => {
-          socket.current.send(JSON.stringify({
-            type: 'INVITE_CREATED',
-            payload: { hostId: user.id, guestId }
-          }));
+          socket.current.send(
+            JSON.stringify({
+              type: 'INVITE_CREATED',
+              payload: { hostId: user.id, guestId },
+            })
+          );
         },
-        onFailure: () => alert('не получилось отправить приглашение')
+        onFailure: () => alert('не получилось отправить приглашение'),
       };
     },
 
     confirmInvitation(inviteId) {
       return {
-        fetchCb: (accessToken) => fetch(`http://localhost:3001/api/invite/${inviteId}`, {
-          method: 'DELETE',
-          headers: { 'Authorization': `Bearer ${accessToken}` },
-        }),
+        fetchCb: (accessToken) =>
+          fetch(`http://localhost:3001/api/invite/${inviteId}`, {
+            method: 'DELETE',
+            headers: { Authorization: `Bearer ${accessToken}` },
+          }),
         onSuccess: ({ enemyId }) => fetchSender(this.createGame(enemyId)),
-        onFailure: () => alert('не получилось принять приглашение')
+        onFailure: () => alert('не получилось принять приглашение'),
       };
     },
 
     getReceivedInvites(setInvites) {
       return {
-        fetchCb: (accessToken) => fetch('http://localhost:3001/api/invite/received', {
-          headers: { 'Authorization': `Bearer ${accessToken}` }
-        }),
+        fetchCb: (accessToken) =>
+          fetch('http://localhost:3001/api/invite/received', {
+            headers: { Authorization: `Bearer ${accessToken}` },
+          }),
         onSuccess: ({ allInvites }) => setInvites(allInvites),
-        onFailure: () => alert('не удалось получить приглашения')
+        onFailure: () => alert('не удалось получить приглашения'),
       };
     },
 
     getSendInvites(setInvites) {
       return {
-        fetchCb: (accessToken) => fetch('http://localhost:3001/api/invite/sent', {
-          headers: { 'Authorization': `Bearer ${accessToken}` },
-        }),
+        fetchCb: (accessToken) =>
+          fetch('http://localhost:3001/api/invite/sent', {
+            headers: { Authorization: `Bearer ${accessToken}` },
+          }),
         onSuccess: ({ allInvites }) => setInvites(allInvites),
-        onFailure: () => alert('не удалось получить приглашения')
+        onFailure: () => alert('не удалось получить приглашения'),
       };
     },
     getStatistic(setStatistic) {
       return {
-        fetchCb: (accessToken) => fetch(`http://localhost:3001/api/profile/${user.id}/statistic`, {
-          headers: { 'Authorization': `Bearer ${accessToken}` },
-        }),
-        onSuccess: ({ gamesCount, victoriesCount, failCount }) => setStatistic({ gamesCount, victoriesCount, failCount }),
-        onFailure: () => alert('не удалось получить статистику')
+        fetchCb: (accessToken) =>
+          fetch(`http://localhost:3001/api/profile/${user.id}/statistic`, {
+            headers: { Authorization: `Bearer ${accessToken}` },
+          }),
+        onSuccess: ({ gamesCount, victoriesCount, failCount }) =>
+          setStatistic({ gamesCount, victoriesCount, failCount }),
+        onFailure: () => console.log('не удалось получить статистику')
       };
-    }
+    },
   };
 }
 
