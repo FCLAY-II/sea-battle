@@ -55,7 +55,16 @@ export default function MyField() {
           // setButtonState('unvisible');
         }}
       >Готов к игре</button> : <></>}
-      <div>{game.currentPlayerId === user.id ? <p> сейчас ваш ход</p> : <p> ждем, пока сходит {game.enemy.login}</p>}</div>
+      { game.status === 'active' ? (
+        <div>
+          {game.currentPlayerId === user.id ? 
+            <p> сейчас ваш ход</p> 
+          : 
+            <p> ждем, пока сходит {game.enemy.login}</p>}
+        </div>
+      ) : (
+        null
+      )}
     </div>
     // </DragDropContext>
   );

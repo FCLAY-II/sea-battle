@@ -1,27 +1,29 @@
 /* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
 /* eslint-disable jsx-a11y/label-has-associated-control */
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { useSocket } from '../../contexts/socket.context';
 import './profile.css';
 
-export default function Profile() {
-  const user = useSelector((state) => state.user);
+function Profile() {
+  const userInvitesCount = useSelector((state) => state.user.invitesCount);
+  const userLogin = useSelector((state) => state.user.login);
   const { fetchSender, descriptors } = useSocket();
   const [invites, setInvites] = useState([]);
   const [statistic, setStatistic] = useState({});
+  // const [clicked, setClicked] = useState(false);
 
   useEffect(() => {
     fetchSender(descriptors.getReceivedInvites(setInvites))
       .then(() => fetchSender(descriptors.getStatistic(setStatistic)));
-  }, [user.invitesCount]);
-  console.log(statistic);
+  }, [userInvitesCount]);
+  console.log('Profile rerendered', invites);
 
   return (
     <div className="ff">
       <div className="profile">
         <div className="insd">
-          <div className="topfi">{user.login} </div>
+          <div className="topfi">{userLogin}</div>
           <div className="downfr">
             <div className="left">
               <div className="ritop">
@@ -30,23 +32,24 @@ export default function Profile() {
                 </p>
               </div>
               {invites.map((invite) => (
-                <div className="invite">
-                  <p> Приглашение от:{invite.login}</p>
+                <div key={invite.id} className="invite">
+                  <p>{`Приглашение от ${invite.login}`}</p>
                   <div
+                    type="button"
                     className="btn-group ntf"
-                    role="group"
+                    // role="group"
                     aria-label="Basic checkbox toggle button group"
-                    onClick={() =>
-                      fetchSender(
-                        descriptors.confirmInvitation(invite.Invite.id)
-                      )
-                    }
+                    onClick={() => {
+                      // if (!clicked) {
+                      //   setClicked(true);
+                        console.log('confirm clicked');
+                        fetchSender(
+                          descriptors.confirmInvitation(invite.Invite.id)
+                        );
+                      //     .then(() => setClicked(false));
+                      // }
+                    }}
                   >
-                    <input
-                      type="checkbox"
-                      className="btn-check"
-                      id="btncheck3"
-                    />
                     <label
                       className="btn btn-outline-primary"
                       htmlFor="btncheck3"
@@ -83,3 +86,5 @@ export default function Profile() {
     </div>  
   );
 }
+
+export default Profile;

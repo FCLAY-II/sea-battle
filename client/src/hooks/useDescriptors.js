@@ -116,6 +116,12 @@ function useDescriptors(socket) {
       };
     },
 
+    finishGame() {
+      return {
+
+      };
+    },
+
     createInvitation(guestId) {
       console.log('loadGame called');
       return {
@@ -141,6 +147,7 @@ function useDescriptors(socket) {
     },
 
     confirmInvitation(inviteId) {
+      console.log('confirmInvitation called');
       return {
         fetchCb: (accessToken) =>
           fetch(`http://localhost:3001/api/invite/${inviteId}`, {
@@ -163,7 +170,7 @@ function useDescriptors(socket) {
       };
     },
 
-    getSendInvites(setInvites) {
+    getSentInvites(setInvites) {
       return {
         fetchCb: (accessToken) =>
           fetch('http://localhost:3001/api/invite/sent', {
@@ -173,6 +180,7 @@ function useDescriptors(socket) {
         onFailure: () => alert('не удалось получить приглашения'),
       };
     },
+
     getStatistic(setStatistic) {
       return {
         fetchCb: (accessToken) =>

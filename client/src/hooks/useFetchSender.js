@@ -3,7 +3,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import userAC from '../redux/actionCreators/userAC';
 
 async function wrapper(user, fetchCb, onSuccess, onFailure, updateCredCb, logoutCb) {
-  console.log('from wrapper:', user.refreshToken);
   const response = await fetchCb(user.accessToken);
   if (response.ok) {
     const result = await response.json();

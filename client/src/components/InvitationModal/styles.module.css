@@ -1,0 +1,31 @@
+@keyframes fromright {
+  from { right: calc(-400px + 40px); }
+  to { right: calc(40px); }
+}
+
+.modal {
+  --modal-width: 300px;
+  --modal-height: 180px;
+
+  position: absolute;
+  display: flex;
+
+  bottom: calc(40px);
+  right: calc(40px);
+
+  height: var(--modal-height);
+  width: var(--modal-width);
+
+  padding: 1.5rem 1.5rem;
+
+  color: white;
+  font-size: 1.5rem;
+  background-color: rgb(123, 238, 167);
+
+  border-radius: 20px;
+
+  z-index: 1;
+
+  animation-duration: 1s;
+  animation-name: fromright;
+}

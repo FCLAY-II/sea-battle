@@ -21,7 +21,7 @@ function SocketProvider({ children }) {
   const fetchSender = useFetchSender();
   const descriptors = useDescriptors(socket);
 
-  console.log('socket context rendered', user, gameId);
+  console.log('socket context rendered', gameId);
 
   useEffect(() => {
     socket.current = new WebSocket(`ws://localhost:3001/${user.id}`);
