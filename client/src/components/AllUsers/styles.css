@@ -1,19 +1,7 @@
-/* .gamepageclass {
-  display: flex;
-  flex-wrap: wrap;
-  align-content: stretch;
-  justify-content: space-evenly;
-  align-items: flex-end;
-}
-.userslogin {
-  display: flex;
-  flex-direction: column;
-} */
-
 .playerdiv  {
   display: flex;
   justify-content: space-between;
-  margin: 0 150px ;
+  margin: 0 0.3rem;
   flex-direction: column;
   flex-grow: grow;
   margin-top: 30px;
@@ -34,7 +22,8 @@
   text-align: center;
 
 }
-  .usrlogin {
+
+.usrlogin {
   display: block;
   width: fit-content;
   height: fit-content;

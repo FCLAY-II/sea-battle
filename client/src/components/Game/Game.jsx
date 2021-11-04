@@ -5,7 +5,7 @@ import { useSocket } from '../../contexts/socket.context';
 import gameAC from '../../redux/actionCreators/gameAC';
 import EnemyField from '../EnemyField/EnemyField';
 import MyField from '../MyField/MyField';
-import './styles.css';
+import styles from './styles.css';
 
 export default function Game() {
   const user = useSelector((state) => state.user);
@@ -21,15 +21,15 @@ export default function Game() {
       dispatch(gameAC.setGame(null));
     }
   }, []);
-  
+
   function giveInformation(gamestatus) {
     if (gamestatus === 'active') {
       return (
         <div>
           {game.currentPlayerId === user.id ? (
-            <p> сейчас ваш ход</p>
+            <p className='game-info'>Cейчас ваш ход</p>
           ) : (
-            <p> ждем, пока сходит {game.enemy.login}</p>
+            <p className='game-info'>Ждём, пока сходит {game.enemy.login}</p>
           )}
         </div>
       );
@@ -50,15 +50,22 @@ export default function Game() {
 
   return (
     <GameContextProvider>
-      <div>
+      <div style={{width: '100%'}}>
         {giveInformation(gameStatus)}
-
+        <div className="fields">
+          <MyField />
+          {gameStatus === 'active' || gameStatus === 'finished' ? (
+            <EnemyField />
+          ) : (
+            <></>
+          )}
+        </div>
         {gameStatus !== 'finished' ? (
           <button
             className="btnInvite
             btn
             btn-outline-primary
-            btn-sm"
+            btn-lg"
             type="button"
             onClick={() => {
               if (!surrender) {
@@ -70,14 +77,6 @@ export default function Game() {
             Сдаться
           </button>
         ) : null}
-        <div className="fields">
-          <MyField />
-          {gameStatus === 'active' || gameStatus === 'finished' ? (
-            <EnemyField />
-          ) : (
-            <></>
-          )}
-        </div>
         {gameStatus === 'finished' ? (
           <button
             className="btnInvite
@@ -89,7 +88,7 @@ export default function Game() {
               dispatch(gameAC.setGame(null));
             }}
           >
-            завершить игру
+            Завершить игру
           </button>
         ) : (
           <></>

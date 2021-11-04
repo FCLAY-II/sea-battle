@@ -32,25 +32,27 @@ export default function MyField() {
         ) : (
           <></>
         )}
-        <h1>Моё поле</h1>
+        <p className="field-title">Моё поле</p>
         {field.map((item) => item)}
       </div>
 
-      <Ships ships={ships} setShips={setShips} />
       {game.status === 'preparation' ? (
-        <button
-          className="btnInvite
-            btn
-            btn-outline-primary
-            btn-sm"
-          type="button"
-          onClick={() => {
-            fetchSender(descriptors.confirmShips(game.field));
-            // setButtonState('unvisible');
-          }}
-        >
-          Готов к игре
-        </button>
+        <>
+          <Ships ships={ships} setShips={setShips} />
+          <button
+            className="btnInvite
+              btn
+              btn-outline-primary
+              btn-sm"
+            type="button"
+            onClick={() => {
+              fetchSender(descriptors.confirmShips(game.field));
+              // setButtonState('unvisible');
+            }}
+          >
+            Готов к игре
+          </button>
+        </>
       ) : null}
     </div>
   );

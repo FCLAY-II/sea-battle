@@ -2,7 +2,13 @@ main {
   flex-grow: 1;
   position: relative;
 
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
   width: 60%;
+  min-width: 900px;
+  height: 100%;
 
   margin: auto;
 
