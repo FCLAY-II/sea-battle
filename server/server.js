@@ -62,8 +62,27 @@ wss.on('connection', (ws, request) => {
           }
         });
         break;
+      case 'FINISH_GAME':
+        [parsed.payload.loserId].forEach((id) => {
+          const client = usersConnetctions.get(id);
+          if (client?.readyState === WebSocket.OPEN) {
+            client.send(JSON.stringify({
+              type: 'UPDATE_FIELD',
+            }));
+          }
+        });
+        [parsed.payload.winnerId].forEach((id) => {
+          const client = usersConnetctions.get(id);
+          if (client?.readyState === WebSocket.OPEN) {
+            client.send(JSON.stringify({
+              type: 'UPDATE_FIELD',
+              message: 'Враг сдался',
+            }));
+          }
+        });
+        break;
       case 'INVITE_CREATED':
-        [parsed.payload.hosttId].forEach((id) => {
+        [parsed.payload.hostId].forEach((id) => {
           const client = usersConnetctions.get(id);
           if (client?.readyState === WebSocket.OPEN) {
             client.send(JSON.stringify({

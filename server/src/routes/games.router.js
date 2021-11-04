@@ -115,15 +115,22 @@ router.post('/new', async (req, res) => {
 });
 
 router.put('/:id/finish', async (req, res) => {
-  const { winId } = req.body;
-  const gameId = req.params.id;
   try {
-    const game = Game.findByPk(gameId);
+    const { playerId: winnerId } = await UsersGame.findOne({
+      where: {
+        gameId: res.locals.gameId,
+        playerId: {
+          [Op.ne]: res.locals.userId,
+        },
+      },
+    });
+    const game = await Game.findByPk(res.locals.gameId);
     game.status = 'finished';
-    game.currentPlayerId = winId;
-    game.save();
-    res.json(game);
+    game.currentPlayerId = winnerId;
+    await game.save();
+    res.json({ winnerId });
   } catch (err) {
+    console.log(err);
     res.sendStatus(500);
   }
 });

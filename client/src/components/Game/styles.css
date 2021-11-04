@@ -6,6 +6,13 @@
   align-items: center;
 }
 
+.fields {
+  display: flex;
+  justify-content: space-evenly;
+
+  width: 100%;
+}
+
 .field {
   display: flex;
   flex-direction: column;

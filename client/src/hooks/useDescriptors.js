@@ -118,7 +118,22 @@ function useDescriptors(socket) {
 
     finishGame() {
       return {
-
+        fetchCb: (accessToken) => 
+          fetch(`http://localhost:3001/api/games/${game.id}/finish`, {
+            method: 'PUT',
+            headers: {
+              Authorization: `Bearer ${accessToken}`,
+            }
+          }),
+        onSuccess: ({ winnerId }) => {
+          socket.current.send(
+            JSON.stringify({
+              type: 'FINISH_GAME',
+              payload: { loserId: user.id, winnerId },
+            })
+          );
+        },
+        onFailure: () => alert('не удалось завершить игру'),
       };
     },
 
