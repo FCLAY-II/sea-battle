@@ -30,9 +30,6 @@ export default function Main() {
           userLogin ? (
             <Route path="/">
               <SocketProvider>
-                <Route exact path="/">
-                  <MainParaPage />
-                </Route>
                 <Route exact path="/play">
                   <GamePage/>
                 </Route>

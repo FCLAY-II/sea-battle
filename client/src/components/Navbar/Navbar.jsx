@@ -19,7 +19,7 @@ export default function Navbar() {
         <Link onClick={(e) => {
           // window.getComputedStyle(e.target).left;
           setNav(1);
-        }} to="/">Главная</Link>
+        }} to="/welcome">Главная</Link>
         <Link onClick={() => setNav(2)} to="/play">Играть</Link>
 
         {!user.login ? (
