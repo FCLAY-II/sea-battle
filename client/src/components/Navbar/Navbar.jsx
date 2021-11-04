@@ -12,7 +12,7 @@ export default function Navbar() {
   return (
     <header className="opt">
       <nav>
-        <Link to="/">Главная страница</Link>
+        <Link to="/">Главная</Link>
         <Link to="/play">Играть</Link>
 
         {!user.login ? (

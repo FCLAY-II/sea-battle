@@ -49,7 +49,7 @@ b {
   border-color: #3edb0e;
 }
 .container {
-  background-image: url('../../img/wave_03.png');
+  /* background-image: url('../../img/wave_03.png'); */
 }
 .bb {
   font-size: 21px;

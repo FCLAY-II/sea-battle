@@ -82,7 +82,7 @@ wss.on('connection', (ws, request) => {
         });
         break;
       case 'INVITE_CREATED':
-        [parsed.payload.hostId].forEach((id) => {
+        [parsed.payload.hosttId].forEach((id) => {
           const client = usersConnetctions.get(id);
           if (client?.readyState === WebSocket.OPEN) {
             client.send(JSON.stringify({

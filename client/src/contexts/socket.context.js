@@ -46,7 +46,7 @@ function SocketProvider({ children }) {
             history.push('/play');
             break;
           case 'INVITE_SENDED':
-            dispatch(gameAC.changeStatus('answerWating'));
+            // dispatch(gameAC.changeStatus('answerWating'));
             break;
           case 'YOU_HAVE_NEW_INVITE':
             dispatch(userAC.addInvite());

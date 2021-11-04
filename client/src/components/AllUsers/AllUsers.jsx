@@ -22,8 +22,8 @@ export default function AllUsers() {
   }, [input]);
   console.log(players);
   return (
-    <div className="container">
-      <div style={{ marginLeft: '4%' }}>
+    <div className="container mt-3">
+      <div style={{ margin: 'auto', marginTop: '5rem' }}>
         <p>
           <input
             className="form-control me-2"
