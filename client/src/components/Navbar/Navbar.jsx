@@ -1,19 +1,41 @@
+/* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import userAC from '../../redux/actionCreators/userAC';
-import style from './navBar.css';
+import './navBar.css';
 
 export default function Navbar() {
   const user = useSelector((state) => state.user);
   const dispatch = useDispatch();
-  const [nav, setNav] = useState();
+  const [nav, setNav] = useState({ width: '', left: '' });
+  const [prevNav, setprevNav] = useState({ width: '', left: '' });
 
   return (
     <header className="opt">
-      <nav className="header__nav">
-        <Link to="/">Главная</Link>
-        <Link to="/play">Играть</Link>
+      <nav
+        onMouseEnter={(e) => setNav({ width: '', left: '' })}
+        onMouseLeave={(e) => setNav((...prev) => prev)}
+        className="header__nav"
+      >
+        <Link
+          onClick={(e) => (
+            setNav({ width: '27%', left: '-8px' }),
+            setprevNav({ width: '27%', left: '-8px' })
+          )}
+          to="/"
+        >
+          Главная
+        </Link>
+        <Link
+          onClick={(e) => (
+            setNav({ width: '25%', left: '25%' }),
+            setprevNav({ width: '25%', left: '25%' })
+          )}
+          to="/play"
+        >
+          Играть
+        </Link>
 
         {!user.login ? (
           <>
@@ -22,18 +44,34 @@ export default function Navbar() {
           </>
         ) : (
           <>
-            <Link to="/profile">{user.login}</Link>
             <Link
-              onClick={() => {
-                dispatch(userAC.logout());
-              }}
+              onClick={(e) => (
+                setNav({ width: '24%', left: '50%' }),
+                setprevNav({ width: '24%', left: '50%' })
+              )}
+              to="/profile"
+            >
+              {user.login}
+            </Link>
+            <Link
+              onClick={() => (
+                setNav({ width: '27%', left: '74%' }),
+                setprevNav({ width: '27%', left: '74%' }),
+                dispatch(userAC.logout())
+              )}
               to="/"
             >
               Выйти
             </Link>
           </>
         )}
-        <div className="animation start-home" />
+        <div
+          style={{
+            width: nav.width === '' ? nav.width : prevNav.width,
+            left: nav.left === '' ? nav.left : prevNav.left,
+          }}
+          className="animation start-home"
+        />
       </nav>
     </header>
   );
