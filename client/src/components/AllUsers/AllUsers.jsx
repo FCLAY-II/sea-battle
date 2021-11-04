@@ -20,7 +20,7 @@ export default function AllUsers() {
 
     return () => clearTimeout(timeId);
   }, [input]);
-
+  console.log(players);
   return (
     <div className="container">
       <div style={{ marginLeft: '4%' }}>
