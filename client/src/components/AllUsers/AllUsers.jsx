@@ -7,18 +7,25 @@ export default function AllUsers() {
   const user = useSelector((state) => state.user);
   const { fetchSender, descriptors } = useSocket();
   const [players, setPlayers] = useState([]);
+  const [input, setInput] = useState('');
 
   useEffect(() => {
-    fetchSender(descriptors.allUsers(setPlayers));
-  }, []);
+    const timeId = setTimeout(() => {
+      fetchSender(descriptors.allUsers(setPlayers, input));
+    }, input === '' ? 0 : 400);
+
+    return () => clearTimeout(timeId);
+  }, [input]);
 
   return (
     <div style={{ marginLeft: '4%' }}>
+      <p><input placeholder="найти соперника"
+        onChange={(e) => setInput(e.target.value)} /></p>
       <b>Все игроки:</b>{' '}
       {players
         .filter((usr) => usr.login !== user.login)
         .map((player) => (
-          <Players key={player.id} player={player}  />
+          <Players key={player.id} player={player} />
         ))}
     </div>
   );
