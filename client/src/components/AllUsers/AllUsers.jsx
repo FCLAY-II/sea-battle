@@ -16,7 +16,7 @@ export default function AllUsers() {
 
     return () => clearTimeout(timeId);
   }, [input]);
-
+  console.log(players);
   return (
     <div style={{ marginLeft: '4%' }}>
       <p><input placeholder="найти соперника"

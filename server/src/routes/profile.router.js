@@ -13,8 +13,8 @@ router.get('/users', async (req, res) => {
         },
       },
       limit: 8,
+      attributes: ['id', 'login'],
     });
-    console.log('------------', result);
     return res.json(result);
   } catch (err) {
     return res.sendStatus(500);

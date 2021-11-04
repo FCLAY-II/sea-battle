@@ -44,10 +44,15 @@ function GameContextProvider({ children }) {
     for (let i = 0; i < state.length; i += 1) {
       cells.push(<Cell cellState={state[i]} key={i} id={i} />);
     }
-    const arrField = [];
+    const arrField = [(
+      <Row num="" key={150} cells={
+        ['A', 'Б', 'В', 'Г', 'Д', 'Е', 'Ж', 'З', 'И', 'К']
+          .map((letter) => <span style={{fontSize: '0.7rem', width: '20px'}}>{letter}</span>)
+      }/>
+    )];
     while (cells.length > 0) {
       const row = cells.splice(0, 10);
-      arrField.push(<Row key={cells.length + 230} cells={row} />);
+      arrField.push(<Row num={10 - Math.floor(cells.length / 10)} key={cells.length + 230} cells={row} />);
     }
     return arrField;
   }
