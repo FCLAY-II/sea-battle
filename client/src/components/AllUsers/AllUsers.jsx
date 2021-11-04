@@ -21,9 +21,10 @@ export default function AllUsers() {
     return () => clearTimeout(timeId);
   }, [input]);
   console.log(players);
+
   return (
-    <div className="container mt-3">
-      <div style={{ margin: 'auto', marginTop: '5rem' }}>
+    <div className="container mt-0">
+      <div style={{ margin: 'auto', marginTop: '1rem' }}>
         <p>
           <input
             className="form-control me-2"

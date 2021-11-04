@@ -19,7 +19,7 @@ router.delete('/:id', async (req, res) => {
   try {
     const invite = await Invite.findOne({ where: { id: inviteId } });
     await invite.destroy();
-    res.json({ enemyId: invite.hostId });
+    res.json({ hostId: invite.hostId, guestId: invite.guestId });
   } catch (err) {
     console.log(err);
     res.sendStatus(500);

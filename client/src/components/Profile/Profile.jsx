@@ -6,7 +6,7 @@ import { useSocket } from '../../contexts/socket.context';
 import './profile.css';
 
 function Profile() {
-  const userInvitesCount = useSelector((state) => state.user.invitesCount);
+  const userInvitesCount = useSelector((state) => state.user.receivedInvitesCount);
   const userLogin = useSelector((state) => state.user.login);
   const { fetchSender, descriptors } = useSocket();
   const [invites, setInvites] = useState([]);
@@ -18,7 +18,6 @@ function Profile() {
       fetchSender(descriptors.getStatistic(setStatistic))
     );
   }, [userInvitesCount]);
-  console.log('Profile rerendered', invites);
 
   return (
     <div className="ff">
@@ -48,7 +47,7 @@ function Profile() {
                   >
                     <label
                       className="btn btn-outline-primary"
-                      htmlFor="btncheck3"
+                      // htmlFor="btncheck3"
                     >
                       Принять приглашение
                     </label>
@@ -56,6 +55,9 @@ function Profile() {
                   <button
                     type="button"
                     className="btn btn-outline-primary mx-2"
+                    onClick={() => {
+                      fetchSender(descriptors.deleteInvitation(invite.Invite.id));
+                    }}
                   >
                     🗑
                   </button>

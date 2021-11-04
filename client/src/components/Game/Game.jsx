@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import GameContextProvider from '../../contexts/game.context';
 import { useSocket } from '../../contexts/socket.context';
@@ -14,6 +14,12 @@ export default function Game() {
 
   const [surrender, setSurrender] = useState(false);
 
+  useEffect(() => () => {
+    if (gameStatus === 'finished') {
+      dispatch(gameAC.setGame(null));
+    }
+  }, []);
+
   return (
     <GameContextProvider>
       <div className="game">
@@ -28,8 +34,8 @@ export default function Game() {
               }
             }}
           >
-          Сдаться
-        </button>
+            Сдаться
+          </button>
         ) : (
           null
         )}

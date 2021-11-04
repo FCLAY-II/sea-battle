@@ -1,7 +1,7 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 import Game from '../Game/Game';
-import Invitation from '../Invitation/Invitation';
+import InvitationMenu from '../InvitationMenu/InvitationMenu';
 
 export default function GamePage() {
   const game = useSelector((state) => state.game);
@@ -9,7 +9,7 @@ export default function GamePage() {
   return (
     <>
       {game === null ? (
-        <Invitation/> 
+        <InvitationMenu /> 
         ): (
         <Game/>
         )}

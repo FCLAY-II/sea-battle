@@ -1,20 +1,18 @@
-import { useDispatch, useSelector } from 'react-redux';
-import userAC from '../../redux/actionCreators/userAC';
-
+import { useSocket } from '../../contexts/socket.context';
 import styles from './styles.module.css';
 
 export default function InvitationModal() {
-const invitesCount = useSelector((state)=> state.user?.invitesCount);
-const dispatch = useDispatch();
+
+  const { modalShowed, setModalShowed } = useSocket();
 
   return (
     <>
-    {invitesCount === undefined || invitesCount === 0 ? (
+    {!modalShowed ? (
       <></>
     ) : (
       <div className={styles.modal}>
         <p>вам пришло приглашение</p>
-        <button type="button" onClick={()=>dispatch(userAC.removeInvite())}
+        <button type="button" onClick={()=>setModalShowed(false)}
         >x</button>
       </div>
     )}

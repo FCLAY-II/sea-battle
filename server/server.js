@@ -82,7 +82,7 @@ wss.on('connection', (ws, request) => {
         });
         break;
       case 'INVITE_CREATED':
-        [parsed.payload.hosttId].forEach((id) => {
+        [parsed.payload.hostId].forEach((id) => {
           const client = usersConnetctions.get(id);
           if (client?.readyState === WebSocket.OPEN) {
             client.send(JSON.stringify({
@@ -95,6 +95,24 @@ wss.on('connection', (ws, request) => {
           if (client?.readyState === WebSocket.OPEN) {
             client.send(JSON.stringify({
               type: 'YOU_HAVE_NEW_INVITE',
+            }));
+          }
+        });
+        break;
+      case 'INVITE_CANCELED':
+        [parsed.payload.hostId].forEach((id) => {
+          const client = usersConnetctions.get(id);
+          if (client?.readyState === WebSocket.OPEN) {
+            client.send(JSON.stringify({
+              type: 'REMOVE_SENT_INVITE',
+            }));
+          }
+        });
+        [parsed.payload.guestId].forEach((id) => {
+          const client = usersConnetctions.get(id);
+          if (client?.readyState === WebSocket.OPEN) {
+            client.send(JSON.stringify({
+              type: 'REMOVE_RECEIVED_INVITE',
             }));
           }
         });

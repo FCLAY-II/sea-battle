@@ -1,4 +1,4 @@
-import { createContext, useContext, useEffect, useRef } from 'react';
+import { createContext, useContext, useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import useDescriptors from '../hooks/useDescriptors';
@@ -14,6 +14,7 @@ function SocketProvider({ children }) {
 
   gameId.current = useSelector((state) => state.game?.id);
   const user = useSelector((state) => state.user);
+  const [modalShowed, setModalShowed] = useState(false);
 
   const dispatch = useDispatch();
   const history = useHistory();
@@ -46,10 +47,17 @@ function SocketProvider({ children }) {
             history.push('/play');
             break;
           case 'INVITE_SENDED':
-            // dispatch(gameAC.changeStatus('answerWating'));
+            dispatch(userAC.addSentInvite());
             break;
           case 'YOU_HAVE_NEW_INVITE':
-            dispatch(userAC.addInvite());
+            setModalShowed(true);
+            dispatch(userAC.addReceivedInvite());
+            break;
+          case 'REMOVE_SENT_INVITE':
+            dispatch(userAC.removeSentInvite());
+            break;
+          case 'REMOVE_RECEIVED_INVITE':
+            dispatch(userAC.removeReceivedInvite());
             break;
           default:
             break;
@@ -61,7 +69,7 @@ function SocketProvider({ children }) {
   }, []);
 
   return (
-    <SocketContext.Provider value={{ socket, fetchSender, descriptors }}>
+    <SocketContext.Provider value={{ socket, modalShowed, setModalShowed, fetchSender, descriptors }}>
       {children}
     </SocketContext.Provider>
   );

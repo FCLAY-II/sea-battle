@@ -3,7 +3,6 @@ import { BrowserRouter as Router } from 'react-router-dom';
 import React from 'react';
 import Navbar from './components/Navbar/Navbar';
 import Main from './components/Main/Main';
-import InvitationModal from './components/InvitationModal/InvitationModal';
 
 function App() {
 
@@ -12,7 +11,6 @@ function App() {
       <Router>
         <Navbar />
         <Main />
-        <InvitationModal/>
       </Router>
     </div>
   );

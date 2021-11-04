@@ -1,5 +1,6 @@
 import { useDispatch, useSelector } from 'react-redux';
 import gameAC from '../redux/actionCreators/gameAC';
+import userAC from '../redux/actionCreators/userAC';
 import useFetchSender from './useFetchSender';
 
 function useDescriptors(socket) {
@@ -169,8 +170,28 @@ function useDescriptors(socket) {
             method: 'DELETE',
             headers: { Authorization: `Bearer ${accessToken}` },
           }),
-        onSuccess: ({ enemyId }) => fetchSender(this.createGame(enemyId)),
+        onSuccess: ({ hostId }) => fetchSender(this.createGame(hostId)),
         onFailure: () => alert('не получилось принять приглашение'),
+      };
+    },
+
+    deleteInvitation(inviteId) {
+      console.log('confirmInvitation called');
+      return {
+        fetchCb: (accessToken) =>
+          fetch(`http://localhost:3001/api/invite/${inviteId}`, {
+            method: 'DELETE',
+            headers: { Authorization: `Bearer ${accessToken}` },
+          }),
+        onSuccess: ({ hostId, guestId }) => {
+          socket.current.send(
+            JSON.stringify({
+              type: 'INVITE_CANCELED',
+              payload: { hostId, guestId },
+            })
+          );
+        },
+        onFailure: () => alert('не получилось отменить приглашение'),
       };
     },
 
@@ -191,7 +212,10 @@ function useDescriptors(socket) {
           fetch('http://localhost:3001/api/invite/sent', {
             headers: { Authorization: `Bearer ${accessToken}` },
           }),
-        onSuccess: ({ allInvites }) => setInvites(allInvites),
+        onSuccess: ({ allInvites }) => {
+          setInvites(allInvites);
+          userAC.addSentInvite();
+        },
         onFailure: () => alert('не удалось получить приглашения'),
       };
     },

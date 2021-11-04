@@ -1,4 +1,4 @@
-import { ADD_INVITE, EXIT_USER, REMOVE_INVITE, SET_USER, UPDATE_TOKENS } from '../types/user.types';
+import { ADD_RECEIVED_INVITE, ADD_SENT_INVITE, EXIT_USER, REMOVE_RECEIVED_INVITE, REMOVE_SENT_INVITE, SET_USER, UPDATE_TOKENS } from '../types/user.types';
 
 function throughLocalStorage(user) {
   window.localStorage.setItem('user', JSON.stringify(user));
@@ -10,7 +10,8 @@ function userReducer(stateUser = {}, action) {
     case SET_USER:
       return throughLocalStorage({
         ...action.payload,
-        invitesCount: 0,
+        receivedInvitesCount: 0,
+        sentInvitesCount: 0
       });
     case UPDATE_TOKENS:
       return throughLocalStorage({
@@ -21,15 +22,25 @@ function userReducer(stateUser = {}, action) {
       return {
         login: null
       };
-    case ADD_INVITE:
+    case ADD_RECEIVED_INVITE:
       return throughLocalStorage({
         ...stateUser,
-        invitesCount: stateUser.invitesCount + 1,
+        receivedInvitesCount: stateUser.receivedInvitesCount + 1,
       });
-    case REMOVE_INVITE:
+    case REMOVE_RECEIVED_INVITE:
       return throughLocalStorage({
         ...stateUser,
-        invitesCount: stateUser.invitesCount - 1,
+        receivedInvitesCount: stateUser.receivedInvitesCount - 1,
+      });
+    case ADD_SENT_INVITE:
+      return throughLocalStorage({
+        ...stateUser,
+        sentInvitesCount: stateUser.sentInvitesCount + 1,
+      });
+    case REMOVE_SENT_INVITE:
+      return throughLocalStorage({
+        ...stateUser,
+        sentInvitesCount: stateUser.sentInvitesCount - 1,
       });
     default:
       return stateUser;
