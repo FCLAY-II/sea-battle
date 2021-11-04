@@ -33,7 +33,7 @@
   height: 30px;
   width: 30px;
   border: 1px black solid;
-background-image: url('../../img/redcross.png');
+  background-image: url('../../img/redcross.png');
   background-size: 30px 30px;
   background-color: #61dafb80;
 }
@@ -90,4 +90,9 @@ background-image: url('../../img/redcross.png');
   display: flex;
   justify-content: center;
   align-items: center;
+}
+.win {
+  color: #8cc640;
+  font-size: 27px;
+  margin-top: 1%;
 }

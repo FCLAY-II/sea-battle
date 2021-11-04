@@ -20,25 +20,26 @@ export default function Game() {
     if (gamestatus === 'active') {
       return (
         <div>
-          {game.currentPlayerId === user.id ?
+          {game.currentPlayerId === user.id ? (
             <p> сейчас ваш ход</p>
-            :
-            <p> ждем, пока сходит {game.enemy.login}</p>}
+          ) : (
+            <p> ждем, пока сходит {game.enemy.login}</p>
+          )}
         </div>
       );
     }
     if (gamestatus === 'finished') {
       return (
         <div>
-          {game.currentPlayerId === user.id ?
-            <p>Вы выиграли!</p>
-            :
-            <p> Победил {game.enemy.login}</p>}
+          {game.currentPlayerId === user.id ? (
+            <p className='win'>Вы выиграли!</p>
+          ) : (
+            <p> Победил {game.enemy.login}</p>
+          )}
         </div>
       );
     }
     return null;
-
   }
 
   return (
@@ -48,6 +49,10 @@ export default function Game() {
 
         {gameStatus !== 'finished' ? (
           <button
+            className="btnInvite
+            btn
+            btn-outline-primary
+            btn-sm"
             type="button"
             onClick={() => {
               if (!surrender) {
@@ -58,17 +63,32 @@ export default function Game() {
           >
             Сдаться
           </button>
-        ) : (
-          null
-        )}
+        ) : null}
         <div className="fields">
           <MyField />
-          {gameStatus === 'active' || gameStatus === 'finished' ? <EnemyField /> : <></>}
+          {gameStatus === 'active' || gameStatus === 'finished' ? (
+            <EnemyField />
+          ) : (
+            <></>
+          )}
         </div>
-        {gameStatus === 'finished' ? <button type="button" onClick={() => {
-          dispatch(gameAC.setGame(null));
-        }}>завершить игру</button> : <></>}
+        {gameStatus === 'finished' ? (
+          <button
+            className="btnInvite
+            btn
+            btn-outline-primary
+            btn-lg"
+            type="button"
+            onClick={() => {
+              dispatch(gameAC.setGame(null));
+            }}
+          >
+            завершить игру
+          </button>
+        ) : (
+          <></>
+        )}
       </div>
-    </GameContextProvider >
+    </GameContextProvider>
   );
 }
