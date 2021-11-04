@@ -47,8 +47,8 @@ function GameContextProvider({ children }) {
     const arrField = [(
       <Row num="" key={150} cells={
         ['A', 'Б', 'В', 'Г', 'Д', 'Е', 'Ж', 'З', 'И', 'К']
-          .map((letter) => <span style={{fontSize: '0.7rem', width: '20px'}}>{letter}</span>)
-      }/>
+          .map((letter) => <span className='field-label'>{letter}</span>)
+      } />
     )];
     while (cells.length > 0) {
       const row = cells.splice(0, 10);
