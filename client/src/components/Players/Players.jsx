@@ -5,9 +5,13 @@ export default function Players({ player }) {
   const { fetchSender, descriptors } = useSocket();
 
   return (
-    <div className='userslogin'>
-      {player.login}
-      {' '}&nbsp;
+    <div className="userslogin">
+      <div>
+        <ul>
+          <li className="list-item">{player.login} &nbsp;</li>
+        </ul>
+      </div>
+
       <button
         onClick={(e) => {
           fetchSender(descriptors.createInvitation(+e.target.dataset.id));

@@ -22,19 +22,24 @@ export default function AllUsers() {
   }, [input]);
 
   return (
-    <div style={{ marginLeft: '4%' }}>
-      <p>
-        <input
-          placeholder="найти соперника"
-          onChange={(e) => setInput(e.target.value)}
-        />
-      </p>
-      <b>Все игроки:</b>{' '}
-      {players
-        .filter((usr) => usr.login !== user.login)
-        .map((player) => (
-          <Players key={player.id} player={player} />
-        ))}
+    <div className="container">
+      <div style={{ marginLeft: '4%' }}>
+        <p>
+          <input
+            className="form-control me-2"
+            type="search"
+            aria-label="Search"
+            placeholder="найти соперника"
+            onChange={(e) => setInput(e.target.value)}
+          />
+        </p>
+        <b>Все игроки:</b>{' '}
+        {players
+          .filter((usr) => usr.login !== user.login)
+          .map((player) => (
+            <Players key={player.id} player={player} />
+          ))}
+      </div>
     </div>
   );
 }
