@@ -9,15 +9,15 @@
   justify-content: center;
 }
 #frm {
-  box-shadow:10px 5px 5px #00bbd67d;
+  box-shadow: 10px 5px 5px #00bbd67d;
   display: flex;
   align-items: center;
   flex-direction: column;
   justify-content: space-evenly;
   border-radius: 17px;
   height: 420px;
-  width: 30%;
-  background-color:#9adb44;
+  width: 47%;
+  background-color: #9adb44;
 }
 .fom {
   padding: 35px !important;
@@ -48,6 +48,9 @@ b {
   background-color: #ffffffa6;
   border-color: #3edb0e;
 }
-.container{
+.container {
   background-image: url('../../img/wave_03.png');
+}
+.bb {
+  font-size: 21px;
 }

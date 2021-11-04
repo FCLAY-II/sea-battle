@@ -21,7 +21,7 @@ export default function RegForm() {
         >
           <div className="fom">
             <p>
-              <b> Добро пожаловать в Морской бой!!!</b>
+              <b className='regb'> Добро пожаловать в Морской бой!!!</b>
               <Link to="/login" className="det navbar-brand">
                 <p>Уже есть аккаунт?</p>
               </Link>

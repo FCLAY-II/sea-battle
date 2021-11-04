@@ -1,12 +1,13 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import userAC from '../../redux/actionCreators/userAC';
-import './navBar.css';
+import style from './navBar.css';
 
 export default function Navbar() {
   const user = useSelector((state) => state.user);
   const dispatch = useDispatch();
+  const [nav, setNav] = useState();
 
   return (
     <header className="opt">

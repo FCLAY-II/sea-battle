@@ -69,3 +69,36 @@ nav a:nth-child(4):hover ~ .animation {
   width: 27%;
   left: 76%;
 }
+
+@media (min-width: 700px) and (max-width: 900px) {
+  nav a:nth-child(1) {
+    width: 30%;
+  }
+  nav .start-home,
+  nav a:nth-child(1):hover ~ .animation {
+    width: 27%;
+    left: -8px;
+  }
+  nav a:nth-child(2) {
+    width: 30%;
+  }
+  nav a:nth-child(2):hover ~ .animation {
+    width: 25%;
+    left: 25%;
+  }
+  nav a:nth-child(3) {
+    width: 30%;
+  }
+  nav a:nth-child(3):hover ~ .animation {
+    width: 24%;
+    left: 50%;
+  }
+  
+  nav a:nth-child(4) {
+    width: 30%;
+  }
+  nav a:nth-child(4):hover ~ .animation {
+    width: 27%;
+    left: 74%;
+  }
+}
