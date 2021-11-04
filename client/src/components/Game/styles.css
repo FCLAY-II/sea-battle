@@ -23,29 +23,31 @@
 }
 
 .field-cell {
-  height: 20px;
-  width: 20px;
-  background-color: #61dafb;
-  border: 1px black solid;
+  height: 30px;
+  width: 30px;
+  background-color: #61dafb80;
+  border: 1px rgba(0, 0, 0, 0.897) solid;
+  /* border-left: 1px rgba(0, 0, 0, 0.897) solid;
+  border-bottom: 1px rgba(0, 0, 0, 0.897) solid; */
 }
 
 .goodshot {
-  height: 20px;
-  width: 20px;
-  background-color: black;
+  height: 30px;
+  width: 30px;
+  background-color: rgb(0, 0, 0);
   border: 1px black solid;
 }
 
 .badshot {
-  height: 20px;
-  width: 20px;
+  height: 30px;
+  width: 30px;
   background-color: red;
   border: 1px black solid;
 }
 
 .killedcell {
-  height: 20px;
-  width: 20px;
+  height: 30px;
+  width: 30px;
   background-color: green;
   border: 1px green solid;
 }
@@ -61,8 +63,8 @@
 }
 
 .shipcell {
-  height: 20px;
-  width: 20px;
+  height: 30px;
+  width: 30px;
   background-color: grey;
   border:  1px grey solid;
 }
@@ -76,4 +78,12 @@
 .ship {
   display: flex;
   margin: 5px;
+}
+
+.field-label {
+  font-size:  1rem;
+  width: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
