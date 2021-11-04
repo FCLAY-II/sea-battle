@@ -8,7 +8,9 @@ export default function Players({ player }) {
     <div className="userslogin">
       <div>
         <ul>
-          <li className="list-item">{player.login} &nbsp;</li>
+          <li className="list-item d-flex justify-content-center">
+            <b>{player.login}</b> &nbsp;
+          </li>
         </ul>
       </div>
 
@@ -18,7 +20,7 @@ export default function Players({ player }) {
         }}
         data-id={player.id}
         type="button"
-        className="btn btn-outline-primary btn-sm"
+        className="btn btn-outline-primary btn-sm "
       >
         Пригласить в игру
       </button>
