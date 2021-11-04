@@ -11,7 +11,7 @@ export default function Navbar() {
 
   return (
     <header className="opt">
-      <nav>
+      <nav className="header__nav">
         <Link to="/">Главная</Link>
         <Link to="/play">Играть</Link>
 

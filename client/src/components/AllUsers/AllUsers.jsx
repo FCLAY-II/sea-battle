@@ -22,6 +22,7 @@ export default function AllUsers() {
   }, [input]);
   console.log(players);
   return (
+    <>
     <div className="container mt-3">
       <div style={{ margin: 'auto', marginTop: '5rem' }}>
         <p>
@@ -34,12 +35,16 @@ export default function AllUsers() {
           />
         </p>
         <b>Все игроки:</b>{' '}
+      </div>
+      
+    </div>
+    <div className="playerdiv">
         {players
           .filter((usr) => usr.login !== user.login)
           .map((player) => (
             <Players key={player.id} player={player} />
           ))}
       </div>
-    </div>
+      </>
   );
 }
