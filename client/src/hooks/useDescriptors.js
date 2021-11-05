@@ -31,7 +31,7 @@ function useDescriptors(socket) {
             })
           );
         },
-        onFailure: () => alert('сейчас не твой ход'),
+        onFailure: () => {},
       };
     },
 
