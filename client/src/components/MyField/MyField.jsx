@@ -17,7 +17,7 @@ export default function MyField() {
   return (
     <div
       onClick={(e) => {
-        if ('cell' in e.target.dataset && game.status === 'preparation') {
+        if ('cell' in e.target.dataset && (game.status === 'preparation' || game.status === 'awaiting')) {
           putShip(game.field, e.target.id.toString());
         }
       }}

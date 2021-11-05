@@ -5,7 +5,18 @@
 
 .invite {
   /* background-color: rgb(255, 205, 205); */
-  padding: 0.6rem;
+  /* padding: 0.6rem; */
+  display: flex;
+  justify-content: space-between;
+  text-align: center;
+  padding: 15px 1px;
+  align-items: center;
+}
+
+.invite *:nth-child(1) {
+  width: 9rem;
+  font-size: 1.5rem;
+  font-weight: bold;
 }
 
 .invite *:nth-child(2) {
