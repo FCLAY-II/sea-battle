@@ -7,7 +7,7 @@ const { Token } = require('../db/models');
 
 function getFreshTokens(payload, tokenSecret) {
   return {
-    accessToken: jwt.sign(payload, tokenSecret, { expiresIn: '30m' }),
+    accessToken: jwt.sign(payload, tokenSecret, { expiresIn: '1d' }),
     refreshToken: jwt.sign(payload, tokenSecret, { expiresIn: '15d' }),
   };
 }

@@ -2,12 +2,13 @@
 import React from 'react';
 import './regForm.css';
 import { useDispatch } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import userAC from '../../redux/actionCreators/userAC';
 
 export default function RegForm() {
 
   const dispatch = useDispatch();
+  const history = useHistory();
 
   return (
     <div className="container">

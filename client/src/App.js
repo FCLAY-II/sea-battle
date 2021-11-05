@@ -1,11 +1,13 @@
 import './App.css';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import React from 'react';
+import { useSelector } from 'react-redux';
 import Navbar from './components/Navbar/Navbar';
 import Main from './components/Main/Main';
-import MainParaPage from './components/MainParaPage/MainParaPage';
 
 function App() {
+
+  const userLogin = useSelector((state) => state.user.login);
 
   return (
     <div className="App">
@@ -53,7 +55,44 @@ function App() {
       </section>
         <Switch>
           <Route exact path="/welcome">
-            <p />
+            <div 
+              className="d-flex flex-column justify-content-center"
+              style={{height: '100vh', width: '100vw', 'z-index': '2'}}
+            >
+              {!userLogin ? (
+                <>
+                  <h1 style={{
+                    color: 'white', 
+                    fontSize: '6rem',
+                    fontWeight: 'bold',
+                    'text-shadow': 'rgb(120, 120, 120) 1px 0 10px',
+                    margin: '2rem 0'
+                  }}>Добро пожаловать в</h1>
+                  <h1 style={{
+                    color: 'white', 
+                    fontSize: '6rem',
+                    fontWeight: 'bold',
+                    'text-shadow': 'rgb(120, 120, 120) 1px 0 10px'
+                  }}>Морской бой!</h1>
+                </>
+              ) : (
+                <>
+                  <h1 style={{
+                    color: 'white', 
+                    fontSize: '6rem',
+                    fontWeight: 'bold',
+                    'text-shadow': 'rgb(120, 120, 120) 1px 0 10px',
+                    margin: '2rem 0'
+                  }}>Добро пожаловать,</h1>
+                  <h1 style={{
+                    color: 'white', 
+                    fontSize: '6rem',
+                    fontWeight: 'bold',
+                    'text-shadow': 'rgb(120, 120, 120) 1px 0 10px'
+                  }}>{userLogin}!</h1>
+                </>
+              )}
+            </div>
           </Route>
           <Main />
         </Switch>

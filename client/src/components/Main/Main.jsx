@@ -1,5 +1,5 @@
 import React from 'react';
-import { Switch, Route } from 'react-router-dom';
+import { Switch, Route, Redirect } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import RegForm from '../RegForm/RegForm';
 import LogForm from '../LogForm/LogForm';
@@ -30,11 +30,14 @@ export default function Main() {
           userLogin ? (
             <Route path="/">
               <SocketProvider>
-                <Route exact path="/play">
+                <Route path="/play">
                   <GamePage/>
                 </Route>
-                <Route exact path="/profile">
+                <Route path="/profile">
                   <Profile />
+                </Route>
+                <Route exact path="/">
+                  <Redirect to="/welcome" />
                 </Route>
                 <InvitationModal />
               </SocketProvider>
