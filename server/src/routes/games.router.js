@@ -158,7 +158,6 @@ router.patch('/:id/make-turn/:cellId', async (req, res) => {
         let shipLength = 1;
         let i = 1;
         if (cellId % 10 !== 9) {
-          // if (cellId % 10 === 0 || (cellId % 10) % 9 !== 0) {
           while (((cellId + i) % 10 !== 0) && (record.field[cellId + i] === '1' || record.field[cellId + i] === '3')) {
             shipLength += 1;
             if (record.field[cellId + i] === '3') {
@@ -197,8 +196,44 @@ router.patch('/:id/make-turn/:cellId', async (req, res) => {
         }
         i = 1;
         if (shipLength === shotsArr.length) {
-          for (let j = 0; j < shotsArr.length; j += 1) {
-            record.field = stringReplaceAt(record.field, shotsArr[j], '4');
+          const ship = shotsArr.sort((a, b) => a - b);
+          for (let j = 0; j < ship.length; j += 1) {
+            record.field = stringReplaceAt(record.field, ship[j], '4');
+          }
+          if (ship[ship.length - 1] - ship[0] >= 10) {
+            if (ship[ship.length - 1] < 90) {
+              ship.push(ship[ship.length - 1] + 10);
+              record.field = stringReplaceAt(record.field, ship[ship.length - 1], '2');
+            }
+            if (ship[0] > 9) {
+              ship.push(ship[0] - 10);
+              record.field = stringReplaceAt(record.field, ship[ship.length - 1], '2');
+            }
+            for (let y = 0; y < ship.length; y += 1) {
+              if (ship[y] % 10 !== 9) {
+                record.field = stringReplaceAt(record.field, ship[y] + 1, '2');
+              }
+              if (ship[y] % 10 !== 0) {
+                record.field = stringReplaceAt(record.field, ship[y] - 1, '2');
+              }
+            }
+          } else {
+            if (ship[ship.length - 1] % 10 !== 9) {
+              ship.push(ship[ship.length - 1] + 1);
+              record.field = stringReplaceAt(record.field, ship[ship.length - 1], '2');
+            }
+            if (ship[0] % 10 !== 0) {
+              ship.push(ship[0] - 1);
+              record.field = stringReplaceAt(record.field, ship[ship.length - 1], '2');
+            }
+            for (let x = 0; x < ship.length; x += 1) {
+              if (ship[x] > 10) {
+                record.field = stringReplaceAt(record.field, ship[x] - 10, '2');
+              }
+              if (ship[x] < 90) {
+                record.field = stringReplaceAt(record.field, ship[x] + 10, '2');
+              }
+            }
           }
           await record.save();
         } else {
