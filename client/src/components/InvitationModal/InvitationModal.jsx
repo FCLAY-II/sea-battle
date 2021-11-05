@@ -11,9 +11,17 @@ export default function InvitationModal() {
       <></>
     ) : (
       <div className={styles.modal}>
-        <p>вам пришло приглашение</p>
-        <button type="button" onClick={()=>setModalShowed(false)}
-        >x</button>
+        <div>
+          <p>вам пришло приглашение</p>
+        </div>
+        <div>
+          <button 
+            type="button" 
+            onClick={()=>setModalShowed(false)}
+          >
+            x
+          </button>
+        </div>
       </div>
     )}
     </>

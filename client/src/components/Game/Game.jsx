@@ -37,13 +37,23 @@ export default function Game() {
         </div>
       );
     }
+    if (gamestatus === 'pending') {
+      return (
+        <p className='game-info'>Ждём, пока {game.enemy.login} расставит корабли</p>
+      );
+    }
+    if (gamestatus === 'awaiting') {
+      return (
+        <p className='game-info'>{game.enemy.login} расставил корабли!</p>
+      );
+    }
     if (gamestatus === 'finished') {
       return (
         <div>
           {game.currentPlayerId === user.id ? (
             <p className='win'>Вы выиграли!</p>
           ) : (
-            <p> Победил {game.enemy.login}</p>
+            <p className='win'> Победил {game.enemy.login}</p>
           )}
         </div>
       );
@@ -86,19 +96,19 @@ export default function Game() {
         ) : (
           <></>
         )}
-        {gameStatus === 'preparation' ? (
+        {gameStatus === 'preparation' || gameStatus === 'awaiting' ? (
             <button
             className="btnInvite
               btn
               btn-outline-primary
-              btn-sm"
+              btn-lg"
             type="button"
             onClick={() => {
               fetchSender(descriptors.confirmShips(game.field));
               // setButtonState('unvisible');
             }}
           >
-            Готов к игре
+            {gameStatus === 'preparation' ? 'Готов к игре' : 'Начать игру'}
           </button>
         ) : (
           null

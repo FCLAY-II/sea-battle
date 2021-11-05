@@ -38,7 +38,7 @@
   width: var(--cell-size);
   border: 1px black solid;
   background-image: url('../../img/redcross.png');
-  background-size: 30px 30px;
+  background-size: var(--cell-size) var(--cell-size);
   background-color: #61dafb80;
 }
 
@@ -48,16 +48,16 @@
   border: 1px black solid;
   background-image: url('../../img/blackPoint.png');
   background-color: #61dafb80;
-  background-size: 30px 30px;
+  background-size: var(--cell-size) var(--cell-size);
 }
 
 .killedcell {
   height: var(--cell-size);
   width: var(--cell-size);
   background-image: url('../../img/redcross.png');
-  background-size: 30px 30px;
-  border: 1px red solid;
-  background-color: #fbb36180;
+  background-size: var(--cell-size) var(--cell-size);
+  border: 1px rgb(0, 0, 0) solid;
+  background-color: #ffc291;
 }
 
 .numbers {
@@ -87,12 +87,13 @@
 
 .win {
   color: #8cc640;
-  font-size: 27px;
+  font-size: 2rem;
+  font-weight: bold;
   margin-top: 1%;
 }
 
 .game-info {
-  font-size: 3rem;
+  font-size: 2.5rem;
 }
 
 .field-title {

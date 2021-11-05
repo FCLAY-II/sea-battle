@@ -39,8 +39,8 @@ function SocketProvider({ children }) {
             fetchSender(descriptors.loadGame(gameId.current));
             break;
           case 'ENEMY_READY':
-            alert('enemy ready');
-            // dispatch(gameAC.changeStatus('pending'));
+            // alert('enemy ready');
+            dispatch(gameAC.changeStatus('awaiting'));
             break;
           case 'GO_TO_GAME':
             fetchSender(descriptors.loadGame(parsed.payload));

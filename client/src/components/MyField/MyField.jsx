@@ -24,11 +24,6 @@ export default function MyField() {
       className="myside"
     >
       <div id="myfield" className="field">
-        {game.status === 'pending' ? (
-          <div>ждем, пока противник расставит свои корабли</div>
-        ) : (
-          <></>
-        )}
         <p className="field-title">Моё поле</p>
         {field.map((item) => item)}
       </div>

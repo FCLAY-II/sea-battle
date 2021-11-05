@@ -9,6 +9,7 @@
 
   position: absolute;
   display: flex;
+  flex-direction: row;
 
   bottom: calc(40px);
   right: calc(40px);
@@ -28,4 +29,12 @@
 
   animation-duration: 1s;
   animation-name: fromright;
+}
+
+.modal button {
+  border: none;
+  background: none;
+  cursor: pointer;
+  margin: 0;
+  padding: 0;
 }
