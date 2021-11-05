@@ -1,4 +1,12 @@
-import { ADD_INVITE, EXIT_USER, REMOVE_INVITE, SET_USER, UPDATE_TOKENS } from '../types/user.types';
+import { 
+  ADD_RECEIVED_INVITE,
+  ADD_SENT_INVITE,
+  EXIT_USER,  
+  REMOVE_RECEIVED_INVITE,  
+  REMOVE_SENT_INVITE,  
+  SET_USER, 
+  UPDATE_TOKENS 
+} from '../types/user.types';
 import gameAC from './gameAC';
 
 const userAC = {
@@ -67,11 +75,21 @@ const userAC = {
     type: UPDATE_TOKENS,
     payload: { accessToken, refreshToken },
   }),
-  addInvite: ()=>({
-    type: ADD_INVITE,
+
+  addReceivedInvite: ()=>({
+    type: ADD_RECEIVED_INVITE,
   }),
-  removeInvite: ()=>({
-    type: REMOVE_INVITE,
+
+  removeReceivedInvite: ()=>({
+    type: REMOVE_RECEIVED_INVITE,
+  }),
+
+  addSentInvite: ()=>({
+    type: ADD_SENT_INVITE,
+  }),
+
+  removeSentInvite: ()=>({
+    type: REMOVE_SENT_INVITE,
   }),
 
 };

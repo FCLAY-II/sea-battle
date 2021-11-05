@@ -20,7 +20,7 @@ export default function EnemyField() {
       id="enemyfield"
       className="field"
     >
-      <h1>Поле  {game.enemy.login}</h1>
+      <p className="field-title">Поле {game.enemy.login}</p>
       {field.map((item) => item)}
     </div>
   );

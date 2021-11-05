@@ -1,6 +1,9 @@
+@import url('https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@300&display=swap');
+
 * {
   margin: 0;
   padding: 0;
+  box-sizing: border-box;
 }
 
 .App {
@@ -11,6 +14,8 @@
   align-items: stretch;
   height: 100vh;
   width: 100vw;
+
+  background-color: rgb(0, 204, 240);
 }
 
 .App-link {
@@ -23,3 +28,169 @@ li {
 input {
   color: black !important;
 }
+
+.banner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+
+  z-index: 0;
+}
+
+/* .container {
+  position: absolute;
+  left: -10%;
+  width: 120%;
+  height: 100vh;
+  background: radial-gradient(#e1f1e5, #acdabb);
+} */
+
+.container #scene .layer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+}
+
+.container .layer img {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.wave_1 {
+  bottom: 144px;
+  height: 15px;
+  animation: wave 6.66667s 0.1s infinite ease-in-out;
+}
+
+.wave_2 {
+  bottom: 144px;
+  height: 115px;
+  animation: wave 6.46667s 0.1s infinite ease-in-out;
+}
+.boat_1 {
+  bottom: 144px;
+  height: 115px;
+  animation: boat-wave 6.46667s 0.4s infinite ease-in-out;
+}
+
+
+.wave_3 {
+  bottom: 108px;
+  height: 144px;
+  animation: wave 6.22222s 0.1s infinite ease-in-out;
+}
+.boat_2 {
+  bottom: 144px;
+  height: 115px;
+  animation: boat2-wave 6.22222s 0.8s infinite ease-in-out;
+}
+
+.wave_4 {
+  animation: wave 5.77778s 0.1s infinite ease-in-out;
+  bottom: 72px;
+  height: 173px;
+}
+
+.wave_5 {
+  animation: wave 5.37778s 0.1s infinite ease-in-out;
+  bottom: 72px;
+  height: 173px;
+}
+.boat_5 {
+  bottom: 144px;
+  height: 115px;
+  animation: boat2-wave 5.37778s 0.1s infinite ease-in-out;
+}
+
+.clouds-left {
+  animation: clouds-left 4.37778s 0.1s infinite ease-in-out;
+}
+
+.clouds-right {
+  animation: clouds-right 4.37778s 2s infinite ease-in-out;
+}
+
+.container .layer img.birds {
+  top: 0px;
+  left: -100vw;
+
+  animation: birds 10s 0s infinite linear;
+}
+
+@keyframes clouds-left {
+  0% {
+    transform: translate3d(-10px, 0, 0);
+  }
+  50% {
+    transform: translate3d(0, 0px, 0);
+  }
+  100% {
+    transform: translate3d(-10px, 0, 0);
+  }
+}
+
+@keyframes clouds-right {
+  0% {
+    transform: translate3d(10px, 0, 0);
+  }
+  50% {
+    transform: translate3d(0, 0px, 0);
+  }
+  100% {
+    transform: translate3d(10px, 0, 0);
+  }
+}
+
+@keyframes wave {
+  0% {
+    transform: translate3d(0, 2%, 0);
+  }
+  50% {
+    transform: translate3d(0, 4%, 0);
+  }
+  100% {
+    transform: translate3d(0, 2%, 0);
+  }
+}
+
+@keyframes boat-wave {
+  0% {
+    transform: translate3d(0, 1.7%, 0);
+  }
+  50% {
+    transform: translate3d(0, 3.7%, 0);
+  }
+  100% {
+    transform: translate3d(0, 1.7%, 0);
+  }
+}
+
+@keyframes boat2-wave {
+  0% {
+    transform: translate3d(0, 2.5%, 0);
+  }
+  50% {
+    transform: translate3d(0, 3.7%, 0);
+  }
+  100% {
+    transform: translate3d(0, 2.5%, 0);
+  }
+}
+
+@keyframes birds {
+  0% {
+    transform: translate3d(0vw, 2.5%, 0);
+  }
+  100% {
+    transform: translate3d(200vw, 2.5%, 0);
+  }
+}
+
+

@@ -17,9 +17,8 @@
   height: 100%;
   flex-direction: column;
   display: flex;
-  margin-top: 10%;
+  margin-top: 0;
   align-items: center;
-  /* justify-content: center; */
 }
 .left {
   width: 40%;
@@ -28,7 +27,6 @@
   align-items: center;
   padding-top: 15px;
   box-shadow: -25px -15px 20px #f47624de;
-  /* border-style: double; */
 }
 .right {
   border-left-style: double;

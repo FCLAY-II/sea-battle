@@ -21,25 +21,32 @@ export default function AllUsers() {
     return () => clearTimeout(timeId);
   }, [input]);
   console.log(players);
+
   return (
-    <div className="container mt-3">
-      <div style={{ margin: 'auto', marginTop: '5rem' }}>
-        <p>
-          <input
-            className="form-control me-2"
-            type="search"
-            aria-label="Search"
-            placeholder="найти соперника"
-            onChange={(e) => setInput(e.target.value)}
-          />
-        </p>
-        <b>Все игроки:</b>{' '}
+    <>
+      <div className="container mt-0">
+        <div style={{ margin: 'auto', marginTop: '1rem' }}>
+          <p>
+            <input
+              className="form-control me-2"
+              style={{width: '440px'}}
+              type="search"
+              aria-label="Search"
+              placeholder="найти соперника"
+              onChange={(e) => setInput(e.target.value)}
+            />
+          </p>
+        </div>
+        
+      </div>
+      <div className="playerdiv">
+        <b className="mb-4" >Все игроки:</b>
         {players
           .filter((usr) => usr.login !== user.login)
           .map((player) => (
             <Players key={player.id} player={player} />
           ))}
       </div>
-    </div>
+      </>
   );
 }

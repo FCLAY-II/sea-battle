@@ -10,6 +10,7 @@ import Profile from '../Profile/Profile';
 import './styles.css';
 import GamePage from '../GamePage/GamePage';
 import MainParaPage from '../MainParaPage/MainParaPage';
+import InvitationModal from '../InvitationModal/InvitationModal';
 
 export default function Main() {
 
@@ -29,15 +30,13 @@ export default function Main() {
           userLogin ? (
             <Route path="/">
               <SocketProvider>
-                <Route exact path="/">
-                  <MainParaPage />
-                </Route>
                 <Route exact path="/play">
                   <GamePage/>
                 </Route>
                 <Route exact path="/profile">
                   <Profile />
                 </Route>
+                <InvitationModal />
               </SocketProvider>
             </Route>
             ) : (

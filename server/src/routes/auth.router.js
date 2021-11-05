@@ -71,7 +71,6 @@ router.post('/signin', async (req, res) => {
         });
         if (!created) {
           record.token = refreshToken;
-          console.log('sign in refresh token:', refreshToken);
           await record.save();
         }
 
