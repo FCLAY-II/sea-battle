@@ -3,6 +3,7 @@ import { useSelector } from 'react-redux';
 import { useSocket } from '../../contexts/socket.context';
 import AllUsers from '../AllUsers/AllUsers';
 import SentInvites from '../SentInvites/SentInvites';
+import './styles.css';
 
 export default function Invites() {
 

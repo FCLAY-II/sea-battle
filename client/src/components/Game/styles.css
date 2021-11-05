@@ -13,6 +13,8 @@
   margin: 2rem 0;
 
   width: 100%;
+
+  --cell-size: 27px;
 }
 
 .field {
@@ -25,15 +27,15 @@
 }
 
 .field-cell {
-  height: 30px;
-  width: 30px;
+  height: var(--cell-size);
+  width: var(--cell-size);
   background-color: #61dafb80;
   border: 1px rgba(0, 0, 0, 0.897) solid;
 }
 
 .goodshot {
-  height: 30px;
-  width: 30px;
+  height: var(--cell-size);
+  width: var(--cell-size);
   border: 1px black solid;
   background-image: url('../../img/redcross.png');
   background-size: 30px 30px;
@@ -41,8 +43,8 @@
 }
 
 .badshot {
-  height: 30px;
-  width: 30px;
+  height: var(--cell-size);
+  width: var(--cell-size);
   border: 1px black solid;
   background-image: url('../../img/blackPoint.png');
   background-color: #61dafb80;
@@ -50,8 +52,8 @@
 }
 
 .killedcell {
-  height: 30px;
-  width: 30px;
+  height: var(--cell-size);
+  width: var(--cell-size);
   background-image: url('../../img/redcross.png');
   background-size: 30px 30px;
   border: 1px red solid;
@@ -69,30 +71,20 @@
 }
 
 .shipcell {
-  height: 30px;
-  width: 30px;
-  background-color: grey;
-  border: 1px grey solid;
-}
-
-.ships {
-  display: flex;
-  justify-content: space-evenly;
-  flex-direction: column;
-}
-
-.ship {
-  display: flex;
-  margin: 5px;
+  height: var(--cell-size);
+  width: var(--cell-size);
+  background-color: rgb(156, 155, 155);
+  border: 1px rgb(156, 155, 155) solid;
 }
 
 .field-label {
   font-size: 1rem;
-  width: 30px;
+  width: var(--cell-size);
   display: flex;
   justify-content: center;
   align-items: center;
 }
+
 .win {
   color: #8cc640;
   font-size: 27px;
@@ -112,5 +104,5 @@
 .gamepage{
   display: flex;
   width: 100%;
-  
+
 }

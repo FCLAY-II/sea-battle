@@ -23,7 +23,7 @@ export default function Navbar() {
             setNav({ width: '27%', left: '-8px' }),
             setprevNav({ width: '27%', left: '-8px' })
           )}
-          to="/"
+          to="/welcome"
         >
           Главная
         </Link>
@@ -39,10 +39,14 @@ export default function Navbar() {
 
         {!user.login ? (
           <>
-            <Link onClick={(e) => {
-              setNav(3);
-            }} to="/login">Авторизоваться</Link>
-            <Link onClick={() => setNav(4)} to="/register">Зарегистрироваться</Link>
+            <Link onClick={(e) => (
+              setNav({ width: '25%', left: '50%' }),
+              setprevNav({ width: '25%', left: '50%' })
+            )} to="/login">Авторизоваться</Link>
+            <Link onClick={(e) => (
+              setNav({ width: '27%', left: '76%' }),
+              setprevNav({ width: '27%', left: '76%' })
+            )} to="/register">Зарегистрироваться</Link>
           </>
         ) : (
           <>
@@ -61,7 +65,7 @@ export default function Navbar() {
                 setprevNav({ width: '27%', left: '74%' }),
                 dispatch(userAC.logout())
               )}
-              to="/"
+              to="/welcome"
             >
               Выйти
             </Link>

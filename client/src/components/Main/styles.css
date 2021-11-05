@@ -3,12 +3,14 @@ main {
   position: relative;
 
   display: flex;
-  align-items: center;
+  /* align-items: center; */
   justify-content: center;
 
   width: 60%;
   min-width: 900px;
   height: 100%;
+
+  padding: 7rem;
 
   margin: auto;
 

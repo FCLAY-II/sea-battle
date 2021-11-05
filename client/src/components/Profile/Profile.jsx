@@ -33,7 +33,7 @@ function Profile() {
               </div>
               {invites.map((invite) => (
                 <div key={invite.id} className="invite">
-                  <p>{`Приглашение от ${invite.login}`}</p>
+                  <p>{`От ${invite.login}`}</p>
                   <div
                     type="button"
                     className="btn-group ntf"
@@ -49,7 +49,7 @@ function Profile() {
                       className="btn btn-outline-primary"
                       // htmlFor="btncheck3"
                     >
-                      Принять приглашение
+                      Принять
                     </label>
                   </div>
                   <button

@@ -29,17 +29,18 @@ export default function AllUsers() {
           <p>
             <input
               className="form-control me-2"
+              style={{width: '440px'}}
               type="search"
               aria-label="Search"
               placeholder="найти соперника"
               onChange={(e) => setInput(e.target.value)}
             />
           </p>
-          <b>Все игроки:</b>{' '}
         </div>
         
       </div>
       <div className="playerdiv">
+        <b className="mb-4" >Все игроки:</b>
         {players
           .filter((usr) => usr.login !== user.login)
           .map((player) => (

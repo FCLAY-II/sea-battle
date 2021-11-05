@@ -4,7 +4,7 @@
 }
 .container {
   display: flex;
-  margin-top: 17%;
+  margin-top: 0;
   align-items: center;
   justify-content: center;
 }

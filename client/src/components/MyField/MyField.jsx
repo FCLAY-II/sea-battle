@@ -2,11 +2,8 @@ import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useGameContext } from '../../contexts/game.context';
 import { useSocket } from '../../contexts/socket.context';
-import gameAC from '../../redux/actionCreators/gameAC';
-import Ships from '../Ships/Ships';
 
 export default function MyField() {
-  const [ships, setShips] = useState([4, 3, 3, 2, 2, 2, 1, 1, 1, 1]);
 
   const game = useSelector((state) => state.game);
 
@@ -35,25 +32,6 @@ export default function MyField() {
         <p className="field-title">Моё поле</p>
         {field.map((item) => item)}
       </div>
-
-      {game.status === 'preparation' ? (
-        <>
-          <Ships ships={ships} setShips={setShips} />
-          <button
-            className="btnInvite
-              btn
-              btn-outline-primary
-              btn-sm"
-            type="button"
-            onClick={() => {
-              fetchSender(descriptors.confirmShips(game.field));
-              // setButtonState('unvisible');
-            }}
-          >
-            Готов к игре
-          </button>
-        </>
-      ) : null}
     </div>
   );
 }

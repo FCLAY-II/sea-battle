@@ -5,7 +5,9 @@ import { useSocket } from '../../contexts/socket.context';
 import gameAC from '../../redux/actionCreators/gameAC';
 import EnemyField from '../EnemyField/EnemyField';
 import MyField from '../MyField/MyField';
+import Ships from '../ShipsContainer/ShipsContainer';
 import styles from './styles.css';
+import SurrenderButton from './SurrenderButton/SurrenderButton';
 
 export default function Game() {
   const user = useSelector((state) => state.user);
@@ -15,6 +17,7 @@ export default function Game() {
   const dispatch = useDispatch();
 
   const [surrender, setSurrender] = useState(false);
+  const [ships, setShips] = useState([[4], [3, 3], [2, 2, 2], [1, 1, 1, 1]]);
 
   useEffect(() => () => {
     if (gameStatus === 'finished') {
@@ -52,31 +55,21 @@ export default function Game() {
     <GameContextProvider>
       <div style={{width: '100%'}}>
         {giveInformation(gameStatus)}
+        {gameStatus !== 'finished' ? (
+          <SurrenderButton surrender={surrender} setSurrender={setSurrender} />
+        ) : null}
         <div className="fields">
           <MyField />
           {gameStatus === 'active' || gameStatus === 'finished' ? (
             <EnemyField />
           ) : (
-            <></>
+            // {game.status === 'preparation' ? (
+              <>
+                <Ships ships={ships} setShips={setShips} />
+              </>
+            // ) : null}
           )}
         </div>
-        {gameStatus !== 'finished' ? (
-          <button
-            className="btnInvite
-            btn
-            btn-outline-primary
-            btn-lg"
-            type="button"
-            onClick={() => {
-              if (!surrender) {
-                fetchSender(descriptors.finishGame());
-                setSurrender(true);
-              }
-            }}
-          >
-            Сдаться
-          </button>
-        ) : null}
         {gameStatus === 'finished' ? (
           <button
             className="btnInvite
@@ -92,6 +85,23 @@ export default function Game() {
           </button>
         ) : (
           <></>
+        )}
+        {gameStatus === 'preparation' ? (
+            <button
+            className="btnInvite
+              btn
+              btn-outline-primary
+              btn-sm"
+            type="button"
+            onClick={() => {
+              fetchSender(descriptors.confirmShips(game.field));
+              // setButtonState('unvisible');
+            }}
+          >
+            Готов к игре
+          </button>
+        ) : (
+          null
         )}
       </div>
     </GameContextProvider>
