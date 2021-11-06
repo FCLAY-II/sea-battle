@@ -39,14 +39,24 @@ export default function Navbar() {
 
         {!user.login ? (
           <>
-            <Link onClick={(e) => (
-              setNav({ width: '25%', left: '50%' }),
-              setprevNav({ width: '25%', left: '50%' })
-            )} to="/login">Авторизоваться</Link>
-            <Link onClick={(e) => (
-              setNav({ width: '27%', left: '76%' }),
-              setprevNav({ width: '27%', left: '76%' })
-            )} to="/register">Зарегистрироваться</Link>
+            <Link
+              onClick={(e) => (
+                setNav({ width: '25%', left: '50%' }),
+                setprevNav({ width: '25%', left: '50%' })
+              )}
+              to="/login"
+            >
+              Авторизоваться
+            </Link>
+            <Link
+              onClick={(e) => (
+                setNav({ width: '27%', left: '76%' }),
+                setprevNav({ width: '27%', left: '76%' })
+              )}
+              to="/register"
+            >
+              Зарегистрироваться
+            </Link>
           </>
         ) : (
           <>

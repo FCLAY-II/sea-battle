@@ -1,5 +1,5 @@
-import { createContext, useCallback, useContext, useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { createContext, useCallback, useContext } from 'react';
+import { useDispatch } from 'react-redux';
 import Cell from '../components/Cell/Cell';
 import Row from '../components/Row/Row';
 import ShipCell from '../components/ShipCell/ShipCell';
@@ -25,7 +25,6 @@ function GameContextProvider({ children }) {
     return ship;
   }
 
-
   const putShip = useCallback((field, id) => {
     const myField = field.split('');
     if (myField[id] === '0') {
@@ -37,27 +36,34 @@ function GameContextProvider({ children }) {
     }
   }, []);
 
-
-
   function makeField(state) {
     const cells = [];
     for (let i = 0; i < state.length; i += 1) {
       cells.push(<Cell cellState={state[i]} key={i} id={i} />);
     }
-    const arrField = [(
-      <Row num="" key={150} cells={
-        ['A', 'Б', 'В', 'Г', 'Д', 'Е', 'Ж', 'З', 'И', 'К']
-          .map((letter) => <span className='field-label'>{letter}</span>)
-      } />
-    )];
+    const arrField = [
+      <Row
+        num=""
+        key={150}
+        cells={['A', 'Б', 'В', 'Г', 'Д', 'Е', 'Ж', 'З', 'И', 'К'].map(
+          (letter) => (
+            <span className="field-label">{letter}</span>
+          )
+        )}
+      />,
+    ];
     while (cells.length > 0) {
       const row = cells.splice(0, 10);
-      arrField.push(<Row num={10 - Math.floor(cells.length / 10)} key={cells.length + 230} cells={row} />);
+      arrField.push(
+        <Row
+          num={10 - Math.floor(cells.length / 10)}
+          key={cells.length + 230}
+          cells={row}
+        />
+      );
     }
     return arrField;
   }
-
-
 
   return (
     <GameContext.Provider value={{ makeField, makeTurn, makeShip, putShip }}>

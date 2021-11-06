@@ -80,7 +80,6 @@ input {
   animation: boat-wave 6.46667s 0.4s infinite ease-in-out;
 }
 
-
 .wave_3 {
   bottom: 108px;
   height: 144px;
@@ -122,6 +121,14 @@ input {
   left: -100vw;
 
   animation: birds 10s 0s infinite linear;
+}
+
+.banner {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
 }
 
 @keyframes clouds-left {
@@ -192,5 +199,3 @@ input {
     transform: translate3d(200vw, 2.5%, 0);
   }
 }
-
-

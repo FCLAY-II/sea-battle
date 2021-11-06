@@ -6,7 +6,6 @@ import gameAC from '../../redux/actionCreators/gameAC';
 import EnemyField from '../EnemyField/EnemyField';
 import MyField from '../MyField/MyField';
 import Ships from '../ShipsContainer/ShipsContainer';
-import styles from './styles.css';
 import SurrenderButton from './SurrenderButton/SurrenderButton';
 
 export default function Game() {
@@ -73,11 +72,9 @@ export default function Game() {
           {gameStatus === 'active' || gameStatus === 'finished' ? (
             <EnemyField />
           ) : (
-            // {game.status === 'preparation' ? (
               <>
                 <Ships ships={ships} setShips={setShips} />
               </>
-            // ) : null}
           )}
         </div>
         {gameStatus === 'finished' ? (
@@ -105,7 +102,6 @@ export default function Game() {
             type="button"
             onClick={() => {
               fetchSender(descriptors.confirmShips(game.field));
-              // setButtonState('unvisible');
             }}
           >
             {gameStatus === 'preparation' ? 'Готов к игре' : 'Начать игру'}

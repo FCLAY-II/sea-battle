@@ -2,13 +2,11 @@
 import React from 'react';
 import './regForm.css';
 import { useDispatch } from 'react-redux';
-import { Link, useHistory } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import userAC from '../../redux/actionCreators/userAC';
 
 export default function RegForm() {
-
   const dispatch = useDispatch();
-  const history = useHistory();
 
   return (
     <div className="container">
@@ -22,7 +20,7 @@ export default function RegForm() {
         >
           <div className="fom">
             <p>
-              <b className='regb'> Добро пожаловать в Морской бой!!!</b>
+              <b className="regb"> Добро пожаловать в Морской бой!!!</b>
               <Link to="/login" className="det navbar-brand">
                 <p>Уже есть аккаунт?</p>
               </Link>

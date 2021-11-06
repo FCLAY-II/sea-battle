@@ -9,7 +9,6 @@ import Profile from '../Profile/Profile';
 
 import './styles.css';
 import GamePage from '../GamePage/GamePage';
-import MainParaPage from '../MainParaPage/MainParaPage';
 import InvitationModal from '../InvitationModal/InvitationModal';
 
 export default function Main() {
