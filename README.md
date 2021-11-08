@@ -4,6 +4,7 @@
 
 ## Скриншоты:
 ### На проекте были использованы следующие технологии:
+<img width="960" alt="2021-10-09 (1)" src="https://github.com/FCLAY-II/project-battleShips/blob/417c5be320fbf0ff7ed15c6442b8cffe53bd102c/auth.png">
 
 [![Java Script](https://shields.io/badge/-Java_Script-F7DF1E?logo=javascript&style=for-the-badge&logoColor=222)](https://learn.javascript.ru/)
 [![React](https://shields.io/badge/-React-f9fbfa?logo=react&style=for-the-badge)](https://reactjs.org/)
