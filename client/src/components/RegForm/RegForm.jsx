@@ -8,7 +8,6 @@ import userAC from '../../redux/actionCreators/userAC';
 export default function RegForm() {
 
   const dispatch = useDispatch();
-  const history = useHistory();
 
   return (
     <div className="container">

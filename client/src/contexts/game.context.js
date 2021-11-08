@@ -1,5 +1,5 @@
-import { createContext, useCallback, useContext, useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { createContext, useCallback, useContext } from 'react';
+import { useDispatch } from 'react-redux';
 import Cell from '../components/Cell/Cell';
 import Row from '../components/Row/Row';
 import ShipCell from '../components/ShipCell/ShipCell';

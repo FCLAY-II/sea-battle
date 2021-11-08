@@ -1,1 +1,30 @@
-# project-battleShips
+# Морской бой
+## О проекте:
+Веб-приложение реализовано на WebSocket, что позволяет пользователям играть в игру в многопользовательском режиме. Был реализован MVP, в котором пользователь может зарегистрироваться/авторизиироваться с использованием JSON Web Token, создать игру, посмотреть статистику своих игр(победы, поражение, общее количество игр) и начать сам процесс игры. Были реализованы алгоритмы правильной расстановки кораблей и алгоритмы самой игры. 
+
+## Скриншоты:
+### На проекте были использованы следующие технологии:
+
+[![Java Script](https://shields.io/badge/-Java_Script-F7DF1E?logo=javascript&style=for-the-badge&logoColor=222)](https://learn.javascript.ru/)
+[![React](https://shields.io/badge/-React-f9fbfa?logo=react&style=for-the-badge)](https://reactjs.org/)
+[![Redux](https://shields.io/badge/-Redux-710B77?logo=redux&style=for-the-badge)](https://redux.js.org/)
+<br />
+[![JWT](https://shields.io/badge/-JWT-333?logo=JSONWebTokens&style=for-the-badge)](https://jwt.io/)
+[![Node](https://shields.io/badge/-Node-333?logo=node.js&style=for-the-badge)](https://nodejs.org/en/)
+[![Git](https://shields.io/badge/-Git-f0efe7?logo=git&style=for-the-badge)](https://git-scm.com/)
+[![GitHub](https://shields.io/badge/-GitHub-333?logo=GitHub&style=for-the-badge)](https://github.com/)
+<br />
+[![CSS](https://shields.io/badge/-CSS3-1572B6?logo=css3&style=for-the-badge&logoColor=fff)](https://html5book.ru/osnovy-css/)
+[![HTML](https://shields.io/badge/-HTML5-E34F26?logo=html5&style=for-the-badge&logoColor=fff)](https://html5book.ru/html-html5/)
+[![WebSocket](https://img.shields.io/badge/-WebSocket-f9fbfa?logo=websocket&style=for-the-badge)](https://developer.mozilla.org/ru/docs/Web/API/WebSocket)
+[![Bootstrap](https://img.shields.io/badge/-Bootstrap-f9fbfa?logo=bootstrap&style=for-the-badge)](https://getbootstrap.com/)
+<br/>
+[![PostgreSQL](https://img.shields.io/badge/-PostgreSQL-f9fbfa?logo=PostgreSQL&style=for-the-badge)](https://www.postgresql.org/)
+[![ExpressJS](https://img.shields.io/badge/-Express.js-333?logo=express&style=for-the-badge)](https://expressjs.com/ru/)
+[![Sequelize](https://img.shields.io/badge/-Sequelize-f9fbfa?logo=Sequelize&style=for-the-badge)](https://sequelize.org/master/)
+
+### Создатели:
+
+<p><a href='https://github.com/viuarpenogl'>Fullstack, Алекcей Буримов </a></p>
+<p><a href='https://github.com/FCLAY-II'>Fullstack, Кирилл Белокопытов </a></p>
+<p><a href='https://github.com/nikitahummus'>Fullstack, Никита Стариченков </a></p>
