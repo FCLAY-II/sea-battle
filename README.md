@@ -4,14 +4,23 @@
 
 ## Скриншоты:
 ### Главная страница сайта
+
 <img width="960" alt="2021-10-09 (1)" src="https://github.com/FCLAY-II/project-battleShips/blob/417c5be320fbf0ff7ed15c6442b8cffe53bd102c/mainPage.png">
+
 ### Авторизация/Регистрация пользователя
+
 <img width="960" alt="2021-10-09 (1)" src="https://github.com/FCLAY-II/project-battleShips/blob/417c5be320fbf0ff7ed15c6442b8cffe53bd102c/auth.png">
+
 ### Статистика игрока и ваши приглашения
+
 <img width="960" alt="2021-10-09 (1)" src="https://github.com/FCLAY-II/project-battleShips/blob/417c5be320fbf0ff7ed15c6442b8cffe53bd102c/statsInvite.png">
+
 ### Поиск игроков и отправка приглашений
+
 <img width="960" alt="2021-10-09 (1)" src="https://github.com/FCLAY-II/project-battleShips/blob/417c5be320fbf0ff7ed15c6442b8cffe53bd102c/searchInvite.png">
+
 ### Игровое поле
+
 <img width="960" alt="2021-10-09 (1)" src="https://github.com/FCLAY-II/project-battleShips/blob/417c5be320fbf0ff7ed15c6442b8cffe53bd102c/field.png">
 
 ### На проекте были использованы следующие технологии:
