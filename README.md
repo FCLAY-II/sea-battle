@@ -60,7 +60,7 @@
 
 <a href="https://github.com/nikitahummus">
   <div>
-   <img align="left" alt="Никита Стариченков" width="22px" src="https://raw.githubusercontent.com/peterthehan/peterthehan/master/assets/github.svg" />
+   <img align="left" alt="Никита Стариченков" width="22px" background-color="white" src="https://raw.githubusercontent.com/peterthehan/peterthehan/master/assets/github.svg" />
    <h3><a href="https://github.com/nikitahummus">Fullstack, Никита Стариченков</a></h3>
   </div>
 </a>
