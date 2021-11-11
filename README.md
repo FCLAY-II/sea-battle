@@ -44,10 +44,6 @@
 [![Sequelize](https://img.shields.io/badge/-Sequelize-f9fbfa?logo=Sequelize&style=for-the-badge)](https://sequelize.org/master/)
 
 ### Команда проекта 🥷:
-
-<p><a href='https://github.com/viuarpenogl'>Fullstack, Алекcей Буримов </a></p>
-<p><a href='https://github.com/FCLAY-II'>Fullstack, Кирилл Белокопытов </a></p>
-<p><a href='https://github.com/nikitahummus'>Fullstack, Никита Стариченков </a></p>
 <a href="https://github.com/FCLAY-II">
   <div>
    <img align="left" alt="Кирилл Белокопытов" width="22px" src="https://raw.githubusercontent.com/peterthehan/peterthehan/master/assets/github.svg" />
